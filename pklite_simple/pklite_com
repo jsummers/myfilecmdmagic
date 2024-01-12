@@ -1,0 +1,46 @@
+
+# "file command" rules for PKLITE-compressed COM files
+#
+# "Simple" version -- relies on the ASCII signatures.
+#
+# I don't recommend using this version, except to compare it
+# to other identification methods.
+#
+# By Jason Summers, 2024 - Not copyrighted
+
+# PKLITE/COM v1.00beta
+0       byte       0xba
+>38     string     PK\ Copyr.
+>>0     byte       x     DOS executable (COM)
+>>0     byte       x     \b, PKLITE compressed (v1.00beta)
+
+# ------------
+
+0       byte       0xb8
+
+# v1.00
+>46     string     PKlite\ Copr.
+>>44    use        pklite_com_part2
+
+# v1.03-1.14
+>46     string     PKLITE\ Copr.
+>>44    use        pklite_com_part2
+
+# 1.15
+>48     string     PKLITE\ Copr.
+>>0     byte       x     DOS executable (COM)
+>>0     byte       x     \b, PKLITE compressed (v1.15)
+
+# ------------
+
+# 1.50-2.01
+0       string/b   \x50\xb8
+>48     string     PKLITE\ Copr.
+>>46    use        pklite_com_part2
+
+# ------------
+
+0       name       pklite_com_part2
+>0      byte       x     DOS executable (COM)
+>1      byte&0x0f  x     \b, PKLITE compressed (v%u.
+>0      byte       x     \b%02u)

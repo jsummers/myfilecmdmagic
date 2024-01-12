@@ -1,0 +1,53 @@
+
+# "file command" rules for PKLITE-compressed DOS EXE files
+#
+# "Simple" version -- relies on the ASCII signatures.
+#
+# I don't recommend using this version, except to compare it
+# to other identification methods.
+#
+# By Jason Summers, 2024 - Not copyrighted
+
+0           string/b      MZ
+
+# There are other fields we could also test, but there's little reason
+# to be strict if we're going to look for the copyright message.
+# This works for all versions, and screens out text files.
+# @20 = IP register, expected to be 0x0100
+>20         uleshort      0x0100
+
+>>30        string        PKLITE\ Copr.
+
+# If version=1.00, need to do something to identify the beta version.
+>>>28       uleshort&0x0fff  0x0100
+# @22 = CS register
+>>>>22      leshort       -16
+>>>>>0      use           pklite_exe_part2
+
+>>>>22      leshort       !-16
+>>>>>0      byte          x        MS-DOS executable
+>>>>>0      byte          x        \b, PKLITE compressed (v1.00beta)
+
+>>>28       uleshort&0x0fff  !0x0100
+>>>>0       use              pklite_exe_part2
+
+# PKLITE v2.01 has a different copyright message
+>>30        string        PKlite(R)\ Copr.
+>>>0        use           pklite_exe_part2
+
+# ------------
+
+0         name            pklite_exe_part2
+>0        byte            x        MS-DOS executable
+>0        byte            x        \b, PKLITE compressed
+>>28      leshort&0x0fff  0x0106   (LOWFIX patched)
+>>28      leshort&0x0fff  0x010a   (special version)
+>>28      leshort&0x0fff  0x0114   (special version)
+>>28      default         x
+>>>29     byte&0x0f       x        (v%u.
+>>>28     byte            x        \b%02u)
+
+# ----------- Test if it's also a self-extracting ZIP
+>2               uleshort   !0
+>>(4.s*512)      byte       x
+>>>&(2.s-513)    string/b   PK\3\4     \b, ZIP self-extracting archive
