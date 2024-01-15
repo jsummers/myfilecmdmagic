@@ -1,0 +1,75 @@
+
+# "file command" rules for PKLITE-compressed DOS EXE files
+#
+# By Jason Summers, 2024 - Not copyrighted
+
+# This version tries to identify PKLITE-compressed DOS EXE just from
+# the EXE header, without looking at any of the machine code, and
+# without requiring the copyright string be intact.
+#
+# It does not support files from the beta version of PKLITE.
+
+0               string/b        MZ
+# @20 = IP register, expected to be 0x0100
+>20             uleshort        0x0100
+# @22 = CS register, expected to be -16 (0xfff0)
+>>22            leshort         -16
+
+# In unmodified files, the relocation table usually has one of the
+# following sets of characteristics:
+#
+# count  offs  contents | versions
+# -----  ----  -------- | --------
+# 0      80    --       | 1.00-1.05, "1.10" (& beta)
+# 1      82    \7\0\0\0 | 1.12-1.15, "1.20"
+# 1      82    \8\0\0\0 | Seen in some files from PKZIP 2.06.
+# 1      84    \8\0\0\0 | 1.50
+# 1      87    \8\0\0\0 | 2.01
+
+# @6 = number of relocs, should be 0 or 1
+>>>6            uleshort        0
+
+# Testing the relocation table offset is quite discriminating.
+# But even a simple EXE header optimizer will change things, and
+# likely move the relocation table to offset 28. Such files exist.
+# But if we were to allow 28, it would match so many non-PKLITE
+# files that it would largely defeat the purpose.
+
+# @24 = reloc table offset
+>>>>24          uleshort        80
+>>>>>0          use             pklite_exe_part2
+
+>>>6            uleshort        1
+
+>>>24           uleshort        82
+# Test the relocation table contents, if present.
+>>>>(24.s)      ulelong         >6
+>>>>>(24.s)     ulelong         <9
+>>>>>>0         use             pklite_exe_part2
+
+>>>24           uleshort        84
+>>>>(24.s)      ulelong         8
+>>>>>0          use             pklite_exe_part2
+
+>>>24           uleshort        87
+>>>>(24.s)      ulelong         8
+>>>>0           use             pklite_exe_part2
+
+# -----------
+# At this point, we know it is DOS EXE PKLITE-compressed
+0       name       pklite_exe_part2
+>0      byte       x      MS-DOS executable
+>0      byte       x      \b, PKLITE compressed
+
+# Print the reported version number, handling some special versions.
+>>28    leshort&0x0fff  0x0106  (LOWFIX patched)
+>>28    leshort&0x0fff  0x010a  (special version)
+>>28    leshort&0x0fff  0x0114  (special version)
+>>28    default         x
+>>>29   byte&0x0f       x       (v%u.
+>>>28   byte            x       \b%02u)
+
+# Check if the file is also a self-extracting ZIP archive.
+>2              uleshort    !0
+>>(4.s*512)     byte        x
+>>>&(2.s-513)   search/5    PK\3\4     \b, ZIP self-extracting archive
