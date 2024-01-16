@@ -10,7 +10,7 @@ the _file_ command, a Unix-centric file format identification utility.
 To try these signatures: Assuming have a way to run _file_, run it
 with the `-m` option. For example:
 
-`$ file -m [...]/pkla/filemagic/pklite EXAMPLE.EXE`
+`$ file -m [...]/myfilecmdmagic/pklite example.file`
 
 These pattern files or subdirectories are designed to be used in
 isolation. Integrating them into the main database (often found at
