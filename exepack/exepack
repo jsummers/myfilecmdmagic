@@ -1,0 +1,25 @@
+
+# "file command" rules for EXEPACK-compressed DOS EXE files
+#
+# By Jason Summers, 2024 - Not copyrighted
+
+0                   string/b          MZ
+# @24 = reloc. table offset, expecting 28, 30, or 62
+>24                 uleshort          <64
+# @6 = number of relocations, expecting 0
+>>6                 uleshort          0x0000
+# @16 = SP register, expecting 0x80 in all EXEPACK files
+>>>16               uleshort          0x0080
+# @20 = IP register, expecting 16 or 18
+>>>>20              uleshort&0xfffd   0x0010
+
+# Calculate the start-of-execution point...
+# @8 = header size, in paragraphs (usually 32*16=512, but not always)
+>>>>>(8.s*16)       byte              x
+# @22 = CS register, in paragraphs
+>>>>>>&(22,s*16)    byte              x
+# @20 = IP register. Should take us just past the "RB" signature if
+#  it exists, so subtract 2 for "RB", and another -2 fudge factor for
+#  the two "byte x" dummy bytes we read.
+>>>>>>>&(20.s-4)    string/b          RB    MS-DOS executable
+>>>>>>>>0           byte              x     \b, EXEPACK compressed
