@@ -9,14 +9,14 @@
 # By Jason Summers, 2024 - Not copyrighted
 
 # PKLITE/COM v1.00beta
-0       byte       0xba
+0       ubyte      0xba
 >38     string     PK\ Copyr.
 >>0     byte       x     DOS executable (COM)
 >>0     byte       x     \b, PKLITE compressed (v1.00beta)
 
 # ------------
 
-0       byte       0xb8
+0       ubyte      0xb8
 
 # v1.00
 >46     string     PKlite\ Copr.
@@ -42,5 +42,5 @@
 
 0       name       pklite_com_part2
 >0      byte       x     DOS executable (COM)
->1      byte&0x0f  x     \b, PKLITE compressed (v%u.
->0      byte       x     \b%02u)
+>1      ubyte&0x0f x     \b, PKLITE compressed (v%u.
+>0      ubyte      x     \b%02u)

@@ -66,8 +66,8 @@
 >>28    leshort&0x0fff  0x010a  (special version)
 >>28    leshort&0x0fff  0x0114  (special version)
 >>28    default         x
->>>29   byte&0x0f       x       (v%u.
->>>28   byte            x       \b%02u)
+>>>29   ubyte&0x0f      x       (v%u.
+>>>28   ubyte           x       \b%02u)
 
 # Check if the file is also a self-extracting ZIP archive.
 >2              uleshort    !0

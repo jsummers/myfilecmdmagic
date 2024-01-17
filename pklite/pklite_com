@@ -37,5 +37,5 @@
 
 0       name        pklite_com_part2
 >0      byte        x       DOS executable (COM)
->1      byte&0x0f   x       \b, PKLITE compressed (v%u.
->0      byte        x       \b%02u)
+>1      ubyte&0x0f  x       \b, PKLITE compressed (v%u.
+>0      ubyte       x       \b%02u)
