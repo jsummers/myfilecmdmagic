@@ -44,24 +44,24 @@
 
 0               name            pklite_exe_part2
 
->(8.s*16)       string/b        \xB8
->>&2            string/b        \xBA
+>(8.s*16)       string          \xB8
+>>&2            string          \xBA
 # v1.00, 1.03, 1.05, and some "1.10" versions
->>>&2           string/b        \x8C\xDB\x03\xD8\x3B\x1E\x02\x00\x73
+>>>&2           string          \x8C\xDB\x03\xD8\x3B\x1E\x02\x00\x73
 >>>>0           use             pklite_exe_part3
 
 # v1.12, 1.13, and some "1.20" versions
->>>&2           string/b        \x05\x00\x00\x3B\x06\x02\x00\x73
+>>>&2           string          \x05\x00\x00\x3B\x06\x02\x00\x73
 >>>>0           use             pklite_exe_part3
 
 # v1.14, 1.15, and some "1.20" versions
->>>&2           string/b        \x05\x00\x00\x3B\x06\x02\x00\x72
+>>>&2           string          \x05\x00\x00\x3B\x06\x02\x00\x72
 >>>>0           use             pklite_exe_part3
 
 # # v1.50, 2.01
->(8.s*16)       string/b        \x50\xB8
->>&2            string/b        \xBA
->>>&2           string/b        \x05\x00\x00\x3B\x06\x02\x00\x72
+>(8.s*16)       string          \x50\xB8
+>>&2            string          \xBA
+>>>&2           string          \x05\x00\x00\x3B\x06\x02\x00\x72
 >>>>0           use             pklite_exe_part3
 
 # -----------

@@ -10,27 +10,27 @@
 
 # PKLITE/COM v1.00beta
 0       string/b    \xBA
->&2     string/b    \xA1\x02\x00\x2D\x20\x06\x8C\xCB\x81\xC3\x00\x02\x3B\xC3\x77\x53
+>&2     string      \xA1\x02\x00\x2D\x20\x06\x8C\xCB\x81\xC3\x00\x02\x3B\xC3\x77\x53
 >>0     byte        x       DOS executable (COM)
 >>0     byte        x       \b, PKLITE compressed (v1.00beta)
 
 # PKLITE/COM v1.00-v1.14
 0       string/b    \xB8
->&2     string/b    \xBA
->>&2    string/b    \x3B\xC4\x73\x67\x8B\xC4\x2D\x44\x03\x25\xF0\xFF\x8B\xF8\xB9
+>&2     string      \xBA
+>>&2    string      \x3B\xC4\x73\x67\x8B\xC4\x2D\x44\x03\x25\xF0\xFF\x8B\xF8\xB9
 >>>44   use         pklite_com_part2
 
 # PKLITE/COM v1.15
 # Note: v1.15 COM files erroneously contain version number 1.14,
 # but can be distinguished from real v1.14 files.
->>&2    string/b    \x3B\xC4\x73\x69\x8B\xC4\x2D\x44\x03\x90\x25\xF0\xFF\x8B\xF8\xB9
+>>&2    string      \x3B\xC4\x73\x69\x8B\xC4\x2D\x44\x03\x90\x25\xF0\xFF\x8B\xF8\xB9
 >>>0    byte        x       DOS executable (COM)
 >>>0    byte        x       \b, PKLITE compressed (v1.15)
 
 # PKLITE/COM v1.50-v2.01
 0       string/b    \x50\xB8
->&2     string/b    \xBA
->>&2    string/b    \x3B\xC4\x73\x79\x8B\xC4\x2D\x42\x03\x25\xF0\xFF\x8B\xF8\xB9
+>&2     string      \xBA
+>>&2    string      \x3B\xC4\x73\x79\x8B\xC4\x2D\x42\x03\x25\xF0\xFF\x8B\xF8\xB9
 >>>46   use         pklite_com_part2
 
 # ------------

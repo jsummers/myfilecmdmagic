@@ -50,4 +50,4 @@
 # ----------- Test if it's also a self-extracting ZIP
 >2               uleshort   !0
 >>(4.s*512)      byte       x
->>>&(2.s-513)    string/b   PK\3\4     \b, ZIP self-extracting archive
+>>>&(2.s-513)    string     PK\3\4     \b, ZIP self-extracting archive

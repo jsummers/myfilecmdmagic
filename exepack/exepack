@@ -21,5 +21,5 @@
 # @20 = IP register. Should take us just past the "RB" signature if
 #  it exists, so subtract 2 for "RB", and another -2 fudge factor for
 #  the two "byte x" dummy bytes we read.
->>>>>>>&(20.s-4)    string/b          RB    MS-DOS executable
+>>>>>>>&(20.s-4)    string            RB    MS-DOS executable
 >>>>>>>>0           byte              x     \b, EXEPACK compressed

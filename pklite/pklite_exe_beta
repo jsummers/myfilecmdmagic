@@ -31,12 +31,12 @@
 >>>>>>&(22,s*16)  byte      x
 # Now add the IP register, which we already know is 0x0100 (256).
 # (Include a fudge factor of -2 for the "byte x" dummy bytes we read.)
->>>>>>>&254       string/b  \x2E\x8C\x1E
->>>>>>>>&2        string/b  \x8B\x1E\x02\x00\x8C\xDA\x81
+>>>>>>>&254       string    \x2E\x8C\x1E
+>>>>>>>>&2        string    \x8B\x1E\x02\x00\x8C\xDA\x81
 >>>>>>>>>0        byte      x         MS-DOS executable
 >>>>>>>>>0        byte      x         \b, PKLITE compressed (v1.00beta)
 # The next test is for files made with the "load high" option.
 # (Rare. This part could be deleted.)
->>>>>>>>&2        string/b  \xFC\x8C\xC8\x2E\x2B\x06
+>>>>>>>>&2        string    \xFC\x8C\xC8\x2E\x2B\x06
 >>>>>>>>>0        byte      x         MS-DOS executable
 >>>>>>>>>0        byte      x         \b, PKLITE compressed (v1.00beta)
