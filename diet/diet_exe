@@ -46,6 +46,8 @@
 
 # -----------
 
+# [An alternative for ARJ-SFX would be to search the first 1000 bytes
+# of the file for "aRJsfX".]
 0               name        diet_exe_arjsfx
 >2              uleshort    !0
 >>(4.s*512)     byte        x
