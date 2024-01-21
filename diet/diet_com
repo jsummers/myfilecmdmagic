@@ -1,0 +1,21 @@
+
+# "file command" rules for DIET-compressed COM files
+#
+# By Jason Summers, 2024 - Not copyrighted
+
+0       string/b    \xbf
+>17     string      \xfd\xf3\xa5\xfc\x8b\xf7\xbf\x00
+>>0     byte        x       DOS executable (COM)
+>>0     byte        x       \b, DIET (v1.00-1.00d) compressed
+
+0       string/b    \xbe
+>17     string      \xfd\xf3\xa5\xfc\x8b\xf7\xbf\x00
+>>35    string      dlz
+>>>0    byte        x       DOS executable (COM)
+>>>0    byte        x       \b, DIET (v1.02b-1.20) compressed
+
+0       string/b    \xf9
+>10     string/b    \x9d\x89
+>>65    string      dlz
+>>>0    byte        x       DOS executable (COM)
+>>>0    byte        x       \b, DIET (v1.44-1.45f) compressed
