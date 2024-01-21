@@ -1,0 +1,76 @@
+
+# "file command" rules for LZEXE-compressed DOS EXE files
+#
+# By Jason Summers, 2024 - Not copyrighted
+#
+# Not designed to identify modified files, except for:
+# * Removal of the "LZ09" or "LZ91" signature
+
+0               string/b    MZ
+
+# @6 = number of relocations, expecting 0
+>6              uleshort    0x0000
+# @8 = header size, should be 2
+>>8             uleshort    2
+# @16 = SP register, expecting 0x80 in all LZEXE files
+>>>16           uleshort    0x0080
+
+# Note: Could also test the reloc. table offset @24, as it should
+# always be 28. But it doesn't really improve anything, and will cause
+# a few false negatives from hacked files.
+
+# @20 = IP register, expecting 18 (0.90) or 14 (0.91)
+>>>>20          uleshort    18
+>>>>>0          use         lzexe_090_part2
+
+>>>>20          uleshort    14
+>>>>>0          use         lzexe_091_part2
+
+# -----------
+
+0               name        lzexe_090_part2
+# Calculate the EXE start-of-execution point.
+# @8 = header size, in paragraphs
+>(8.s*16)       byte        x
+# @22 = CS register, in paragraphs
+>>&(22,s*16)    byte        x
+# Add the IP register, + subtract 3 for the dummy "byte x".
+# [We don't really need to read it again. we know it's 18.]
+>>>&(20.s-3)    byte        x
+>>>>&0          string      \x06\x0e\x1f\x8b\x0e\x0c\x00\x8b\xf1\x4e\x89\xf7
+>>>>>0          byte        x      MS-DOS executable
+>>>>>0          byte        x      \b, LZEXE (v0.90) compressed
+
+# -----------
+
+0               name        lzexe_091_part2
+# Calculate the EXE start-of-execution point.
+# @8 = header size, in paragraphs
+>(8.s*16)       byte        x
+# @22 = CS register, in paragraphs
+>>&(22,s*16)    byte        x
+# Add the IP register, + subtract 3 for the dummy "byte x".
+# [We don't really need to read it again. we know it's 14.]
+>>>&(20.s-3)    byte        x
+>>>>&0          string      \x06\x0e\x1f\x8b\x0e\x0c\x00\x8b\xf1\x4e\x89\xf7
+>>>>>0          byte        x      MS-DOS executable
+>>>>>0          byte        x      \b, LZEXE (v0.91) compressed
+>>>>>0          use         lzexe_overlay
+>>>>&1          string      \x06\x0e\x1f\x8b\x0e\x0c\x00\x8b\xf1\x4e\x89\xf7
+>>>>>0          byte        x      MS-DOS executable
+>>>>>0          byte        x      \b, LZEXE (v0.91e) compressed
+
+# -----------
+
+0               name        lzexe_overlay
+>2              uleshort    !0
+>>(4.s*512)     byte        x
+>>>&(2.s-514)   byte        x
+
+>>>>&0          string      \x52\x61\x72\x21\x1a\x07  \b, RAR self-extracting archive
+>>>>&0          string      \x52\x45\x7e\x5e          \b, RAR self-extracting archive
+
+# [An alternative for ARJ-SFX would be to search the first 1000 bytes
+# of the file for "aRJsfX".]
+>>>>&0          search/8    \x60\xea
+>>>>>&8         byte        0x02     \b, ARJ self-extracting archive
