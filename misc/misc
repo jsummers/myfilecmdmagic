@@ -1,0 +1,18 @@
+
+# "file command" rules for miscellaneous files,
+# including some DOS COM-based formats.
+#
+# By Jason Summers, 2024 - Not copyrighted
+
+# ----------
+
+# ICE - COM file compressor by Keith P. Graham
+# Expecting files to start with this pattern:
+#  eb 0a ?? ?? 27 01 ?? ?? ?? ?? ?? ?? be 26 01 8b
+#  fe 8b 0e 08 01 8b 16 02 01 b8 77 01 50 fc ad 33
+#  c2 ab 8b d0 e2 f8 ?? ?? ...
+
+0     string/b  \xeb\x0a
+>12   string    \xbe\x26\x01\x8b\xfe\x8b\x0e\x08\x01\x8b\x16\x02
+>>0   byte      x       DOS executable (COM)
+>>0   byte      x       \b, ICE compressed

@@ -1,0 +1,37 @@
+
+# "file command" rules, based on contents of DOS EXE "overlay" segment
+#
+# By Jason Summers, 2024 - Not copyrighted
+
+0               string/b    MZ
+
+>2              uleshort    0
+>>(4.s*512)     byte        x
+>>>&(2.s-2)     byte        x
+>>>>&0          use         exe_overlay
+
+>2              uleshort    !0
+>>(4.s*512)     byte        x
+>>>&(2.s-514)   byte        x
+>>>>&0          use         exe_overlay
+
+# ----------
+
+0 name exe_overlay
+
+>0     string     PK\x03\x04             MS-DOS executable
+>>0    byte       x                      \b, ZIP self-extracting archive
+
+>0     string     ZOO\x20
+>>20   string     \xdc\xa7\xc4\xfd       MS-DOS executable
+>>>0   byte       x                      \b, Zoo self-extracting archive
+
+>0     string     SQWEZ\ v2.             MS-DOS executable
+>>0    byte       x                      \b, SQWEZ (v2.1+) self-extracting archive
+
+>0     string     \x0d(C)\ STEPANYUK     MS-DOS executable
+>>0    byte       x                      \b, ARS self-extracting archive
+
+>0     default    x
+>>1    search/4   PK\x03\x04             MS-DOS executable
+>>>0   byte       x                      \b, ZIP self-extracting archive

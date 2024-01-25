@@ -1,0 +1,37 @@
+
+# "file command" rules - Misc. EXE-based formats
+#
+# By Jason Summers, 2024 - Not copyrighted
+
+# ----------
+
+# SQWEZ self-extracting EXE, versions 1.0-2.0. (Later verions may be
+# handled elsewhere.)
+# These rules are fragile, and may not account for all versions.
+# Note: The SQWEZ1_1.EXE distribution file seems to be in this format,
+# but doesn't match any of the known versions.
+
+0         string/b   MZ
+
+>2        uleshort   0x0166
+>>4       uleshort   0x0025
+>>>19456  string     erawtfoS\ MJ       MS-DOS executable
+# We'll call it "1.0", though it lacks a version number.
+>>>>0     byte       x                  \b, SQWEZ (v1.0) self-extracting archive
+
+>2        uleshort   0x00a8
+>>4       uleshort   0x0026
+>>>19112  string     erawtfoS\ MJ       MS-DOS executable
+>>>>0     byte       x                  \b, SQWEZ (v1.1) self-extracting archive
+
+>2        uleshort   0x00f8
+>>4       uleshort   0x0024
+>>>16767  string     Start\ expanding\ [    MS-DOS executable
+>>>>0     byte       x                      \b, SQWEZ (v1.2) self-extracting archive
+
+>2        uleshort   0x0104
+>>4       uleshort   0x0024
+>>>16779  string     Start\ expanding\ [    MS-DOS executable
+>>>>0     byte       x                      \b, SQWEZ (v2.0) self-extracting archive
+
+# ----------
