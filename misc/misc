@@ -159,10 +159,18 @@
 >110    string    \xFC\xBC\x00\x01\xBB\x06\x01\xE8\x61\x02\x8C\xC8\x2E\x03\x06\x02
 >>0     byte      x     DOS executable (COM)
 >>0     byte      x     \b, LHarc (v1.00) self-extracting archive
+
 0       string/b  \xEB\x60
 >98     string    \xFC\xBC\x00\x01\xBB\x06\x01\xE8\x54\x02\x8C\xC8\x2E\x03\x06\x02
 >>0     byte      x     DOS executable (COM)
 >>0     byte      x     \b, LHarc (v1.12) self-extracting archive
+
 >98     string    \xFC\xBC\x00\x01\xBB\x06\x01\xE8\x57\x02\x8C\xC8\x2E\x03\x06\x02
->>0     byte      x     DOS executable (COM)
->>0     byte      x     \b, LHarc (v1.13) self-extracting archive
+>>6     string    LHarc's\ SFX\ 1.13S\ (
+>>>0    byte      x     DOS executable (COM)
+>>>0    byte      x     \b, LHarc (v1.13) self-extracting archive
+# This is not really to report modified *files* -- it's to report files made
+# by modified *versions* of LHarc v1.13 (e.g. LHice, or the fake LHARC 1.14).
+>>6     default   x
+>>>0    byte      x     DOS executable (COM)
+>>>0    byte      x     \b, LHarc (v1.13-modified) self-extracting archive
