@@ -1,0 +1,101 @@
+
+# "file command" rules for PKLITE-compressed DOS EXE files
+#
+# By Jason Summers, 2024 - Not copyrighted
+
+# Goals:
+# - Identify PKLITE-compressed EXE files, including those made by:
+#   - Professional versions of PKLITE
+#   - Various special unreleased versions of PKLITE, used to compress
+#     PKWARE's software. This includes the executable part of some
+#     self-extracting ZIP files.
+# - Identify even files that use low-tech obfuscation: erasure of the
+#   copyright message, or of the "Not enough memory" error message, etc.
+# - Print the likely version number of PKLITE that made the file.
+# - Report if a PKLITE-compressed file is also a ZIP2EXE-style self-
+#   extracting ZIP archive.
+
+# Non-goals:
+# - Identify files from the leaked beta version of PKLITE (that's done
+#   separately).
+# - Identify compressed COM format (that's done separately).
+# - Identify PKLITE/PKLITE32-compressed Windows executables.
+# - Identify self-extracting ZIP files that aren't also PKLITE-compressed.
+# - Fingerprint the version of PKLITE that made the file.
+# - Identify files made by high-tech obfuscators, such as MEGALITE and
+#   UN2PACK.
+# - Identify files that use a simple obfuscation trick other than
+#   those listed as goals.
+# - Print various properties of the file, beyond the version number.
+
+0               string/b        MZ
+# @20 = IP register, expected to be 0x0100
+>20             uleshort        0x0100
+# @22 = CS register, expected to be -16 (0xfff0)
+>>22            leshort         -16
+# @6 = number of relocs, should be 0 or 1
+>>>6            uleshort        <2
+
+# This "use/name" is not currently needed, and may be removed.
+>>>>0           use             pklite_exe_part2
+
+# -----------
+# Test the "code image" segment.
+
+0               name            pklite_exe_part2
+
+>(8.s*16)       string          \xB8
+>>&2            string          \xBA
+# v1.00, 1.03, 1.05, and some "1.10" versions
+>>>&2           string          \x8C\xDB\x03\xD8\x3B\x1E\x02\x00\x73
+>>>>0           use             pklite_exe_part3
+
+# v1.12, 1.13, and some "1.20" versions
+>>>&2           string          \x05\x00\x00\x3B\x06\x02\x00\x73
+>>>>0           use             pklite_exe_part3
+
+# v1.14, 1.15, and some "1.20" versions
+>>>&2           string          \x05\x00\x00\x3B\x06\x02\x00\x72
+>>>>0           use             pklite_exe_part3
+
+# # v1.50, 2.01
+>(8.s*16)       string          \x50\xB8
+>>&2            string          \xBA
+>>>&2           string          \x05\x00\x00\x3B\x06\x02\x00\x72
+>>>>0           use             pklite_exe_part3
+
+# -----------
+# At this point, we know it is DOS EXE PKLITE-compressed
+
+0       name            pklite_exe_part3
+>0      byte            x       MS-DOS executable
+>0      byte            x       \b, PKLITE compressed
+
+# Print the reported version number, handling some special versions.
+# (The number is sometimes faked, but usually not.)
+# [Need a new ">" level, so that "default" will work.]
+>>28    leshort&0x0fff  0x0106  (LOWFIX patched)
+>>28    leshort&0x0fff  0x010a  (special version)
+>>28    leshort&0x0fff  0x0114  (special version)
+>>28    default         x
+>>>29   ubyte&0x0f      x       (v%u.
+>>>28   ubyte           x       \b%02u)
+
+# Check if the file is also a self-extracting ZIP archive, presumably
+# made by the ZIP2EXE utility included with PKZIP 2.x.
+
+# @2 = length of last page (in bytes)
+# @4 = number of 512-byte pages
+# We don't handle the special case where "length of last page" is 0.
+# It's not relevant to any known version of this format.
+>2              uleshort    !0
+>>(4.s*512)     byte        x
+
+# The embedded ZIP data doesn't necessarily *have* to have the
+# PK\3\4 signature at or near its beginning. But generally it will.
+# We allow some tolerance, such as for a PK\7\8 muti-volume marker,
+# or a padding byte. (The relevant versions are not seen to use a
+# padding byte. PKZIP/ZIP2EXE v1.10 does use a padding byte, but
+# doesn't use PKLITE.)
+# [Note that search/N will test a total of N+1 starting positions.]
+>>>&(2.s-513)   search/5    PK\3\4     \b, ZIP self-extracting archive
