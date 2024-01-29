@@ -4,6 +4,8 @@
 # By Jason Summers, 2024 - Not copyrighted
 
 0               string/b    MZ
+# ZIPSFX rules need to be weaker than PKLITE+ZIPSFX, for example.
+!:strength / 2
 
 >2              uleshort    0
 >>(4.s*512)     byte        x
