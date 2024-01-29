@@ -35,3 +35,12 @@
 >>>>0     byte       x                      \b, SQWEZ (v2.0) self-extracting archive
 
 # ----------
+# COMPACK-compressed EXE
+
+0         string/b   MZ
+>8        uleshort   0x0002
+>>32      string     \xbd
+>>>35     string     \x50\x06\x8c\xcb\x03\xdd\x8c\xd2\x4b\x8e\xdb\xbe
+>>>>49    string     \xbf\x00\x07\x8e\xc2
+>>>>>0    byte       x     MS-DOS executable
+>>>>>0    byte       x     \b, COMPACK compressed
