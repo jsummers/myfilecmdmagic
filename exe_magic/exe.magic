@@ -44,3 +44,32 @@
 >>>>49    string     \xbf\x00\x07\x8e\xc2
 >>>>>0    byte       x     MS-DOS executable
 >>>>>0    byte       x     \b, COMPACK compressed
+
+# ----------
+# WWPACK-compressed EXE
+#
+# Goal is to identify files that can be made with a released version
+# of WWPACK, except that we don't require the "WWP" signature to
+# be intact.
+# Special variants of WWPACK, that we don't identify, are known to
+# exist.
+
+0                   string/b    MZ
+
+# @6 = number of relocs, should be 0
+>6                  uleshort    0
+# @8 = header size, should be 2
+>>8                 uleshort    0x0002
+# @16 = SP, should be 0x0150
+>>>16               uleshort    0x0150
+# @22 = CS, should be 0
+>>>>22              leshort     0
+# Could also test that reloc. tbl. offs. @24 = 28, but it wouldn't
+# really help.
+
+# @20 = IP register (expecting 1 or 4)
+# +32 for the header and CS
+>>>>>(20.s+32)      string      \xb8
+>>>>>>&2            string      \x8c\xca\x03\xd0\x8c\xc9\x81\xc1
+>>>>>>>0            byte        x   MS-DOS executable
+>>>>>>>0            byte        x   \b, WWPACK compressed
