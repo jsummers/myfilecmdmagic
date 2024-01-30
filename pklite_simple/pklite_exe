@@ -40,12 +40,14 @@
 0         name            pklite_exe_part2
 >0        byte            x        MS-DOS executable
 >0        byte            x        \b, PKLITE compressed
->>28      leshort&0x0fff  0x0106   (LOWFIX patched)
->>28      leshort&0x0fff  0x010a   (special version)
->>28      leshort&0x0fff  0x0114   (special version)
->>28      default         x
->>>29     ubyte&0x0f      x        (v%u.
->>>28     ubyte           x        \b%02u)
+
+>0        clear           x
+>28       leshort&0x0fff  0x0106   (LOWFIX patched)
+>28       leshort&0x0fff  0x010a   (special version)
+>28       leshort&0x0fff  0x0114   (special version)
+>28       default         x
+>>29      ubyte&0x0f      x        (v%u.
+>>28      ubyte           x        \b%02u)
 
 # ----------- Test if it's also a self-extracting ZIP
 >2               uleshort   !0
