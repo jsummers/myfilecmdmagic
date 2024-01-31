@@ -99,3 +99,27 @@
 >>>>>>>>>30     ubyte       <0xc4
 >>>>>>>>>>0     byte        x   MS-DOS executable
 >>>>>>>>>>0     byte        x   \b, TINYPROG compressed
+
+# ----------
+# RNC PROPACK-compressed DOS EXE
+#
+# We try to identify the 3 known versions: 2.08, 2.14, 2.19.
+
+0               string/b    MZ
+
+# @6 = number of relocs, should be 0
+>6              uleshort    0
+# @8 = header size, should be 2
+>>8             uleshort    0x0002
+# @20 = IP, should be 12 or 14 (0x0c or 0x0e)
+>>>20           uleshort&0xfffd  0x000c
+
+# Calculate the EXE start-of-execution point.
+# @22 = CS register, in paragraphs
+>>>>(22,s*16)   byte        x
+# Add the IP register, +32 for header, -2 dummy "byte x"
+>>>>>&(20.s+30) byte        x
+# This pattern appears at the exec. point, or 1 byte past it.
+>>>>>>&0  search/1  \x8c\xd3\x8e\xc3\x8c\xca\x8e\xda\x8b\x0e\x08\x00\x8b\xf1\x83
+>>>>>>>0        byte        x   MS-DOS executable
+>>>>>>>0        byte        x   \b, PROPACK compressed
