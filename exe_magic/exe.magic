@@ -73,3 +73,29 @@
 >>>>>>&2            string      \x8c\xca\x03\xd0\x8c\xc9\x81\xc1
 >>>>>>>0            byte        x   MS-DOS executable
 >>>>>>>0            byte        x   \b, WWPACK compressed
+
+# ----------
+# TINYPROG-compressed EXE
+
+0               string/b    MZ
+
+# @6 = number of relocs, should be 0
+>6              uleshort    0
+# @8 = header size, should be 2
+>>8             uleshort    0x0002
+# @16 = SP, should be 0x0300
+>>>16           uleshort    0x0300
+# @20 = IP, should be 0
+>>>>20          uleshort    0
+# @22 = CS, should be 0
+>>>>>22         leshort     0
+# @24 = reloc. table offset, should be 0
+>>>>>>24        uleshort    0
+
+# TODO: Don't rely on the "tz" signature.
+
+>>>>>>>28       string      tz
+>>>>>>>>30      ubyte       >0xc0
+>>>>>>>>>30     ubyte       <0xc4
+>>>>>>>>>>0     byte        x   MS-DOS executable
+>>>>>>>>>>0     byte        x   \b, TINYPROG compressed
