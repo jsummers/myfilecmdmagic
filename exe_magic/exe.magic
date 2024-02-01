@@ -123,3 +123,48 @@
 >>>>>>&0  search/1  \x8c\xd3\x8e\xc3\x8c\xca\x8e\xda\x8b\x0e\x08\x00\x8b\xf1\x83
 >>>>>>>0        byte        x   MS-DOS executable
 >>>>>>>0        byte        x   \b, PROPACK compressed
+
+# ----------
+# LHarc/LHA self-extracting EXE
+#
+# Goal is to identify DOS EXE files made by original versions
+# of LHarc and LHA, and most hacks and derivatives thereof.
+# We don't attempt to identify LHarc/LHA SFX files in general.
+# Files contain a banner message similar to
+# "LHarc's SFX 1.13S (c) Yoshi, 1989", but there are so
+# many variants of it that we won't rely on it.
+
+0               string/b    MZ
+
+# @6 = number of relocs, should be 0
+>6              uleshort    0
+# @8 = header size, should be 2
+>>8             uleshort    0x0002
+# @14 = SS, should be -16
+>>>14           leshort     -16
+# @16 = SP, should be 256
+>>>>16          uleshort    0x0100
+# @20 = IP, should be 256
+>>>>>20         uleshort    0x0100
+# @22 = CS, should be -16
+>>>>>>22        leshort     -16
+# e9 = a 2-byte JMP distance
+>>>>>>>32       ubyte       0xe9
+>>>>>>>>(33.s+35)   use     lha_sfx_exe_part2
+# eb = a 1-byte JMP distance
+>>>>>>>32       ubyte       0xeb
+>>>>>>>>(33.b+34)   use     lha_sfx_exe_part2
+
+0           name    lha_sfx_exe_part2
+>0          string  \xFC\xBC\x00\x01
+>>&0        string  \xBB
+# (missing byte here is 0x05 or 0x06)
+>>>&1       string  \x01\xE8
+>>>>&2      string  \x8C\xC8        MS-DOS executable
+>>>>>0      byte    x   \b, LHarc self-extracting archive
+
+>>&0        string  \x8C\xC8\x05
+# (missing byte here is 0x88 or 0x8C)
+>>>&1       string  \x00\x8E\xC0    MS-DOS executable
+>>>>0       byte    x   \b, LHA self-extracting archive
+# (next byte is 0xE8 or 0xEB)
