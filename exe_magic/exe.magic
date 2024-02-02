@@ -101,6 +101,37 @@
 >>>>>>>>>>0     byte        x   \b, TINYPROG compressed
 
 # ----------
+# UC2EXE (from UltraCompressor II) -compressed EXE
+#
+0               string/b    MZ
+
+# @6 = number of relocs, should be 0
+>6              uleshort    0
+# @8 = header size, should be 2
+>>8             uleshort    0x0002
+# @20 = IP register, should be 12
+>>>20           uleshort    0x000c
+# @24 = reloc. table offset, should be 0
+>>>>24          uleshort    0
+
+# Calculate the EXE start-of-execution point.
+# @22 = CS register, in paragraphs
+>>>>>(22,s*16)      byte    x
+# Add the IP register, +32 for header, -2 dummy "byte x"
+>>>>>>&(20.s+30)    byte    x
+
+# The VU.EXE file included with UltraCompressor II is UCEXE-compressed,
+# but does not match the next pattern. The last 3 bytes, plus the next
+# 2 untested bytes, are absent. I can't figure out why. If I decompress
+# and recompress the file, the bytes are present.
+>>>>>>>&0       string      \x50\x1E\x0E\x1F\xFC\x33\xF6\xE8
+
+>>>>>>>>&2      string      \x16\x07\x33\xF6\x33\xFF\xB9
+>>>>>>>>>&2     string      \xF3\xA5
+>>>>>>>>>>0     byte        x   MS-DOS executable
+>>>>>>>>>>0     byte        x   \b, UCEXE compressed
+
+# ----------
 # RNC PROPACK-compressed DOS EXE
 #
 # We try to identify the 3 known versions: 2.08, 2.14, 2.19.
