@@ -191,3 +191,11 @@
 >18   string    \x8b\xce\x8d\x72\x42\xbf\x80\xff\xd1\xe9\xfd\x57\xf3\xa5\x8d
 >>0   byte      x   DOS executable (COM)
 >>0   byte      x   \b, COMPACK (v5.1) compressed
+
+# ----------
+# Realia Spacemaker-compressed COM executable
+
+0       string/b  \x9c\x55\x56\x8c\xcd\x83\xc5\x10\x8d\xb6
+>&2     string    \x56\xbe
+>>&2    string    \x56\xcb  DOS executable (COM)
+>>>0    byte      x         \b, Spacemaker compressed
