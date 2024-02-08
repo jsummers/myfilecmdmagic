@@ -175,6 +175,26 @@
 >>>>>>>>>0      byte      x           \b, Spacemaker compressed
 
 # ----------
+# PACK (by TurboPower Software) compressed DOS EXE
+
+0               string/b    MZ
+
+# @6 = number of relocs, should be 0
+>6              uleshort    0
+# @8 = header size, should be 2
+>>8             uleshort    0x0002
+
+# Calculate the EXE start-of-execution point.
+# @22 = CS register, in paragraphs
+>>>(22,s*16)    byte    x
+# Add the IP register, +32 for header, -2 dummy "byte x"
+>>>>&(20.s+30)  byte    x
+>>>>>&0   string  \xEB\x08
+>>>>>>&8  string  \x2E\x8C\x1E\x06\x00\x2E\x8C\x06\x08\x00\x8C\xC3\x83\xC3\x10\x8C
+>>>>>>>0        byte    x   MS-DOS executable
+>>>>>>>0        byte    x   \b, PACK (TurboPower) compressed
+
+# ----------
 # LHarc/LHA self-extracting EXE
 #
 # Goal is to identify DOS EXE files made by original versions
