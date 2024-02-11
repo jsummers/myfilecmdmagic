@@ -199,3 +199,17 @@
 >&2     string    \x56\xbe
 >>&2    string    \x56\xcb  DOS executable (COM)
 >>>0    byte      x         \b, Spacemaker compressed
+
+# ----------
+# EXE2COM (PSP Soft, Paul Shpilsher)
+
+0           string/b  \xE9
+>3          string    EXE2COM
+# +3 because we measure from the end of the JMP instruction,
+# -1 for the dummy "byte x", = +2.
+>>(1.s+2)   byte      x
+# Could match many more bytes at &0. These are just some that are likely to
+# be discriminating.
+>>>&15      string    \xB9\x07\x00\xF3\xA5
+>>>>0       byte      x    DOS executable (COM)
+>>>>0       byte      x    \b, converted by EXE2COM (PSP Soft)
