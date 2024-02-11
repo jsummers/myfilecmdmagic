@@ -33,8 +33,11 @@
 # PKLITE/COM v1.50-v2.01
 0       string/b    \x50\xB8
 >&2     string      \xBA
->>&2    string      \x3B\xC4\x73\x79\x8B\xC4\x2D\x42\x03\x25\xF0\xFF\x8B\xF8\xB9
->>>46   use         pklite_com_part2
+>>&2    string      \x3B\xC4\x73
+# The skipped byte here is usually 0x79, but 0x74 is seen in the
+# "v1.16" format from FORMAT.COM from PC DOS 6.3.
+>>>&1    string     \x8B\xC4\x2D\x42\x03\x25\xF0\xFF\x8B\xF8\xB9
+>>>>46   use        pklite_com_part2
 
 # ------------
 
