@@ -24,8 +24,6 @@
 # The goal is to identify files even if the identification/copyright text
 # has been modified. (Whether such files actually exist is unknown, but
 # we'll never know unless we look for them.)
-# We don't attempt to identify or screen out the "TXT2RES" and "TXT2PAS"
-# variant formats.
 #
 # Note: TXT2COM version numbers are a mess.
 # We attempt to assign version numbers according to the information
@@ -105,6 +103,32 @@
 >>>776  string    \xB4\x0F\xCD\x10\x3C\x07\x74\x1E\xC7\x06\xDF\x02\x00\xB8\xC7\x06
 >>>>0   byte      x       DOS executable (COM)
 >>>>0   byte      x       \b, Graham's TXT2COM (v2.10)
+
+# TXT2RES.COM
+
+0       string    \xe9\xd0\x19TXT2COM
+>0      byte      x    DOS executable (COM)
+>0      byte      x    \b, TXT2RES (v1.0) from Graham's TXT2COM (v2.00-2.02)
+
+0       string    \xe9
+>3      string    TXT2RES\ Conv    DOS executable (COM)
+>>3     byte      x                \b, TXT2RES (
+>>>36   string    2.3\x0d          \bv2.03
+>>>36   string    2.06             \bv2.06
+>>>36   string    2.10             \bv2.10
+>>>36   default   x                \bv?.??
+>>0     byte      x                \b) from Graham's TXT2COM
+
+# TXT2PAS.COM
+
+0       string    \xe9
+>3      string    TXT2PAS\ Conv    DOS executable (COM)
+>>3     byte      x                \b, TXT2PAS (
+>>>36   string    2.3\x0d          \bv2.03
+>>>36   string    2.06             \bv2.06
+>>>36   string    2.10             \bv2.10
+>>>36   default   x                \bv?.??
+>>0     byte      x                \b) from Graham's TXT2COM
 
 # ---
 # Fallback rules to try to match unknown versions.
