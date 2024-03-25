@@ -28,8 +28,9 @@
 # Note: TXT2COM version numbers are a mess.
 # We attempt to assign version numbers according to the information
 # included with later versions.
-# We expand all 2.x version numbers to have two digits after the ".",
-# e.g. expanding "2.1" to "2.01".
+# We follow the change log's version numbering system: Version numbers
+# 1.0-2.2 have one digit after the decimal point, then at 2.03 it changes
+# to two digits.
 
 # --- The v1.x format family ("TXT2COM" at offset 3)
 
@@ -49,7 +50,7 @@
 >>>0   byte      x       DOS executable (COM)
 >>>0   byte      x       \b, Graham's TXT2COM (v1.1)
 
-# --- The v2.00-2.03 format family ("TXT2COM" at offset 5)
+# --- The v2.0-2.03 format family ("TXT2COM" at offset 5)
 
 0     string/b  \xE8
 >1    string    \x3A\x01
@@ -58,19 +59,19 @@
 # error. Generated files contain "Vers 1.1".
 >>317  string    \xC7\x06\x16\x08\x00\x00\x80\x3E\x22\x08\x7E\x75\x07\x8D\x36\x23
 >>>0   byte      x       DOS executable (COM)
->>>0   byte      x       \b, Graham's TXT2COM (v2.00)
+>>>0   byte      x       \b, Graham's TXT2COM (v2.0)
 
 # TXT2COM.COM [size=4356] calls itself "version 1.1", presumably a clerical
 # error. Generated files contain "Vers 1.1".
 >>317  string    \xC7\x06\xB8\x09\x00\x00\x80\x3E\xC4\x09\x7E\x75\x07\x8D\x36\xC5
 >>>0   byte      x       DOS executable (COM)
->>>0   byte      x       \b, Graham's TXT2COM (v2.01)
+>>>0   byte      x       \b, Graham's TXT2COM (v2.1)
 
 # TXT2COM.COM [size=4380] calls itself "version 2.2".
 # Generated files contain "Vers 2.2".
 >>317  string    \xC7\x06\xD0\x09\x00\x00\x80\x3E\xDC\x09\x7E\x75\x07\x8D\x36\xDD
 >>>0   byte      x       DOS executable (COM)
->>>0   byte      x       \b, Graham's TXT2COM (v2.02)
+>>>0   byte      x       \b, Graham's TXT2COM (v2.2)
 
 # TXT2COM.COM [size=5173] calls itself "version 2.3".
 # Generated files contain "Vers 2.3".
@@ -108,7 +109,7 @@
 
 0       string    \xe9\xd0\x19TXT2COM
 >0      byte      x    DOS executable (COM)
->0      byte      x    \b, TXT2RES (v1.0) from Graham's TXT2COM (v2.00-2.02)
+>0      byte      x    \b, TXT2RES (v1.0) from Graham's TXT2COM (v2.0-2.2)
 
 0       string    \xe9
 >3      string    TXT2RES\ Conv    DOS executable (COM)
@@ -135,7 +136,7 @@
 # We think we can account for all versions through 2.03, so we don't have
 # fallback rules for versions before that.
 
-# Unknown version ~v2.00-2.04
+# Unknown version ~v2.0-2.04
 0       string/b  \xe8
 !:strength / 2
 >5      string    TXT2COM\ Conv
