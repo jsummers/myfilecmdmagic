@@ -1,0 +1,33 @@
+
+# "file command" rules for miscellaneous files
+#
+# By Jason Summers, 2024 - Not copyrighted
+
+0       string/b   \x81\x00
+>2      uleshort   >0x0000
+>>2     uleshort   <0x0003
+>>>4    uleshort   0x0001
+# Value at offset 6 is a "tag". Tags for this version are
+# believed to be from 0x0001 to 0x0009 (but we allow for more).
+# We expect 0x0001 here.
+>>>>6   uleshort   <0x0020
+>>>>>0  byte       x  MS Comic Chat character (v1.0-2.1)
+
+0       string/b   \x81\x81
+>2      uleshort   >0x0000
+>>2     uleshort   <0x0003
+>>>4    uleshort   0x0002
+# Value at offset 6 is a "tag". Tags for this version are
+# believed to be from 0x0001 to 0x0107 (but we allow for more).
+# We expect 0x0001 or 0x0107 here.
+>>>>6   uleshort   <0x0120
+>>>>>0  byte       x  MS Comic Chat character (v2.5)
+
+0       string/b   \x81\x81\x03\x00\x02\x00
+# Value at offset 6 is a "tag". Tags for this subtype are
+# believed to be from 0x0001 to 0x0107 (but we allow for more).
+# (Actually, only tags from 0x0102 to 0x0107 have been seen in
+# background image files.)
+# We expect 0x0103 or 0x0107 here.
+>6      uleshort   <0x0120
+>>0     byte       x  MS Comic Chat background (v2.5)
