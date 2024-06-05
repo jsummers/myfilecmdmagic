@@ -31,3 +31,28 @@
 # We expect 0x0103 or 0x0107 here.
 >6      uleshort   <0x0120
 >>0     byte       x  MS Comic Chat background (v2.5)
+
+0       string/b   Lionpoubnk
+>10     ubelong    0              STOS MBS
+>10     ubelong    !0             STOS memory bank
+>>14    ubyte      0x01           \b, type work
+>>14    ubyte      0x02           \b, type screen
+>>14    ubyte      0x82           \b, type datascreen
+>>14    ubyte      0x84           \b, type set
+>>>18   ubelong    0x06071963     \b, containing character set
+>>14    ubyte      0x85           \b, type packed files
+>>14    ubyte      0x81           \b, type data, containing
+>>>18   clear      x
+>>>18   ubelong    0x06071963     picture bank
+>>>>22  ubeshort   x              \b, res %d
+>>>18   ubelong    0x13490157     music bank
+>>>18   ubelong    0x19861987     sprite bank
+>>>18   ubelong    0x28091960     icon bank
+>>>18   ubelong    0x4d414553     Maestro music
+>>>18   default    x
+>>>>18  ubelong    x              type 0x%08x
+
+0       ubelong    0x06071963     STOS picture bank
+>4      ubeshort   x              \b, res %d
+
+0       ubelong    0x19861987     STOS sprite bank
