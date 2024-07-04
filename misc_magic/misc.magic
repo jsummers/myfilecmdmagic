@@ -3,6 +3,9 @@
 #
 # By Jason Summers, 2024 - Not copyrighted
 
+# ----------
+# Comic Chat
+
 0       string/b   \x81\x00
 >2      uleshort   >0x0000
 >>2     uleshort   <0x0003
@@ -32,6 +35,9 @@
 >6      uleshort   <0x0120
 >>0     byte       x  MS Comic Chat background (v2.5)
 
+# ----------
+# STOS
+
 0       string/b   Lionpoubnk
 >10     ubelong    0              STOS MBS
 >10     ubelong    !0             STOS memory bank
@@ -56,3 +62,29 @@
 >4      ubeshort   x              \b, res %d
 
 0       ubelong    0x19861987     STOS sprite bank
+
+# ----------
+# REKO cardset
+
+0       string/b    REKO
+>8      ubyte       0           REKO cardset (Amiga)
+>>20    ubyte       x           \b, %d-bit
+>>18    ubyte       &0x08       \b, HAM
+>>21    ubyte       x           \b, %d cards
+
+0       string/b    PCREKO
+>6      ubeshort    0x4420      REKO cardset (PC; RKP 8)
+>>20    ubyte       x           \b, %d-bit
+>>21    ubyte       x           \b, %d cards
+>6      ubeshort    0x0000      REKO cardset (PC; RKP 16)
+>>20    ubyte       x           \b, %d-bit
+>>21    ubyte       x           \b, %d cards
+
+0       string/b    PCRKP\x00   REKO cardset (PC; RKP 24)
+>24     ubyte       x           \b, %d-bit
+>8      ulelong     0           \b, JPEG
+>8      ulelong     !0          \b, BMP
+>28     ubyte       x           \b, %d cards
+
+# Not a REKO format, but may be found with REKO files.
+0       string/b    WizSolitaireDeck  Wiz Solitaire deck
