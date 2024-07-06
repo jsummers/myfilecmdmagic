@@ -88,3 +88,39 @@
 
 # Not a REKO format, but may be found with REKO files.
 0       string/b    WizSolitaireDeck  Wiz Solitaire deck
+
+# ----------
+# PC Paint PIC
+
+0       uleshort    0x1234
+>11     ubyte       0xff
+>>10    ubyte       0x01
+>>>0    use         pcpaint_part2
+>>10    ubyte       0x02
+>>>0    use         pcpaint_part2
+>>10    ubyte       0x04
+>>>0    use         pcpaint_part2
+>>10    ubyte       0x08
+>>>0    use         pcpaint_part2
+>>10    ubyte       0x11
+>>>0    use         pcpaint_part2
+>>10    ubyte       0x31
+>>>0    use         pcpaint_part2
+
+0       name        pcpaint_part2
+>0      byte        x       PC Paint PIC image data
+>2      uleshort    x       \b, %d x
+>4      uleshort    x       %d
+>10     ubyte       0x01    \b, 2-color
+>10     ubyte       0x02    \b, 4-color
+>10     ubyte       0x04    \b, 16-color
+>10     ubyte       0x08    \b, 256-color
+>10     ubyte       0x11    \b, 4-color planar
+>10     ubyte       0x31    \b, 16-color planar
+
+0       string/b    \xfd\x00\xb8\x00\x00
+>5      uleshort    0
+>>7     string      \x00\x40\x02\x00
+>>>13   string      \x00\x20       PC Paint compressed BSAVE image data
+>5      uleshort    !0
+>>8007  string      PCPaint\ V1.   BSAVE image data (PC Paint extension)
