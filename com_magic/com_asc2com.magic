@@ -1,0 +1,200 @@
+
+# "file command" rules for executable text files made by Asc2Com
+# by MorganSoft.
+#
+# By Jason Summers, 2024 - Not copyrighted
+
+# These rules aren't very good, but I couldn't find a good way to identify
+# this format. But enough of these file exist that it's worth trying to
+# identify it.
+#
+# TODO: Find more versions of the software.
+
+# Byte sequence 49 e3 0e 33 d2 8a 14 fe c2 03 f2 49 83 f9 00 77 f4 5a c3
+# appears in most files, except the "print" and "compress" listers.
+# Sometimes the two bytes preceding it are a pointer to the embedded text,
+# but unfortunately not always.
+
+0       byte    0xe8
+
+>1        leshort   0x00d2
+>>867     string    \x49\xe3\x0e\x33\xd2\x8a\x14\xfe\xc2\x03\xf2\x49
+>>>0      byte      x       DOS executable (COM)
+>>>0      byte      x       \b, Asc2Com (MorganSoft), v1.10b
+
+>1        leshort   0x0125
+>>1288    string    \x49\xe3\x0e\x33\xd2\x8a\x14\xfe\xc2\x03\xf2\x49
+>>>0      byte      x       DOS executable (COM)
+>>>0      byte      x       \b, Asc2Com (MorganSoft), v1.25
+
+>1        leshort   0x011d
+>>1360    string    \x49\xe3\x0e\x33\xd2\x8a\x14\xfe\xc2\x03\xf2\x49
+>>>0      byte      x       DOS executable (COM)
+>>>0      byte      x       \b, Asc2Com (MorganSoft), v1.30
+
+>1        leshort   0x0106
+>>1337    string    \x49\xe3\x0e\x33\xd2\x8a\x14\xfe\xc2\x03\xf2\x49
+>>>0      byte      x       DOS executable (COM)
+>>>0      byte      x       \b, Asc2Com (MorganSoft), v1.30
+>>>0      byte      x       \b, lister=page
+
+# -----
+
+0         string    \xbb\x01\x00
+>218      string    Com\ File\ generated\ by\ ASC2COM
+>>0       byte      x       DOS executable (COM)
+>>0       byte      x       \b, Asc2Com (MorganSoft), v1.30
+>>0       byte      x       \b, lister=print
+
+# -----
+
+0         byte      0xe9
+
+>1        leshort   0x0518
+>>2827    string    \x49\xe3\x0e\x33\xd2\x8a\x14\xfe\xc2\x03\xf2\x49
+>>>0      byte      x       DOS executable (COM)
+>>>0      byte      x       \b, Asc2Com (MorganSoft), v?
+>>>0      byte      x       \b, lister=full
+
+>1        leshort   0x0518
+>>2834    string    \x49\xe3\x0e\x33\xd2\x8a\x14\xfe\xc2\x03\xf2\x49
+>>>0      byte      x       DOS executable (COM)
+>>>0      byte      x       \b, Asc2Com (MorganSoft), v1.66
+>>>0      byte      x       \b, lister=full
+
+>1        leshort   0x051d
+>>2916    string    \x49\xe3\x0e\x33\xd2\x8a\x14\xfe\xc2\x03\xf2\x49
+>>>0      byte      x       DOS executable (COM)
+>>>0      byte      x       \b, Asc2Com (MorganSoft), v1.75
+>>>0      byte      x       \b, lister=full
+
+>1        leshort   0x0518
+>>2911    string    \x49\xe3\x0e\x33\xd2\x8a\x14\xfe\xc2\x03\xf2\x49
+>>>0      byte      x       DOS executable (COM)
+>>>0      byte      x       \b, Asc2Com (MorganSoft), v1.76
+>>>0      byte      x       \b, lister=full
+
+>1        leshort   0x0612
+>>3203    string    \x49\xe3\x0e\x33\xd2\x8a\x14\xfe\xc2\x03\xf2\x49
+>>>0      byte      x       DOS executable (COM)
+>>>0      byte      x       \b, Asc2Com (MorganSoft), v2.00
+>>>0      byte      x       \b, lister=full
+
+>1        leshort   0x0621
+>>3231    string    \x49\xe3\x0e\x33\xd2\x8a\x14\xfe\xc2\x03\xf2\x49
+>>>0      byte      x       DOS executable (COM)
+>>>0      byte      x       \b, Asc2Com (MorganSoft), v2.00f-2.05
+>>>0      byte      x       \b, lister=full
+
+>1        leshort   0x04c4
+>>2725    string    \x49\xe3\x0e\x33\xd2\x8a\x14\xfe\xc2\x03\xf2\x49
+>>>0      byte      x       DOS executable (COM)
+>>>0      byte      x       \b, Asc2Com (MorganSoft), v1.65
+>>>0      byte      x       \b, lister=page
+
+>1        leshort   0x04c4
+>>2732    string    \x49\xe3\x0e\x33\xd2\x8a\x14\xfe\xc2\x03\xf2\x49
+>>>0      byte      x       DOS executable (COM)
+>>>0      byte      x       \b, Asc2Com (MorganSoft), v1.66
+>>>0      byte      x       \b, lister=page
+
+>1        leshort   0x04c9
+>>2814    string    \x49\xe3\x0e\x33\xd2\x8a\x14\xfe\xc2\x03\xf2\x49
+>>>0      byte      x       DOS executable (COM)
+>>>0      byte      x       \b, Asc2Com (MorganSoft), v1.75-1.76
+>>>0      byte      x       \b, lister=page
+
+>1        leshort   0x0612
+>>3185    string    \x49\xe3\x0e\x33\xd2\x8a\x14\xfe\xc2\x03\xf2\x49
+>>>0      byte      x       DOS executable (COM)
+>>>0      byte      x       \b, Asc2Com (MorganSoft), v2.00
+>>>0      byte      x       \b, lister=page
+
+>1        leshort   0x0621
+>>3213    string    \x49\xe3\x0e\x33\xd2\x8a\x14\xfe\xc2\x03\xf2\x49
+>>>0      byte      x       DOS executable (COM)
+>>>0      byte      x       \b, Asc2Com (MorganSoft), v2.00f-2.05
+>>>0      byte      x       \b, lister=page
+
+>1        leshort   0x0181
+>>1526    string    \x49\xe3\x0e\x33\xd2\x8a\x14\xfe\xc2\x03\xf2\x49
+>>>0      byte      x       DOS executable (COM)
+>>>0      byte      x       \b, Asc2Com (MorganSoft), v1.66
+>>>0      byte      x       \b, lister=lite
+
+>1        leshort   0x018f
+>>1722    string    \x49\xe3\x0e\x33\xd2\x8a\x14\xfe\xc2\x03\xf2\x49
+>>>0      byte      x       DOS executable (COM)
+>>>0      byte      x       \b, Asc2Com (MorganSoft), v1.75-1.76
+>>>0      byte      x       \b, lister=lite
+
+>1        leshort   0x01fc
+>>1868    string    \x49\xe3\x0e\x33\xd2\x8a\x14\xfe\xc2\x03\xf2\x49
+>>>0      byte      x       DOS executable (COM)
+>>>0      byte      x       \b, Asc2Com (MorganSoft), v2.00-2.05
+>>>0      byte      x       \b, lister=lite
+
+>1        leshort   0x018c
+>>1747    string    \x49\xe3\x0e\x33\xd2\x8a\x14\xfe\xc2\x03\xf2\x49
+>>>0      byte      x       DOS executable (COM)
+>>>0      byte      x       \b, Asc2Com (MorganSoft), v1.66
+>>>0      byte      x       \b, lister=wide
+
+>1        leshort   0x01f5
+>>2045    string    \x49\xe3\x0e\x33\xd2\x8a\x14\xfe\xc2\x03\xf2\x49
+>>>0      byte      x       DOS executable (COM)
+>>>0      byte      x       \b, Asc2Com (MorganSoft), v1.75-1.76
+>>>0      byte      x       \b, lister=wide
+
+>1        leshort   0x024d
+>>2165    string    \x49\xe3\x0e\x33\xd2\x8a\x14\xfe\xc2\x03\xf2\x49
+>>>0      byte      x       DOS executable (COM)
+>>>0      byte      x       \b, Asc2Com (MorganSoft), v2.00-2.05
+>>>0      byte      x       \b, lister=wide
+
+>1        leshort   0x05aa
+>>1065    string    File\ made\ by\ ASC2COM
+>>>0      byte      x       DOS executable (COM)
+>>>0      byte      x       \b, Asc2Com (MorganSoft), v2.00
+>>>0      byte      x       \b, lister=compress
+
+>1        leshort   0x05ab
+>>1065    string    File\ made\ by\ ASC2COM
+>>>0      byte      x       DOS executable (COM)
+>>>0      byte      x       \b, Asc2Com (MorganSoft), v2.00f
+>>>0      byte      x       \b, lister=compress
+
+>1        leshort   0x05ad
+>>1065    string    ASC2COM\ \ V2
+>>>0      byte      x       DOS executable (COM)
+>>>0      byte      x       \b, Asc2Com (MorganSoft), v2.01
+>>>0      byte      x       \b, lister=compress
+
+>1        leshort   0x05a8
+>>1065    string    ASC2COM\ \ V2
+>>>0      byte      x       DOS executable (COM)
+>>>0      byte      x       \b, Asc2Com (MorganSoft), v2.05
+>>>0      byte      x       \b, lister=compress
+
+# -----
+
+0         byte      0xeb
+
+>1        byte      0x03
+>>5       ubyte     0xbb
+>>>223    string    Com\ File\ generated\ by\ ASC2COM
+>>>>0     byte      x       DOS executable (COM)
+>>>>0     byte      x       \b, Asc2Com (MorganSoft), v1.66
+>>>>0     byte      x       \b, lister=print
+
+>1        byte      0x2b
+>>273     string    Com\ File\ generated\ by\ ASC2COM
+>>>0      byte      x       DOS executable (COM)
+>>>0      byte      x       \b, Asc2Com (MorganSoft), v1.75-1.76
+>>>0      byte      x       \b, lister=print
+
+>1        byte      0x40
+>>440     string    Com\ File\ generated\ by\ ASC2COM
+>>>0      byte      x       DOS executable (COM)
+>>>0      byte      x       \b, Asc2Com (MorganSoft), v2.00-2.05
+>>>0      byte      x       \b, lister=print
