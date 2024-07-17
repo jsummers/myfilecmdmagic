@@ -275,3 +275,40 @@
 # SHOW.COM utility itself.
 >>>&0       ubyte   0xb8   DOS executable (COM)
 >>>>0       byte    x      \b, SHOW (Gary M. Raymond)
+
+# ----------
+# TXTmaker (Jack A. Orman) executable text
+
+0     string  \xeb\x77
+>2    string  \ Created\ by\ TXTmaker
+>>0   byte    x  DOS executable (COM)
+>>0   byte    x  \b, TXTmaker
+
+# ----------
+# DOC2COM (Gerald DePyper) executable text
+
+# TODO: This needs work.
+
+0     ubyte   0xbe
+
+>3    string  \xb9\x18\x00\xe8\xb2\x01\xe2\xfb\x3b\x36\x54\x04
+>>0   byte    x  DOS executable (COM)
+>>0   byte    x  \b, DOC2COM (Gerald DePyper) (1990-04-03)
+
+>3    string  \xb9\x18\x00\xe8\xb2\x01\xe2\xfb\x3b\x36\x58\x04
+>>0   byte    x  DOS executable (COM)
+>>0   byte    x  \b, DOC2COM (Gerald DePyper) (1990-12-01)
+
+0     ubyte   0xfc
+
+>1    string  \xbe\x50\x0b\xb9\x18\x00\xe8\x2f\x02\xe2\xfb\x3b
+>>0   byte    x  DOS executable (COM)
+>>0   byte    x  \b, DOC2COM (Gerald DePyper) (v1.2)
+
+>3    string  \x16\x07\x49\x8b\x36\x1a\x07\x8b\xfe\xac\x32\x04
+>>0   byte    x  DOS executable (COM)
+>>0   byte    x  \b, DOC2COM (Gerald DePyper) (v1.3-1.31)
+
+>3    string  \xb5\x07\x49\x8b\x36\xb7\x07\x8b\xfe\xac\x32\x04
+>>0   byte    x  DOS executable (COM)
+>>0   byte    x  \b, DOC2COM (Gerald DePyper) (v1.40)
