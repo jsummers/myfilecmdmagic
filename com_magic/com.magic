@@ -312,3 +312,17 @@
 >3    string  \xb5\x07\x49\x8b\x36\xb7\x07\x8b\xfe\xac\x32\x04
 >>0   byte    x  DOS executable (COM)
 >>0   byte    x  \b, DOC2COM (Gerald DePyper) (v1.40)
+
+# ----------
+# DOC2COM (Dan K. Nelson) executable text
+
+0     string   \xE9\x93\x00
+>25   string   \<\ Press\ \ Home\ \ PgDn\ \ PgUp
+>>0   byte     x  DOS executable (COM)
+>>0   byte     x  \b, DOC2COM (Dan K. Nelson) (v1.0)
+
+0     string   \xE9\x07\x01
+>18   string   \<Press\ \ Home\ \ PgDn\ \ PgUp
+>>0   byte     x  DOS executable (COM)
+>>0   byte     x  \b, Unknown executable text
+>>0   byte     x  \b, like DOC2COM (Dan K. Nelson)
