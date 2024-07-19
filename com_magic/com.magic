@@ -326,3 +326,18 @@
 >>0   byte     x  DOS executable (COM)
 >>0   byte     x  \b, Unknown executable text
 >>0   byte     x  \b, like DOC2COM (Dan K. Nelson)
+
+# ----------
+# Borland README.COM text file viewer
+# This is a normal piece of software, not an executable text format.
+# But it's common, and has many variants. Identifying it helps reduce
+# the noise.
+
+0      string    \xbc\x34\x13\x1e\x2b\xc0\x50\x89\x26\x6e\x01\xb4
+>139   string    *FLAG*    DOS executable (COM)
+>>0    byte      x         \b, Borland README.COM viewer (v2.00)
+
+0      string    \xbc
+>3     string    \x1e\x2b\xc0\x50\x89\x26\x71\x01\xb4\x30\xcd\x21
+>>142  string    *FLAG*    DOS executable (COM)
+>>>0   byte      x         \b, Borland README.COM viewer (v2.03)
