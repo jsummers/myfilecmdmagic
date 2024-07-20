@@ -341,3 +341,10 @@
 >3     string    \x1e\x2b\xc0\x50\x89\x26\x71\x01\xb4\x30\xcd\x21
 >>142  string    *FLAG*    DOS executable (COM)
 >>>0   byte      x         \b, Borland README.COM viewer (v2.03)
+
+# ----------
+# MkCom (Jens Schultz)
+
+0     string    \xe9\xb7\x00\x20\x4d\x6b\x43\x6f\x6d\x2e\x43\x4f\x4d
+>0    byte      x    DOS executable (COM)
+>0    byte      x    \b, MkCom (Jens Schultz)
