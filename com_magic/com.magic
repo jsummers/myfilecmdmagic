@@ -291,11 +291,12 @@
 
 0     ubyte   0xbe
 
->3    string  \xb9\x18\x00\xe8\xb2\x01\xe2\xfb\x3b\x36\x54\x04
+# The first two releases have no version number.
+>1    string  \x5e\x04\xb9\x18\x00\xe8\xb2\x01\xe2\xfb\x3b\x36\x54\x04
 >>0   byte    x  DOS executable (COM)
 >>0   byte    x  \b, DOC2COM (Gerald DePyper) (1990-04-03)
 
->3    string  \xb9\x18\x00\xe8\xb2\x01\xe2\xfb\x3b\x36\x58\x04
+>1    string  \x62\x04\xb9\x18\x00\xe8\xb2\x01\xe2\xfb\x3b\x36\x58\x04
 >>0   byte    x  DOS executable (COM)
 >>0   byte    x  \b, DOC2COM (Gerald DePyper) (1990-12-01)
 
@@ -305,13 +306,15 @@
 >>0   byte    x  DOS executable (COM)
 >>0   byte    x  \b, DOC2COM (Gerald DePyper) (v1.2)
 
->3    string  \x16\x07\x49\x8b\x36\x1a\x07\x8b\xfe\xac\x32\x04
->>0   byte    x  DOS executable (COM)
->>0   byte    x  \b, DOC2COM (Gerald DePyper) (v1.3-1.31)
-
->3    string  \xb5\x07\x49\x8b\x36\xb7\x07\x8b\xfe\xac\x32\x04
->>0   byte    x  DOS executable (COM)
->>0   byte    x  \b, DOC2COM (Gerald DePyper) (v1.40)
+>5    string  \x49\x8b\x36
+>>10  string  \x8b\xfe\xac\x32\x04\xaa\xe2\xfa\xac\x34\xff\xaa
+>>>0  byte    x          DOS executable (COM)
+>>>0  byte    x          \b, DOC2COM (Gerald DePyper)
+>>>0  clear   x
+>>>3  string  \x16\x07   (v1.3x)
+>>>3  string  \xb5\x07   (v1.40)
+>>>0  default x          (v?)
+>>>1  byte    !0xeb      \b, encrypted
 
 # ----------
 # DOC2COM (Dan K. Nelson) executable text
