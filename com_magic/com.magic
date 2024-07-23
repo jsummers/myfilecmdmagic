@@ -398,3 +398,16 @@
 0     string    \xe9\xb7\x00\x20\x4d\x6b\x43\x6f\x6d\x2e\x43\x4f\x4d
 >0    byte      x    DOS executable (COM)
 >0    byte      x    \b, MkCom (Jens Schultz)
+
+# ----------
+# BAT2EXEC
+
+0     string    \xeb\x3a\x90
+>3    string    Compiled\ by\ BAT2E    DOS executable (COM)
+>>0   byte      x     \b, BAT2EXEC compiled batch file
+
+# ----------
+# BatLite
+
+0     string    \xeb\x37\xb0\xb1\xb2\x20    DOS executable (COM)
+>0    byte      x     \b, BatLite compiled batch file
