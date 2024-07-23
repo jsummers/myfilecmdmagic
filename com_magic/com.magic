@@ -201,6 +201,25 @@
 >>>0    byte      x     \b, TheDraw COM file (type 1)
 
 # ----------
+# ACiDDraw COM file - self-displaying ANSI Art
+
+0          ubyte     0xe9
+# +3 because we measure from the end of the JMP instruction,
+# -1 for the dummy "byte x", = +2.
+>(1,s+2)   byte      x
+>>&0       string    \xb8\x03\x00\xcd\x10\xb4\x01\xb9\x00\x20\xcd\x10\xe8
+>>>0       byte      x    DOS executable (COM)
+>>>0       byte      x    \b, ACiDDraw COM file
+
+0          ubyte     0xeb
+# +2 because we measure from the end of the JMP instruction,
+# -1 for the dummy "byte x", = +1.
+>(1,b+1)   byte      x
+>>&0       string    \xb8\x03\x00\xcd\x10\xb4\x01\xb9\x00\x20\xcd\x10\xe8
+>>>0       byte      x    DOS executable (COM)
+>>>0       byte      x    \b, ACiDDraw COM file
+
+# ----------
 # LHarc self-extracting COM archive
 
 0       string/b  \xEB\x6C
