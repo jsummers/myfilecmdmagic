@@ -346,6 +346,34 @@
 >>>0   byte      x         \b, Borland README.COM viewer (v2.03)
 
 # ----------
+# Creative Technology text file viewer
+# This is a normal piece of software, not an executable text format.
+# But it's common enough that identifying it helps reduce the noise.
+
+0     ubyte  0xe9
+
+>1      leshort  0x0452
+>>1409  string   TEXT\ FILE\ READER    DOS executable (COM)
+>>>0    byte     x     \b, Creative text file reader (v2.20)
+
+>1      leshort  0x053f
+>>282   string   TEXT\ FILE\ READER    DOS executable (COM)
+>>>0    byte     x     \b, Creative text file reader (v2.20)
+
+# German?
+>1      leshort  0x0533
+>>287   string   TEXT\ FILE\ READER    DOS executable (COM)
+>>>0    byte     x     \b, Creative text file reader (v2.20)
+
+>1      leshort  0x054c
+>>327   string   TEXT\ FILE\ READER    DOS executable (COM)
+>>>0    byte     x     \b, Creative text file reader (v3.00)
+
+>1      leshort  0x0583
+>>323   string   TEXT\ FILE\ READER    DOS executable (COM)
+>>>0    byte     x     \b, Creative text file reader (v3.00B)
+
+# ----------
 # MkCom (Jens Schultz)
 
 0     string    \xe9\xb7\x00\x20\x4d\x6b\x43\x6f\x6d\x2e\x43\x4f\x4d
