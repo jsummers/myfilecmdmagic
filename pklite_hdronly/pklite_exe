@@ -41,19 +41,19 @@
 
 >>>6            uleshort        1
 
->>>24           uleshort        82
+>>>>24          uleshort        82
 # Test the relocation table contents, if present.
->>>>(24.s)      ulelong         >6
->>>>>(24.s)     ulelong         <9
+>>>>>(24.s)     ulelong         >6
+>>>>>>(24.s)    ulelong         <9
+>>>>>>>0        use             pklite_exe_part2
+
+>>>>24          uleshort        84
+>>>>>(24.s)     ulelong         8
 >>>>>>0         use             pklite_exe_part2
 
->>>24           uleshort        84
->>>>(24.s)      ulelong         8
->>>>>0          use             pklite_exe_part2
-
->>>24           uleshort        87
->>>>(24.s)      ulelong         8
->>>>0           use             pklite_exe_part2
+>>>>24          uleshort        87
+>>>>>(24.s)     ulelong         8
+>>>>>>0         use             pklite_exe_part2
 
 # -----------
 # At this point, we know it is DOS EXE PKLITE-compressed
