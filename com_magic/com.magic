@@ -122,6 +122,35 @@
 >>0   byte      x   \b, COMPACK (v5.1) compressed
 
 # ----------
+# aPACK-compressed COM file
+
+0       string   \x8c\xc8\x05
+>5      string   \x8e\xc0\x59\x8e\xd0\x51\xbe
+>>14    string   \xbf\x00\x01\x50\x57\xfc
+>>>20   string   \xb6
+>>>>0   byte     x     DOS executable (COM)
+>>>>0   byte     x     \b, aPACK (0.61-0.74) compressed
+>>>20   string   \xb2
+>>>>0   byte     x     DOS executable (COM)
+>>>>0   byte     x     \b, aPACK (0.90-1.00,-m) compressed
+
+0       string   \x8c\xc8\x80\xc4\x10\x8e\xc0\xfc\xb9
+>11     string   \xbe\x00\x01\x8b\xfe\x57\xf3\xa5\x5f\xbe
+>>23    string   \x06
+# (Note that testing any more bytes will miss files with "-x" option.)
+# Matches 0.90-0.94 (default) and
+# 0.96-1.00 (large) (for files > ~32KB)
+>>>0    byte     x     DOS executable (COM)
+>>>0    byte     x     \b, aPACK (0.90-1.00) compressed
+
+0       string   \xbe\x0d\x01\xbf\x00
+# (The byte at 5 could distinguish 0.96 from 0.98+.)
+>6      string   \x8b\xcf\xfc\x57\xf3\xa4\xc3\xbf\x00\x01\x57
+# "Small" format used for source files < ~32KB.
+>>0     byte     x     DOS executable (COM)
+>>0     byte     x     \b, aPACK (0.96-1.00,small) compressed
+
+# ----------
 # Realia Spacemaker-compressed COM executable
 
 0       string/b  \x9c\x55\x56\x8c\xcd\x83\xc5\x10\x8d\xb6
