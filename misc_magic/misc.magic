@@ -50,7 +50,7 @@
 >>14    ubyte      0x81           \b, type data, containing
 >>>18   clear      x
 >>>18   ubelong    0x06071963     picture bank
->>>>22  ubeshort   x              \b, res %d
+>>>>22  ubeshort   x              \b, res %u
 >>>18   ubelong    0x13490157     music bank
 >>>18   ubelong    0x19861987     sprite bank
 >>>18   ubelong    0x28091960     icon bank
@@ -59,7 +59,7 @@
 >>>>18  ubelong    x              type 0x%08x
 
 0       ubelong    0x06071963     STOS picture bank
->4      ubeshort   x              \b, res %d
+>4      ubeshort   x              \b, res %u
 
 0       ubelong    0x19861987     STOS sprite bank
 
@@ -68,23 +68,23 @@
 
 0       string/b    REKO
 >8      ubyte       0           REKO cardset (Amiga)
->>20    ubyte       x           \b, %d-bit
+>>20    ubyte       x           \b, %u-bit
 >>18    ubyte       &0x08       \b, HAM
->>21    ubyte       x           \b, %d cards
+>>21    ubyte       x           \b, %u cards
 
 0       string/b    PCREKO
 >6      ubeshort    0x4420      REKO cardset (PC; RKP 8)
->>20    ubyte       x           \b, %d-bit
->>21    ubyte       x           \b, %d cards
+>>20    ubyte       x           \b, %u-bit
+>>21    ubyte       x           \b, %u cards
 >6      ubeshort    0x0000      REKO cardset (PC; RKP 16)
->>20    ubyte       x           \b, %d-bit
->>21    ubyte       x           \b, %d cards
+>>20    ubyte       x           \b, %u-bit
+>>21    ubyte       x           \b, %u cards
 
 0       string/b    PCRKP\x00   REKO cardset (PC; RKP 24)
->24     ubyte       x           \b, %d-bit
+>24     ubyte       x           \b, %u-bit
 >8      ulelong     0           \b, JPEG
 >8      ulelong     !0          \b, BMP
->28     ubyte       x           \b, %d cards
+>28     ubyte       x           \b, %u cards
 
 # Not a REKO format, but may be found with REKO files.
 0       string/b    WizSolitaireDeck  Wiz Solitaire deck
@@ -109,8 +109,8 @@
 
 0       name        pcpaint_part2
 >0      byte        x       PC Paint PIC image data
->2      uleshort    x       \b, %d x
->4      uleshort    x       %d
+>2      uleshort    x       \b, %u x
+>4      uleshort    x       %u
 >10     ubyte       0x01    \b, 2-color
 >10     ubyte       0x02    \b, 4-color
 >10     ubyte       0x04    \b, 16-color
