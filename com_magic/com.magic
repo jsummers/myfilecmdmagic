@@ -308,3 +308,10 @@
 
 0     string    \xeb\x37\xb0\xb1\xb2\x20    DOS executable (COM)
 >0    byte      x     \b, BatLite compiled batch file
+
+# ------
+# DIGPAK
+
+0       ubyte       0xe9
+>3      string      DIGPAK\x00\x0d\x0a    DOS executable (COM)
+>>0     byte        x       DIGPAK sound driver
