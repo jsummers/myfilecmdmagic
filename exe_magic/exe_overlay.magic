@@ -3,10 +3,15 @@
 #
 # By Jason Summers, 2024 - Not copyrighted
 
-0               string/b    MZ
+4               uleshort    !0
 # ZIPSFX rules need to be weaker than PKLITE+ZIPSFX, for example.
 !:strength / 2
+>0              string      MZ
+>>0             use         exe_overlay_2
+>0              string      ZM
+>>0             use         exe_overlay_2
 
+0               name        exe_overlay_2
 >2              uleshort    0
 >>(4.s*512)     byte        x
 >>>&(2.s-2)     byte        x
@@ -33,6 +38,12 @@
 
 >0     string     \x0d(C)\ STEPANYUK     MS-DOS executable
 >>0    byte       x                      \b, ARS self-extracting archive
+
+# David's Readme Compiler, a.k.a. DRC, a.k.a. RCOM.
+# By David Harris.
+>0     string     Data\ file\ generated\ by\ RCOM.\x0a\x1a
+>>0    byte       x                      MS-DOS executable
+>>0    byte       x                      \b, David's Readme Compiler
 
 >0     default    x
 >>1    search/4   PK\x03\x04             MS-DOS executable
