@@ -315,3 +315,24 @@
 0       ubyte       0xe9
 >3      string      DIGPAK\x00\x0d\x0a    DOS executable (COM)
 >>0     byte        x       DIGPAK sound driver
+
+# ------
+# GRABBER (v2.10-3.35) self-displaying screen capture
+
+0       string  \xfb\xbe\x81\x00\x8a\x4c\xff\x30
+>8      string  \xed\x09\xc9\x74\x20\x56\xfc\xac
+>>0     byte    x    DOS executable (COM)
+>>0     byte    x    \b, GRABBER (v2.10-2.20)
+
+0       ubyte   0xe9
+# +3 because we measure from the end of the JMP instruction,
+# -1 for the dummy "byte x", = +2.
+>(1,s+2)   byte   x
+>>&0    string  \xbe\x81\x00\xad\x80\xfc\x0d\x74
+>>>&0   string  \x17\x3c\x0d\x74\x13\x3d\x2f\x46
+>>>>0   byte    x    DOS executable (COM)
+>>>>0   byte    x    \b, GRABBER (v3.2-3.3)
+>>&0    string  \xbe\x81\x00\xfc\xad\x80\xfc\x0d
+>>>&0   string  \x74\x1c\x3c\x0d\x74\x18\x3d\x2f
+>>>>0   byte    x    DOS executable (COM)
+>>>>0   byte    x    \b, GRABBER (v3.34-3.35)

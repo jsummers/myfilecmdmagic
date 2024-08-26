@@ -238,3 +238,15 @@
 >>>&1       string  \x00\x8E\xC0    MS-DOS executable
 >>>>0       byte    x   \b, LHA self-extracting archive
 # (next byte is 0xE8 or 0xEB)
+
+# ----------
+# GRABBER (v3.60?-3.??) self-displaying screen capture
+
+0           string      MZ
+# @8 = header size, should be 3
+>8          uleshort    0x0003
+# @22 = CS, should be 8
+>>22        leshort     8
+>>>48       string      \x0dCreated\ by\ GRABBER
+>>>>0       byte        x    MS-DOS executable
+>>>>0       byte        x    \b, GRABBER
