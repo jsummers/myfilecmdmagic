@@ -23,3 +23,8 @@
 #  the two "byte x" dummy bytes we read.
 >>>>>>>&(20.s-4)    string            RB    MS-DOS executable
 >>>>>>>>0           byte              x     \b, EXEPACK compressed
+>>>>>>>>0           use               exepack_appl
+
+0         name       exepack_appl
+>4        uleshort   30
+>>13945   string     Raymond\ Payette    \b, TEXE
