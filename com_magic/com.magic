@@ -336,3 +336,10 @@
 >>>&0   string  \x74\x1c\x3c\x0d\x74\x18\x3d\x2f
 >>>>0   byte    x    DOS executable (COM)
 >>>>0   byte    x    \b, GRABBER (v3.34-3.35)
+
+# ------
+# GTXT / MakeScroll executable text (Eric Gans)
+0       string  \xbb\xbc\x01\xb4\x02\xb1\x00\x8a
+>95     string  \x73\x01\xc3\x2c\x40\xc3\xcd\x20
+>>0     byte    x    DOS executable (COM)
+>>0     byte    x    \b, GTXT (Eric Gans)
