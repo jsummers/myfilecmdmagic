@@ -17,7 +17,6 @@
 >>0   byte      x       \b, ICE compressed
 
 # ----------
-
 # TheDraw COM file - self-displaying ANSI art
 
 0       string/b  \xEB\x3D\x90
@@ -98,7 +97,7 @@
 >>>0    byte        x       \b, DIET (v1.02b-1.20) compressed
 
 0       string/b    \xf9
->10     string/b    \x9d\x89
+>10     string      \x9d\x89
 >>65    string      dlz
 >>>0    byte        x       DOS executable (COM)
 >>>0    byte        x       \b, DIET (v1.44-1.45f) compressed

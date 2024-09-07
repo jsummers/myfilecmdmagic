@@ -169,7 +169,7 @@
 >>>>20          uleshort    0x0100
 # @22 = CS, should be -16
 >>>>>22         leshort     -16
->>>>>>512       string/b  \x9c\x55\x56\x8c\xcd\x83\xc5\x10\x8d\xb6
+>>>>>>512       string    \x9c\x55\x56\x8c\xcd\x83\xc5\x10\x8d\xb6
 >>>>>>>&2       string    \x56\xbe
 >>>>>>>>&2      string    \x56\xcb    MS-DOS executable
 >>>>>>>>>0      byte      x           \b, Spacemaker compressed
