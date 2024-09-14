@@ -342,3 +342,10 @@
 >95     string  \x73\x01\xc3\x2c\x40\xc3\xcd\x20
 >>0     byte    x    DOS executable (COM)
 >>0     byte    x    \b, GTXT (Eric Gans)
+
+# ----------
+# TXT2COM - Uwe Schlenther
+0       string  \xbf\x33\x01\x32\xdb\x2e\x8a\x15
+>24     string  \x80\xfb\x18\x75\x0e\x32\xdb\x53
+>>0     byte    x    DOS executable (COM)
+>>0     byte    x    \b, TXT2COM (Uwe Schlenther)
