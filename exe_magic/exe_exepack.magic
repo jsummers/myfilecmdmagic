@@ -3,7 +3,8 @@
 #
 # By Jason Summers, 2024 - Not copyrighted
 
-0                   string/b          MZ
+0       name        exe_exepack
+
 # @24 = reloc. table offset, expecting 28, 30, or 62
 >24                 uleshort          <64
 # @6 = number of relocations, expecting 0
@@ -21,7 +22,7 @@
 # @20 = IP register. Should take us just past the "RB" signature if
 #  it exists, so subtract 2 for "RB", and another -2 fudge factor for
 #  the two "byte x" dummy bytes we read.
->>>>>>>&(20.s-4)    string            RB    MS-DOS executable
+>>>>>>>&(20.s-4)    string            RB
 >>>>>>>>0           byte              x     \b, EXEPACK compressed
 >>>>>>>>0           use               exepack_appl
 

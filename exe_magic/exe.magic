@@ -1,7 +1,38 @@
 
-# "file command" rules - Misc. EXE-based formats
+# "file command" rules - EXE-based formats
 #
 # By Jason Summers, 2024 - Not copyrighted
+
+0       string      MZ
+>2      uleshort    <512
+>>4     uleshort    >0
+>>>0    use         exe_part2
+
+0       string      ZM
+>2      uleshort    <512
+>>4     uleshort    >0
+>>>0    use         exe_part2
+
+0       name        exe_part2
+>0      byte        x       MS-DOS executable
+>0      string      ZM      (ZM signature)
+>0      use         exe_exepack
+>0      use         exe_lzexe
+>0      use         exe_pklite
+>0      use         exe_pklite_beta
+>0      use         exe_diet
+>0      use         exe_zip2exe
+>0      use         exe_lha_sfx
+>0      use         exe_wwpack
+>0      use         exe_compack
+>0      use         exe_tinyprog
+>0      use         exe_uc2
+>0      use         exe_rncpropack
+>0      use         exe_spacemaker
+>0      use         exe_pack_turbopower
+>0      use         exe_sqwez_old_sfx
+>0      use         exe_grabber
+>0      use         exe_overlay
 
 # ----------
 
@@ -11,38 +42,37 @@
 # Note: The SQWEZ1_1.EXE distribution file seems to be in this format,
 # but doesn't match any of the known versions.
 
-0         string/b   MZ
+0         name       exe_sqwez_old_sfx
 
 >2        uleshort   0x0166
 >>4       uleshort   0x0025
->>>19456  string     erawtfoS\ MJ       MS-DOS executable
+>>>19456  string     erawtfoS\ MJ
 # We'll call it "1.0", though it lacks a version number.
 >>>>0     byte       x                  \b, SQWEZ (v1.0) self-extracting archive
 
 >2        uleshort   0x00a8
 >>4       uleshort   0x0026
->>>19112  string     erawtfoS\ MJ       MS-DOS executable
+>>>19112  string     erawtfoS\ MJ
 >>>>0     byte       x                  \b, SQWEZ (v1.1) self-extracting archive
 
 >2        uleshort   0x00f8
 >>4       uleshort   0x0024
->>>16767  string     Start\ expanding\ [    MS-DOS executable
+>>>16767  string     Start\ expanding\ [
 >>>>0     byte       x                      \b, SQWEZ (v1.2) self-extracting archive
 
 >2        uleshort   0x0104
 >>4       uleshort   0x0024
->>>16779  string     Start\ expanding\ [    MS-DOS executable
+>>>16779  string     Start\ expanding\ [
 >>>>0     byte       x                      \b, SQWEZ (v2.0) self-extracting archive
 
 # ----------
 # COMPACK-compressed EXE
 
-0         string/b   MZ
+0         name       exe_compack
 >8        uleshort   0x0002
 >>32      string     \xbd
 >>>35     string     \x50\x06\x8c\xcb\x03\xdd\x8c\xd2\x4b\x8e\xdb\xbe
 >>>>49    string     \xbf\x00\x07\x8e\xc2
->>>>>0    byte       x     MS-DOS executable
 >>>>>0    byte       x     \b, COMPACK compressed
 
 # ----------
@@ -54,7 +84,7 @@
 # Special variants of WWPACK, that we don't identify, are known to
 # exist.
 
-0                   string/b    MZ
+0      name      exe_wwpack
 
 # @6 = number of relocs, should be 0
 >6                  uleshort    0
@@ -71,13 +101,12 @@
 # +32 for the header and CS
 >>>>>(20.s+32)      string      \xb8
 >>>>>>&2            string      \x8c\xca\x03\xd0\x8c\xc9\x81\xc1
->>>>>>>0            byte        x   MS-DOS executable
 >>>>>>>0            byte        x   \b, WWPACK compressed
 
 # ----------
 # TINYPROG-compressed EXE
 
-0               string/b    MZ
+0        name        exe_tinyprog
 
 # @6 = number of relocs, should be 0
 >6              uleshort    0
@@ -97,13 +126,13 @@
 >>>>>>>28       string      tz
 >>>>>>>>30      ubyte       >0xc0
 >>>>>>>>>30     ubyte       <0xc4
->>>>>>>>>>0     byte        x   MS-DOS executable
 >>>>>>>>>>0     byte        x   \b, TINYPROG compressed
 
 # ----------
 # UC2EXE (from UltraCompressor II) -compressed EXE
 #
-0               string/b    MZ
+
+0         name exe_uc2
 
 # @6 = number of relocs, should be 0
 >6              uleshort    0
@@ -128,7 +157,6 @@
 
 >>>>>>>>&2      string      \x16\x07\x33\xF6\x33\xFF\xB9
 >>>>>>>>>&2     string      \xF3\xA5
->>>>>>>>>>0     byte        x   MS-DOS executable
 >>>>>>>>>>0     byte        x   \b, UCEXE compressed
 
 # ----------
@@ -136,7 +164,7 @@
 #
 # We try to identify the 3 known versions: 2.08, 2.14, 2.19.
 
-0               string/b    MZ
+0          name      exe_rncpropack
 
 # @6 = number of relocs, should be 0
 >6              uleshort    0
@@ -152,12 +180,12 @@
 >>>>>&(20.s+30) byte        x
 # This pattern appears at the exec. point, or 1 byte past it.
 >>>>>>&0  search/1  \x8c\xd3\x8e\xc3\x8c\xca\x8e\xda\x8b\x0e\x08\x00\x8b\xf1\x83
->>>>>>>0        byte        x   MS-DOS executable
 >>>>>>>0        byte        x   \b, PROPACK compressed
 
 # ----------
 # Spacemaker-compressed EXE
-0               string/b    MZ
+
+0      name     exe_spacemaker
 
 # @6 = number of relocs, should be 0
 >6              uleshort    0
@@ -171,13 +199,13 @@
 >>>>>22         leshort     -16
 >>>>>>512       string    \x9c\x55\x56\x8c\xcd\x83\xc5\x10\x8d\xb6
 >>>>>>>&2       string    \x56\xbe
->>>>>>>>&2      string    \x56\xcb    MS-DOS executable
+>>>>>>>>&2      string    \x56\xcb
 >>>>>>>>>0      byte      x           \b, Spacemaker compressed
 
 # ----------
 # PACK (by TurboPower Software) compressed DOS EXE
 
-0               string/b    MZ
+0               name       exe_pack_turbopower
 
 # @6 = number of relocs, should be 0
 >6              uleshort    0
@@ -191,7 +219,6 @@
 >>>>&(20.s+30)  byte    x
 >>>>>&0   string  \xEB\x08
 >>>>>>&8  string  \x2E\x8C\x1E\x06\x00\x2E\x8C\x06\x08\x00\x8C\xC3\x83\xC3\x10\x8C
->>>>>>>0        byte    x   MS-DOS executable
 >>>>>>>0        byte    x   \b, PACK (TurboPower) compressed
 
 # ----------
@@ -204,7 +231,7 @@
 # "LHarc's SFX 1.13S (c) Yoshi, 1989", but there are so
 # many variants of it that we won't rely on it.
 
-0               string/b    MZ
+0               name        exe_lha_sfx
 
 # @6 = number of relocs, should be 0
 >6              uleshort    0
@@ -230,23 +257,23 @@
 >>&0        string  \xBB
 # (missing byte here is 0x05 or 0x06)
 >>>&1       string  \x01\xE8
->>>>&2      string  \x8C\xC8        MS-DOS executable
+>>>>&2      string  \x8C\xC8
 >>>>>0      byte    x   \b, LHarc self-extracting archive
 
 >>&0        string  \x8C\xC8\x05
 # (missing byte here is 0x88 or 0x8C)
->>>&1       string  \x00\x8E\xC0    MS-DOS executable
+>>>&1       string  \x00\x8E\xC0
 >>>>0       byte    x   \b, LHA self-extracting archive
 # (next byte is 0xE8 or 0xEB)
 
 # ----------
 # GRABBER (v3.60?-3.??) self-displaying screen capture
 
-0           string      MZ
+0           name        exe_grabber
+
 # @8 = header size, should be 3
 >8          uleshort    0x0003
 # @22 = CS, should be 8
 >>22        leshort     8
 >>>48       string      \x0dCreated\ by\ GRABBER
->>>>0       byte        x    MS-DOS executable
 >>>>0       byte        x    \b, GRABBER

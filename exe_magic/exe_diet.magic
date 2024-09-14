@@ -8,7 +8,7 @@
 # * Modification of the EXE checksum field
 #
 
-0               string/b    MZ
+0           name         exe_diet
 
 # @6 = number of relocs, should be 0 or 1
 >6              uleshort    <2
@@ -22,34 +22,19 @@
 # v1.00
 >>>>>20         uleshort    0x0003
 >>>>>>55        string      \x8e\xdb\x8e\xc0\x33\xf6\x33\xff\xb9\x08\x00\xf3
->>>>>>>0        byte        x     MS-DOS executable
 >>>>>>>0        byte        x     \b, DIET (v1.00-1.00d) compressed
->>>>>>>0        use         diet_exe_arjsfx
 
 # v1.02-1.20
 >>>>>52         string      \x8e\xdb\x8e\xc0
 >>>>>>87        string      dlz
->>>>>>>0        byte        x     MS-DOS executable
 >>>>>>>0        byte        x     \b, DIET (v1.02b-1.20) compressed
 
 # v1.44
 >>>>>72         string      \x8e\xdb\x8e\xc0
 >>>>>>107       string      dlz
->>>>>>>0        byte        x     MS-DOS executable
 >>>>>>>0        byte        x     \b, DIET (v1.44) compressed
 
 # v1.45
 >>>>>77         string      \x8e\xdb\x8e\xc0
 >>>>>>108       string      dlz
->>>>>>>0        byte        x     MS-DOS executable
 >>>>>>>0        byte        x     \b, DIET (v1.45f) compressed
-
-# -----------
-
-# [An alternative for ARJ-SFX would be to search the first 1000 bytes
-# of the file for "aRJsfX".]
-0               name        diet_exe_arjsfx
->2              uleshort    !0
->>(4.s*512)     byte        x
-# ARJ v1.00-2.00 uses DIET (most other versions use LZEXE).
->>>&(2.s-513)   uleshort    0xea60   \b, ARJ self-extracting archive

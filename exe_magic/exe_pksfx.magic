@@ -6,70 +6,54 @@
 
 # ---------- Mini (Jr.) format
 
-0       string/b  \x4d\x5a\x76\x01\x06\x00\x00\x00\x02\x00
->2462   string    PKSFX
->>2516  string    1.1\ \ 03-15-90
->>>0    byte      x     MS-DOS executable
->>>0    byte      x     \b, ZIP self-extracting archive
->>>0    byte      x     (ZIP2EXE from PKZIP v1.10, mini format)
+0       name      exe_zip2exe
 
-0       string/b  \x4d\x5a\xba\x01\x06\x00\x00\x00\x02\x00
->2506   string    PKSFX
->>2560  string    2.04c\ \ 12-28-92
->>>0    byte      x     MS-DOS executable
->>>0    byte      x     \b, ZIP self-extracting archive
->>>0    byte      x     (ZIP2EXE from PKZIP v2.04c-g, mini format)
+>2       string    \x76\x01\x06\x00\x00\x00\x02\x00
+>>2462   string    PKSFX
+>>>2516  string    1.1\ \ 03-15-90
+>>>>0    byte      x     \b, ZIP2EXE from PKZIP v1.10 (mini format)
 
->>2560  string    2.04g\ \ 02-01-93
->>>0    byte      x     MS-DOS executable
->>>0    byte      x     \b, ZIP self-extracting archive
->>>0    byte      x     (ZIP2EXE from PKZIP v2.04g-Reg., mini format)
+>2       string    \xba\x01\x06\x00\x00\x00\x02\x00
+>>2506   string    PKSFX
+>>>2560  string    2.04c\ \ 12-28-92
+>>>>0    byte      x     \b, ZIP2EXE from PKZIP v2.04c-g (mini format)
 
-0       string/b  \x4d\x5a\x4e\x00\x07\x00\x00\x00\x02\x00
->2634   string    PKSFX
->>2688  string    2.50\ \ 03-01-1999
->>>0    byte      x     MS-DOS executable
->>>0    byte      x     \b, ZIP self-extracting archive
->>>0    byte      x     (ZIP2EXE from PKZIP v2.50, mini format)
+>>>2560  string    2.04g\ \ 02-01-93
+>>>>0    byte      x     \b, ZIP2EXE from PKZIP v2.04g-Reg. (mini format)
+
+>2       string    \x4e\x00\x07\x00\x00\x00\x02\x00
+>>2634   string    PKSFX
+>>>2688  string    2.50\ \ 03-01-1999
+>>>>0    byte      x     \b, ZIP2EXE from PKZIP v2.50 (mini format)
 
 # ---------- v0.90-1.02
 # (Only "standard" format exists for these versions.)
 
 # TODO: The 0.90-1.02 rules can be improved.
 
-0       string/b  \x4d\x5a\x78\x00\x1f\x00\x0c\x00\x20\x00
->9066   string    \xbf\x68\x03\x8b\x36\x02\x00\x2b\xf7
->>0     byte      x     MS-DOS executable
->>0     byte      x     \b, ZIP self-extracting archive
->>0     byte      x     (ZIP2EXE from PKZIP v0.90)
+>2       string    \x78\x00\x1f\x00\x0c\x00\x20\x00
+>>9066   string    \xbf\x68\x03\x8b\x36\x02\x00\x2b\xf7
+>>>0     byte      x     \b, ZIP2EXE from PKZIP v0.90
 
-0       string/b \x4d\x5a\x5e\x01\x1e\x00\x0c\x00\x20\x00
->9364   string   \xbf\x58\x03\x8b\x36\x02\x00\x2b\xf7
->>0     byte      x     MS-DOS executable
->>0     byte      x     \b, ZIP self-extracting archive
->>0     byte      x     (ZIP2EXE from PKZIP v0.92)
+>2       string   \x5e\x01\x1e\x00\x0c\x00\x20\x00
+>>9364   string   \xbf\x58\x03\x8b\x36\x02\x00\x2b\xf7
+>>>0     byte      x     \b, ZIP2EXE from PKZIP v0.92
 
-0       string/b \x4d\x5a\x98\x00\x1f\x00\x0b\x00\x20\x00
->9854   string   \xbf\x6b\x03\x8b\x36\x02\x00\x2b\xf7
->>0     byte      x     MS-DOS executable
->>0     byte      x     \b, ZIP self-extracting archive
->>0     byte      x     (ZIP2EXE from PKZIP v1.01-1.02)
+>2       string   \x98\x00\x1f\x00\x0b\x00\x20\x00
+>>9854   string   \xbf\x6b\x03\x8b\x36\x02\x00\x2b\xf7
+>>>0     byte      x     \b, ZIP2EXE from PKZIP v1.01-1.02
 
 # ---------- Standard format, v1.10
 
 # TODO: The 1.10 (standard format) rules aren't great.
 # I haven't been able to decipher the files very well.
 
-0       string/b  \x4d\x5a\xef\x01\x19\x00\x00\x00\x06\x00
->96     string    \xfc\x2e\x8c\x0e\x6f\x04\xa1\x02\x00\x8c\xcb
->>987   string    \xe1\x2d
->>>0    byte      x     MS-DOS executable
->>>0    byte      x     \b, ZIP self-extracting archive
->>>0    byte      x     (ZIP2EXE from PKZIP v1.10)
+>2       string    \xef\x01\x19\x00\x00\x00\x06\x00
+>>96     string    \xfc\x2e\x8c\x0e\x6f\x04\xa1\x02\x00\x8c\xcb
+>>>987   string    \xe1\x2d
+>>>>0    byte      x     \b, ZIP2EXE from PKZIP v1.10
 
-0       string/b  \x4d\x5a\xf5\x00\x18\x00\x00\x00\x06\x00
->96     string    \xfc\x2e\x8c\x0e\x6f\x04\xa1\x02\x00\x8c\xcb
->>987   string    \xed\x2a
->>>0    byte      x     MS-DOS executable
->>>0    byte      x     \b, ZIP self-extracting archive
->>>0    byte      x     (ZIP2EXE from PKZIP v1.10-Export)
+>2       string    \xf5\x00\x18\x00\x00\x00\x06\x00
+>>96     string    \xfc\x2e\x8c\x0e\x6f\x04\xa1\x02\x00\x8c\xcb
+>>>987   string    \xed\x2a
+>>>>0    byte      x     \b, ZIP2EXE from PKZIP v1.10-Export

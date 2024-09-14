@@ -3,48 +3,55 @@
 #
 # By Jason Summers, 2024 - Not copyrighted
 
-4               uleshort    !0
-# ZIPSFX rules need to be weaker than PKLITE+ZIPSFX, for example.
-!:strength / 2
->0              string      MZ
->>0             use         exe_overlay_2
->0              string      ZM
->>0             use         exe_overlay_2
-
-0               name        exe_overlay_2
->2              uleshort    0
->>(4.s*512)     byte        x
->>>&(2.s-2)     byte        x
->>>>&0          use         exe_overlay
+0               name        exe_overlay
 
 >2              uleshort    !0
 >>(4.s*512)     byte        x
 >>>&(2.s-514)   byte        x
->>>>&0          use         exe_overlay
+# Try to read one byte of the overlay. This should fail to match if
+# there is no overlay (because it would read past the end of file).
+>>>>&0          byte        x
+# Set the pointer back to the start of the overlay.
+>>>>>&-2        byte        x
+>>>>>>&0        use         exe_overlay_part2
+
+# Some tests that use 'search' can't be done via 'use', due to
+# a bug. There's no reasonable way to avoid duplicating them.
+>>>>>>&0        search/8    \x60\xea
+>>>>>>>&8       ubyte       0x02    \b, ARJ self-extracting archive
+
+# Special case when "length of last block" field is 0.
+>2              uleshort    0
+>>(4.s*512)     byte        x
+>>>&(2.s-2)     byte        x
+>>>>&0          byte        x
+>>>>>&-2        byte        x
+>>>>>>&0        use         exe_overlay_part2
+
+>>>>>>&0        search/8    \x60\xea
+>>>>>>>&8       ubyte       0x02    \b, ARJ self-extracting archive
 
 # ----------
 
-0 name exe_overlay
+0 name exe_overlay_part2
 
->0     string     PK\x03\x04             MS-DOS executable
->>0    byte       x                      \b, ZIP self-extracting archive
+>0     string     \x52\x61\x72\x21\x1a\x07  \b, RAR self-extracting archive
+>0     string     \x52\x45\x7e\x5e          \b, RAR self-extracting archive
 
 >0     string     ZOO\x20
->>20   string     \xdc\xa7\xc4\xfd       MS-DOS executable
+>>20   string     \xdc\xa7\xc4\xfd
 >>>0   byte       x                      \b, Zoo self-extracting archive
 
->0     string     SQWEZ\ v2.             MS-DOS executable
+>0     string     SQWEZ\ v2.
 >>0    byte       x                      \b, SQWEZ (v2.1+) self-extracting archive
 
->0     string     \x0d(C)\ STEPANYUK     MS-DOS executable
+>0     string     \x0d(C)\ STEPANYUK
 >>0    byte       x                      \b, ARS self-extracting archive
 
 # David's Readme Compiler, a.k.a. DRC, a.k.a. RCOM.
 # By David Harris.
 >0     string     Data\ file\ generated\ by\ RCOM.\x0a\x1a
->>0    byte       x                      MS-DOS executable
 >>0    byte       x                      \b, David's Readme Compiler
 
->0     default    x
->>1    search/4   PK\x03\x04             MS-DOS executable
->>>0   byte       x                      \b, ZIP self-extracting archive
+>0    search/5   PK\x03\x04
+>>0   byte       x                       \b, ZIP self-extracting archive

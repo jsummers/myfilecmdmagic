@@ -28,7 +28,8 @@
 #   those listed as goals.
 # - Print various properties of the file, beyond the version number.
 
-0               string/b        MZ
+0               name            exe_pklite
+
 # @20 = IP register, expected to be 0x0100
 >20             uleshort        0x0100
 # @22 = CS register, expected to be -16 (0xfff0)
@@ -68,7 +69,6 @@
 # At this point, we know it is DOS EXE PKLITE-compressed
 
 0       name            pklite_exe_part3
->0      byte            x       MS-DOS executable
 >0      byte            x       \b, PKLITE compressed
 
 # Print the reported version number, handling some special versions.
@@ -83,59 +83,30 @@
 
 # Check if the file is also a self-extracting ZIP archive, presumably
 # made by the ZIP2EXE utility included with PKZIP 2.x.
->0      clear           x
 
 # Offset 12890 is the first meaningful place in the file where all
 # the formats differ. (2.04e and 2.04g are very similar.)
 
 >12890  string          \xaf\x00\x00\x4a\x97\xe9\x99\x3b\x3d\x3b\x3f\xdd
->>0     byte            x      \b, ZIP self-extracting archive
->>0     byte            x      (ZIP2EXE from PKZIP 2.04c)
+>>0     byte            x      \b, ZIP2EXE from PKZIP 2.04c
 
 >12890  string          \xe1\x30\x14\x79\x49\x35\x54\x90\x41\x30\x03\x80
->>0     byte            x      \b, ZIP self-extracting archive
->>0     byte            x      (ZIP2EXE from PKZIP 2.04c-Reg.)
+>>0     byte            x      \b, ZIP2EXE from PKZIP 2.04c-Reg.
 
 >12890  string          \x00\x5a\xe2\x82\x96\x77\x5e\x9f\x7f\x3a\x26\x76
->>0     byte            x      \b, ZIP self-extracting archive
->>0     byte            x      (ZIP2EXE from PKZIP 2.04e)
+>>0     byte            x      \b, ZIP2EXE from PKZIP 2.04e
 
 >12890  string          \x32\xf9\xdb\xb8\x8a\xfc\x83\x41\x92\xe9\xcb\x89
->>0     byte            x      \b, ZIP self-extracting archive
->>0     byte            x      (ZIP2EXE from PKZIP 2.04e-Reg.)
+>>0     byte            x      \b, ZIP2EXE from PKZIP 2.04e-Reg.
 
 >12890  string          \x30\x5a\xe2\x82\x96\x77\x5e\x9f\x7f\x3a\x06\x76
->>0     byte            x      \b, ZIP self-extracting archive
->>0     byte            x      (ZIP2EXE from PKZIP 2.04g)
+>>0     byte            x      \b, ZIP2EXE from PKZIP 2.04g
 
 >12890  string          \xf4\xd4\x00\x48\xa5\x89\xf9\x84\x44\x91\xe4\xc4
->>0     byte            x      \b, ZIP self-extracting archive
->>0     byte            x      (ZIP2EXE from PKZIP 2.04g-Reg.)
+>>0     byte            x      \b, ZIP2EXE from PKZIP 2.04g-Reg.
 
 >12890  string          \x58\x5b\xce\xa9\x88\x16\x33\x11\x06\xc8\xdb\x80
->>0     byte            x      \b, ZIP self-extracting archive
->>0     byte            x      (ZIP2EXE from PKZIP 2.50)
+>>0     byte            x      \b, ZIP2EXE from PKZIP 2.50
 
 >12890  string          \xcd\x0c\xe5\x78\xe4\xaa\xe5\x84\x9b\xa4\x58\xd3
->>0     byte            x      \b, ZIP self-extracting archive
->>0     byte            x      (ZIP2EXE from PKZIP 2.50-Reg.)
-
-# If we didn't find a known version of ZIP2EXE, check the overlay
-# for something that looks like ZIP data.
->12890  default         x
-
-# @2 = length of last page (in bytes)
-# @4 = number of 512-byte pages
-# We don't handle the special case where "length of last page" is 0.
-# It's not relevant to any known version of this format.
->>2             uleshort    !0
->>>(4.s*512)    byte        x
-
-# The embedded ZIP data doesn't necessarily *have* to have the
-# PK\3\4 signature at or near its beginning. But generally it will.
-# We allow some tolerance, such as for a PK\7\8 muti-volume marker,
-# or a padding byte. (The relevant versions are not seen to use a
-# padding byte. PKZIP/ZIP2EXE v1.10 does use a padding byte, but
-# doesn't use PKLITE.)
-# [Note that search/N will test a total of N+1 starting positions.]
->>>>&(2.s-513)  search/5    PK\3\4     \b, ZIP self-extracting archive
+>>0     byte            x      \b, ZIP2EXE from PKZIP 2.50-Reg.
