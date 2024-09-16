@@ -43,7 +43,7 @@
 >>>0   byte       x                      \b, Zoo self-extracting archive
 
 >0     string     SQWEZ\ v2.
->>0    byte       x                      \b, SQWEZ (v2.1+) self-extracting archive
+>>0    byte       x                      \b, SQWEZ self-extracting archive (v2.1+)
 
 >0     string     \x0d(C)\ STEPANYUK
 >>0    byte       x                      \b, ARS self-extracting archive

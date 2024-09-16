@@ -87,22 +87,22 @@
 >>4       uleshort   0x0025
 >>>19456  string     erawtfoS\ MJ
 # We'll call it "1.0", though it lacks a version number.
->>>>0     byte       x                  \b, SQWEZ (v1.0) self-extracting archive
+>>>>0     byte       x           \b, SQWEZ self-extracting archive (v1.0)
 
 >2        uleshort   0x00a8
 >>4       uleshort   0x0026
 >>>19112  string     erawtfoS\ MJ
->>>>0     byte       x                  \b, SQWEZ (v1.1) self-extracting archive
+>>>>0     byte       x           \b, SQWEZ self-extracting archive (v1.1)
 
 >2        uleshort   0x00f8
 >>4       uleshort   0x0024
 >>>16767  string     Start\ expanding\ [
->>>>0     byte       x                      \b, SQWEZ (v1.2) self-extracting archive
+>>>>0     byte       x           \b, SQWEZ self-extracting archive (v1.2)
 
 >2        uleshort   0x0104
 >>4       uleshort   0x0024
 >>>16779  string     Start\ expanding\ [
->>>>0     byte       x                      \b, SQWEZ (v2.0) self-extracting archive
+>>>>0     byte       x           \b, SQWEZ self-extracting archive (v2.0)
 
 # ----------
 # COMPACK-compressed EXE

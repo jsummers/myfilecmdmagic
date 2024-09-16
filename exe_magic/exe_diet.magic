@@ -22,19 +22,19 @@
 # v1.00
 >>>>>20         uleshort    0x0003
 >>>>>>55        string      \x8e\xdb\x8e\xc0\x33\xf6\x33\xff\xb9\x08\x00\xf3
->>>>>>>0        byte        x     \b, DIET (v1.00-1.00d) compressed
+>>>>>>>0        byte        x     \b, DIET compressed (v1.00-1.00d)
 
 # v1.02-1.20
 >>>>>52         string      \x8e\xdb\x8e\xc0
 >>>>>>87        string      dlz
->>>>>>>0        byte        x     \b, DIET (v1.02b-1.20) compressed
+>>>>>>>0        byte        x     \b, DIET compressed (v1.02b-1.20)
 
 # v1.44
 >>>>>72         string      \x8e\xdb\x8e\xc0
 >>>>>>107       string      dlz
->>>>>>>0        byte        x     \b, DIET (v1.44) compressed
+>>>>>>>0        byte        x     \b, DIET compressed (v1.44)
 
 # v1.45
 >>>>>77         string      \x8e\xdb\x8e\xc0
 >>>>>>108       string      dlz
->>>>>>>0        byte        x     \b, DIET (v1.45f) compressed
+>>>>>>>0        byte        x     \b, DIET compressed (v1.45f)

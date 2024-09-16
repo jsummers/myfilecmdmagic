@@ -11,20 +11,20 @@
 >2       string    \x76\x01\x06\x00\x00\x00\x02\x00
 >>2462   string    PKSFX
 >>>2516  string    1.1\ \ 03-15-90
->>>>0    byte      x     \b, ZIP2EXE from PKZIP v1.10 (mini format)
+>>>>0    byte      x     \b, ZIP2EXE (mini format) from PKZIP v1.10
 
 >2       string    \xba\x01\x06\x00\x00\x00\x02\x00
 >>2506   string    PKSFX
 >>>2560  string    2.04c\ \ 12-28-92
->>>>0    byte      x     \b, ZIP2EXE from PKZIP v2.04c-g (mini format)
+>>>>0    byte      x     \b, ZIP2EXE (mini format) from PKZIP v2.04c-g
 
 >>>2560  string    2.04g\ \ 02-01-93
->>>>0    byte      x     \b, ZIP2EXE from PKZIP v2.04g-Reg. (mini format)
+>>>>0    byte      x     \b, ZIP2EXE (mini format) from PKZIP v2.04g-Reg.
 
 >2       string    \x4e\x00\x07\x00\x00\x00\x02\x00
 >>2634   string    PKSFX
 >>>2688  string    2.50\ \ 03-01-1999
->>>>0    byte      x     \b, ZIP2EXE from PKZIP v2.50 (mini format)
+>>>>0    byte      x     \b, ZIP2EXE (mini format) from PKZIP v2.50
 
 # ---------- v0.90-1.02
 # (Only "standard" format exists for these versions.)
