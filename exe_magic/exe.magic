@@ -49,6 +49,7 @@
 
 0       name        exe_ne
 >0      byte        x      \b, NE
+>0      use         exe_pklite_win3
 
 0       name        exe_pe
 >0      byte        x      \b, PE
@@ -74,7 +75,7 @@
 
 # ----------
 
-# SQWEZ self-extracting EXE, versions 1.0-2.0. (Later verions may be
+# SQWEZ self-extracting EXE, versions 1.0-2.0. (Later versions may be
 # handled elsewhere.)
 # These rules are fragile, and may not account for all versions.
 # Note: The SQWEZ1_1.EXE distribution file seems to be in this format,

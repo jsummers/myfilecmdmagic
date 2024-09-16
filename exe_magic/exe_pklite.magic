@@ -1,8 +1,11 @@
 
-# "file command" rules for PKLITE-compressed DOS EXE files
+# "file command" rules for PKLITE-compressed EXE files
 #
 # By Jason Summers, 2024 - Not copyrighted
 
+# -----------
+# [Notes on non-beta DOS EXE files]
+#
 # Goals:
 # - Identify PKLITE-compressed EXE files, including those made by:
 #   - Professional versions of PKLITE
@@ -110,3 +113,15 @@
 
 >12890  string          \xcd\x0c\xe5\x78\xe4\xaa\xe5\x84\x9b\xa4\x58\xd3
 >>0     byte            x      \b, ZIP2EXE from PKZIP 2.50-Reg.
+
+# -----------
+# Rules for Windows 3.x files.
+# The only released version of PKLITE that makes these files is 2.01.
+
+0             name      exe_pklite_win3
+>0            clear     x
+>66           string    PKlite(R)   \b, PKLITE compressed
+>0            default   x
+# Don't know if this is a real signature, but "TN" and "T4"
+# do appear in the PKLITE software.
+>>(60.l+8)    string    TNT4        \b, PKLITE compressed
