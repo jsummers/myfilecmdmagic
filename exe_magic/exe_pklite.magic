@@ -91,28 +91,31 @@
 # the formats differ. (2.04e and 2.04g are very similar.)
 
 >12890  string          \xaf\x00\x00\x4a\x97\xe9\x99\x3b\x3d\x3b\x3f\xdd
->>0     byte            x      \b, ZIP2EXE from PKZIP 2.04c
+>>0     byte            x      \b, ZIP2EXE from PKZIP v2.04c
 
 >12890  string          \xe1\x30\x14\x79\x49\x35\x54\x90\x41\x30\x03\x80
->>0     byte            x      \b, ZIP2EXE from PKZIP 2.04c-Reg.
+>>0     byte            x      \b, ZIP2EXE from PKZIP v2.04c-Reg.
 
 >12890  string          \x00\x5a\xe2\x82\x96\x77\x5e\x9f\x7f\x3a\x26\x76
->>0     byte            x      \b, ZIP2EXE from PKZIP 2.04e
+>>0     byte            x      \b, ZIP2EXE from PKZIP v2.04e
 
 >12890  string          \x32\xf9\xdb\xb8\x8a\xfc\x83\x41\x92\xe9\xcb\x89
->>0     byte            x      \b, ZIP2EXE from PKZIP 2.04e-Reg.
+>>0     byte            x      \b, ZIP2EXE from PKZIP v2.04e-Reg.
 
 >12890  string          \x30\x5a\xe2\x82\x96\x77\x5e\x9f\x7f\x3a\x06\x76
->>0     byte            x      \b, ZIP2EXE from PKZIP 2.04g
+>>0     byte            x      \b, ZIP2EXE from PKZIP v2.04g
 
 >12890  string          \xf4\xd4\x00\x48\xa5\x89\xf9\x84\x44\x91\xe4\xc4
->>0     byte            x      \b, ZIP2EXE from PKZIP 2.04g-Reg.
+>>0     byte            x      \b, ZIP2EXE from PKZIP v2.04g-Reg.
 
 >12890  string          \x58\x5b\xce\xa9\x88\x16\x33\x11\x06\xc8\xdb\x80
->>0     byte            x      \b, ZIP2EXE from PKZIP 2.50
+>>0     byte            x      \b, ZIP2EXE from PKZIP/DOS v2.50
 
 >12890  string          \xcd\x0c\xe5\x78\xe4\xaa\xe5\x84\x9b\xa4\x58\xd3
->>0     byte            x      \b, ZIP2EXE from PKZIP 2.50-Reg.
+>>0     byte            x      \b, ZIP2EXE from PKZIP/DOS v2.50-Reg.
+
+>12890  string          \xda\xe4\x1e\x40\x86\xcf\x26\x30\xb8\xc6\x3d\xf8
+>>0     byte            x      \b, PKSFX v2.49 (via PKZIP/Windows v2.50+)
 
 # -----------
 # Rules for beta versions
@@ -160,8 +163,23 @@
 
 0             name      exe_pklite_win3
 >0            clear     x
+# E.g. PKLITE 2.01.
 >66           string    PKlite(R)   \b, PKLITE compressed
+>>0           use       exe_win3_pksfx
+# E.g. PKZIP/Windows 2.50 (convert to PKSFX16).
+>66           string    Pklite(R)   \b, PKLITE compressed
+>>0           use       exe_win3_pksfx
 >0            default   x
 # Don't know if this is a real signature, but "TN" and "T4"
 # do appear in the PKLITE software.
 >>(60.l+8)    string    TNT4        \b, PKLITE compressed
+>>>0          use       exe_win3_pksfx
+
+0             name      exe_win3_pksfx
+# Can be made by PKZIP 2.50-2.60.03 for Windows, by converting to
+# "PKSFX WIN16" format.
+# Note: The pkzws201.exe and pk260w16.exe distribution files have different
+# PKSFX structures, which we could look for, but it's not worth it if they
+# are unique.
+>590          string    PKSFX\ for\ Windows
+>>0           byte      x       \b, ZIP self-extracting archive
