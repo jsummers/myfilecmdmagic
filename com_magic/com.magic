@@ -349,3 +349,17 @@
 >24     string  \x80\xfb\x18\x75\x0e\x32\xdb\x53
 >>0     byte    x    DOS executable (COM)
 >>0     byte    x    \b, TXT2COM (Uwe Schlenther)
+
+# ----------
+# T2C - P. Fischer-Haaser
+
+0       ubyte   0xe9
+
+# "Text->COM" (T2C.EXE)
+>4      string  This\ program
+>>50    string  Fischer-Haas    DOS executable (COM)
+>>>0    byte    x   T2C (Fischer-Haaser) (ver~2.12)
+
+# Mu-TEXT-TO-COM (T2CX.EXE)
+>12     string  using\ P.Fischer-Haas    DOS executable (COM)
+>>0     byte    x   T2CX (Fischer-Haaser) (ver~1.08)
