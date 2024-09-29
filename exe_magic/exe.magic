@@ -163,13 +163,25 @@
 >>>>>22         leshort     0
 # @24 = reloc. table offset, should be 0
 >>>>>>24        uleshort    0
+>>>>>>>0        use         exe_tinyprog_part2
 
-# TODO: Don't rely on the "tz" signature.
+0             name    exe_tinyprog_part2
+# Expecting a 2-byte relative jump that we'll follow.
+>32           ubyte   0xe9
+# Read 2-byte int at the current offset (33).
+# The JMP is from the end of the 2-byte int we read indirectly (",s"),
+# so we need +2. The dummy byte we read directly gives us +1, so add
+# the difference (2-1=1).
+>>&(&0,s+1)   byte    x
 
->>>>>>>28       string      tz
->>>>>>>>30      ubyte       >0xc0
->>>>>>>>>30     ubyte       <0xc4
->>>>>>>>>>0     byte        x   \b, TINYPROG compressed
+# Expecting a 1-byte relative jump that we'll follow.
+>>>&0         ubyte   0xeb
+# The adjustments are +1 and -1, so no adjustment needed.
+>>>>&(&0,b)   byte    x
+>>>>>&0       string  \x50\xbe\x05\x01\x03\x36\x01\x01\x8c\xd2\x8c\xd8\x03\x44
+>>>>>>0       byte    x       \b, TINYPROG compressed (old)
+>>>>>&8       string  \x50\xbe\x05\x01\x03\x36\x01\x01\x8c\xd2\x8c\xd8\x03\x44
+>>>>>>0       byte    x       \b, TINYPROG compressed (v3.x)
 
 # ----------
 # UC2EXE (from UltraCompressor II) -compressed EXE
