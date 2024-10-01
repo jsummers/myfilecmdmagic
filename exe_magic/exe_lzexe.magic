@@ -59,6 +59,14 @@
 
 0       name        lzexe_091_appl
 
+>2      string  \xe5\x01\x07\x00
+>>3083  string  John\x08\x0f\x70\x65
+>>>0    byte    x   \b, TXT2EXE.COM (De Palma) (v1.1)
+
+>2      string  \xeb\x01\x0a\x00
+>>4315  string  Joh\xe1\x00\x67\x44\x9d
+>>>0    byte    x   \b, TXT2EXE.COM (De Palma) (v2.2)
+
 # Module size 3541
 >2      string      \xd5\x01\x07\x00
 # An arbitrary probe of the compressed data in the T2BR.EXE file
