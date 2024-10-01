@@ -84,11 +84,10 @@
 >>29    ubyte&0x0f      x       (v%u.
 >>28    ubyte           x       \b%02u)
 
-# Check if the file is also a self-extracting ZIP archive, presumably
-# made by the ZIP2EXE utility included with PKZIP 2.x.
+# Check for some known PKLITE-derived formats.
 
 # Offset 12890 is the first meaningful place in the file where all
-# the formats differ. (2.04e and 2.04g are very similar.)
+# the ZIP2EXE formats differ. (2.04e and 2.04g are very similar.)
 
 >12890  string          \xaf\x00\x00\x4a\x97\xe9\x99\x3b\x3d\x3b\x3f\xdd
 >>0     byte            x      \b, ZIP2EXE from PKZIP v2.04c
@@ -116,6 +115,9 @@
 
 >12890  string          \xda\xe4\x1e\x40\x86\xcf\x26\x30\xb8\xc6\x3d\xf8
 >>0     byte            x      \b, PKSFX v2.49 (via PKZIP/Windows v2.50+)
+
+# LM-EXE executable text by RKT-LANDMARK. Uncommon format, but easy.
+>55     string          RKT-LANDMARK     \b, LM-EXE
 
 # -----------
 # Rules for beta versions
