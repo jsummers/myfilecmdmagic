@@ -27,5 +27,10 @@
 >>>>>>>>0           use               exepack_appl
 
 0         name       exepack_appl
+
+# This isn't a great way to identify these files. We could probably do
+# better by looking at the overlay, but that's difficult.
+>512      string     blREADINCL  \b, READMAKE (Wayne Software)
+
 >4        uleshort   30
 >>13945   string     Raymond\ Payette    \b, TEXE
