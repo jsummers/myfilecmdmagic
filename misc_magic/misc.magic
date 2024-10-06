@@ -136,3 +136,24 @@
 >>>13   string      \x00\x20       PC Paint compressed BSAVE image data
 >5      uleshort    !0
 >>8007  string      PCPaint\ V1.   BSAVE image data (PC Paint extension)
+
+# ----------
+# Inset PIX
+
+# There's no good way to identify all Inset PIX files, but we'll try to
+# identify most files as they are constructed in practice.
+
+# Expecting version 3.
+0       uleshort    3
+# First item in directory: Expecting id=0, len=32.
+>4      string      \x00\x00\x20\x00
+# Expecting the number of items to be relatively small.
+>>2     uleshort    >3
+>>>2    uleshort    <200
+# Follow the first item's pointer. Make sure we can read 32
+# bytes starting at that offset.
+>>>>(8.l+31)    byte          x       Inset PIX
+>>>>>(8.l+1)    ubyte&0x01    0x00    text data
+>>>>>(8.l+1)    ubyte&0x01    0x01    image data
+>>>>>>(8.l+18)  uleshort      x       \b, %u x
+>>>>>>(8.l+20)  uleshort      x       %u
