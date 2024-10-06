@@ -358,8 +358,26 @@
 # "Text->COM" (T2C.EXE)
 >4      string  This\ program
 >>50    string  Fischer-Haas    DOS executable (COM)
->>>0    byte    x   T2C (Fischer-Haaser) (ver~2.12)
+>>>0    byte    x   \b, T2C (Fischer-Haaser) (ver~2.12)
 
 # Mu-TEXT-TO-COM (T2CX.EXE)
 >12     string  using\ P.Fischer-Haas    DOS executable (COM)
->>0     byte    x   T2CX (Fischer-Haaser) (ver~1.08)
+>>0     byte    x   \b, T2CX (Fischer-Haaser) (ver~1.08)
+
+# ----------
+# ExeLITE
+
+0         string  \x9c\x06\x1e\x60\xfd\xb9
+# The last 227 or so bytes of the file are always the same.
+# Whatever the field at offset 6 really is, in effect it is the file size
+# minus 31.
+# That seems like a good enough place to test the data.
+>(6.s)    string  \xff\xad\x8b\xc8\xf3\xa4\xe9\x33
+>>0       byte    x       DOS executable (COM)
+>>0       byte    x       \b, ExeLITE compressed (v1.00)
+
+# For v2.00S, we have to adjust some things.
+0         string  \xeb\x01\x90\x9c\x06\x1e\x60\xfd\xb9
+>(9.s+9)  string  \xff\xad\x8b\xc8\xf3\xa4\xe9\x30
+>>0       byte    x       DOS executable (COM)
+>>0       byte    x       \b, ExeLITE compressed (v2.00)
