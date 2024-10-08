@@ -49,14 +49,23 @@
 
 0       name        exe_ne
 >0      byte        x      \b, NE
->(60.l+54)   ubyte     0x01   for OS/2
->(60.l+54)   ubyte     0x02   for MS Windows
+>(60.l+12)   uleshort  &0x8000   (DLL)
+>(60.l+54)   ubyte     0x01   \b, for OS/2
+>(60.l+54)   ubyte     0x02   \b, for MS Windows
 >>(60.l+63)  ubyte     x      (v%u
 >>(60.l+62)  ubyte     x      \b.%u)
 >>0     use         exe_pklite_win3
 
 0       name        exe_pe
 >0      byte        x      \b, PE
+>(60.l+22)      uleshort    &0x2000   (DLL)
+>(60.l+20)      uleshort    !0
+>>(60.l+24)     uleshort    0x010b  \b, PE32
+>>>(60.l+92)    uleshort    2       (GUI)
+>>>(60.l+92)    uleshort    3       (console)
+>>(60.l+24)     uleshort    0x020b  \b, PE32+
+>>>(60.l+92)    uleshort    2       (GUI)
+>>>(60.l+92)    uleshort    3       (console)
 
 0       name        dosexe_main
 >0      use         exe_exepack
