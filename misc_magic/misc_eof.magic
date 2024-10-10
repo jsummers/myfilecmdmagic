@@ -1,4 +1,10 @@
 
+# "file command" rules - Some patterns that rely on "end of file"
+# features.
+#
+# By Jason Summers, 2024 - Not copyrighted
+
+# ----------
 # Raw PKWARE DCL Impode data (a.k.a. TTCOMP)
 #
 # Caution: This might rely on undocumented behavior. You're only
@@ -34,3 +40,15 @@
 # to the end of the file.
 #>0     ubyte      0x01   \b, ASCII-optimized
 
+# ----------
+# DWC archive
+-3      string/b    DWC
+>&-27   string      \x1b\x00\x22    DWC archive
+
+# ----------
+# InstallIt!: DOS installer by Coffee Mug Software
+#
+# Usually ends with something like ..."xxxx32", where the "x"s are
+# padding. It's probably safe to assume there will be at least one "x".
+-3      string/b   x32
+>&-43   string     CP2.00          InstallIt! archive

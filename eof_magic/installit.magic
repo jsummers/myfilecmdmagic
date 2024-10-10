@@ -1,8 +1,0 @@
-
-# InstallIt!: DOS installer by Coffee Mug Software
-#
-# Usually ends with something like ..."xxxx32", where the "x"s are
-# padding. It's probably safe to assume there will be at least one "x".
--3      string/b   x32
->&-43   string     CP2.00          InstallIt! archive
-
