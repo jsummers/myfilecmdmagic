@@ -59,6 +59,30 @@
 
 0       name        lzexe_091_appl
 
+# -------
+# GIFEXE
+
+# Note that this PK1 signature is used by other Synergrafix
+# programs, not just GIFEXE.
+>28       string  PK1\xf5
+# An arbitrary sampling offset (but we shouldn't read past about
+# offset 16266, or we risk hitting LZEXE biolerplate).
+>>16240   string  \x0b\x0e\xf9\x11\x14\x0c  \b, GIFEXE (v1.0)
+>>16240   string  \xe6\xe4\xf1\x99\x00\xb1  \b, GIFEXE (v1.2)
+>>16240   string  \xb6\xb9\xf8\x09\xe5\xfc  \b, GIFEXE (v2.0)
+>>16240   string  \x48\x94\x21\x76\x3a\xc7  \b, GIFEXE (v3.0)
+>>16240   string  \x16\x7e\x7c\x2c\xa1\x07  \b, GIFEXE (v3.2)
+>>16240   string  \x8d\x44\xfe\xcc\xf6\x8c  \b, GIFEXE (v4.1var1)
+>>16240   string  \xef\x22\x82\x46\x8d\x44  \b, GIFEXE (v4.1var2)
+>>16240   string  \x75\xef\x22\x82\x46\x8d  \b, GIFEXE (v4.1var3)
+>>16240   string  \x19\x11\x08\x01\x37\x54  \b, GIFEXE (v4.4)
+>>16240   string  \x74\x08\xe8\xd8\xe8\x59  \b, GIFEXE (v4.5)
+>>0       default x
+>>>-6     string  GIFEXE    \b, GIFEXE
+>>>-8     string  GIFEXE3   \b, GIFEXE
+
+# -------
+
 >2      string  \xe5\x01\x07\x00
 >>3083  string  John\x08\x0f\x70\x65
 >>>0    byte    x   \b, TXT2EXE.COM (De Palma) (v1.1)
