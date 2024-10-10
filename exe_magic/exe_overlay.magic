@@ -6,30 +6,29 @@
 0               name        exe_overlay
 
 >2              uleshort    !0
+
+# FIXME: This does not work reliably.
+# It works when the overlay is at least 512 bytes in size. But if it's
+# smaller, it may (or may not) fail.
+# EXE format is designed such that the "number of pages" field at offset
+# 4 often points beyond the end of the file, and then you have to
+# subtract from it to find the overlay. But 'file' can't cope with
+# offsets beyond the end of the file.
+# (There *might* be a way to do this, but it's not clear how.)
+
 >>(4.s*512)     byte        x
 >>>&(2.s-514)   byte        x
-# Try to read one byte of the overlay. This should fail to match if
-# there is no overlay (because it would read past the end of file).
->>>>&0          byte        x
-# Set the pointer back to the start of the overlay.
->>>>>&-2        byte        x
->>>>>>&0        use         exe_overlay_part2
+>>>>&0          use         exe_overlay_part2
 
-# Some tests that use 'search' can't be done via 'use', due to
-# a bug. There's no reasonable way to avoid duplicating them.
->>>>>>&0        search/8    \x60\xea
->>>>>>>&8       ubyte       0x02    \b, ARJ self-extracting archive
+# Some tests that use 'search' can't be done via 'use', due to a bug.
+>>>>&0          search/8    \x60\xea
+>>>>>&8         ubyte       0x02    \b, ARJ self-extracting archive
 
 # Special case when "length of last block" field is 0.
 >2              uleshort    0
 >>(4.s*512)     byte        x
 >>>&(2.s-2)     byte        x
->>>>&0          byte        x
->>>>>&-2        byte        x
->>>>>>&0        use         exe_overlay_part2
-
->>>>>>&0        search/8    \x60\xea
->>>>>>>&8       ubyte       0x02    \b, ARJ self-extracting archive
+>>>>&0          use         exe_overlay_part2
 
 # ----------
 
