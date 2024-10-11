@@ -7,28 +7,56 @@
 
 >2              uleshort    !0
 
-# FIXME: This does not work reliably.
-# It works when the overlay is at least 512 bytes in size. But if it's
-# smaller, it may (or may not) fail.
-# EXE format is designed such that the "number of pages" field at offset
-# 4 often points beyond the end of the file, and then you have to
-# subtract from it to find the overlay. But 'file' can't cope with
-# offsets beyond the end of the file.
-# (There *might* be a way to do this, but it's not clear how.)
+# Set the current offset to the number of full pages (i.e., 1 less
+# than the # of pages).
+# This is a hack. The number of full pages is not a number of bytes.
+#
+# Type 'clear' is used for convenience as a zero-length type -- it
+# doesn't add anything extra to the offset.
+# If you don't like it, here's an alternative to the next 2 lines:
+#>>(4.s-1)        byte       x
+#>>>(&-1.b*512)   offset     x
+# Note that "(4.s-2)" wouldn't work, because it will fail if this
+# field has value 1. "(4.s-1)" is okay, because 0 is not a valid
+# value for this field.
 
->>(4.s*512)     byte        x
->>>&(2.s-514)   byte        x
->>>>&0          use         exe_overlay_part2
+>>(4.s-1)        clear      x
+
+# Multiply the current offset by 512.
+# !!! This relies on undocumented behavior.
+# When type 'offset' is used with an indirect offset, it takes
+# the starting offset at which the first read would happen,
+# performs math on it, and sets the current offset to the result.
+# (The value read from the file is thrown away.)
+# This allows us to subtract 1, then multiply by 512.
+# (Another way to do it would be to multiply by 512, then subtract 512.
+# That's easy to do in two lines, without black magic. The problem is
+# that the intermediate offset may be beyond the end of the file, and
+# such offsets are not allowed.)
+>>>(&0.b*512)    offset     x
+
+# Add the "# of bytes in last page", and read 1 byte to confirm
+# existence of an overlay.
+>>>>&(2.s)       byte       x
+
+# Set the current offset to the position of the overalay
+>>>>>&-2         byte       x
+
+>>>>>>&0         use        exe_overlay_part2
 
 # Some tests that use 'search' can't be done via 'use', due to a bug.
->>>>&0          search/8    \x60\xea
->>>>>&8         ubyte       0x02    \b, ARJ self-extracting archive
+>>>>>>&0          search/8    \x60\xea
+>>>>>>>&8         ubyte       0x02    \b, ARJ self-extracting archive
 
-# Special case when "length of last block" field is 0.
->2              uleshort    0
->>(4.s*512)     byte        x
->>>&(2.s-2)     byte        x
->>>>&0          use         exe_overlay_part2
+#---
+# Special case if "# of bytes in last page" is 0
+
+>2    uleshort   0
+
+# Read 1 byte of the overlay to confirm its existence.
+>>(4.s*512)      byte       x
+
+>>>&-1           use        exe_overlay_part2
 
 # ----------
 
