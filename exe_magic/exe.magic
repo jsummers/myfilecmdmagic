@@ -362,5 +362,5 @@
 # TXT2EXE and other stuff by P. Fischer-Haaser
 
 0       name    exe_txt2exe_pfh
->28     string  \x57\x9a\x51\x50   \b, TXT2EXE(?) (Fischer-Haaser) (v3.x?)
->28     string  pfh\x00            \b, TXT2EXE(?) (Fischer-Haaser) (v4.x?)
+>28     string  \x57\x9a\x51\x50   \b, TXT2EXE (Fischer-Haaser) (v3.x?)
+>28     string  pfh\x00            \b, TXT2EXE (Fischer-Haaser) (v4.x?)
