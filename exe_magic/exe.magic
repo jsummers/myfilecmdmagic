@@ -342,9 +342,16 @@
 
 >>>(8.s*16)     byte     x
 >>>>&28         string   GraphicWorkshop
->>>>>0    byte    x   \b, Graphic Workshop self-displaying picture
+>>>>>0          use      exe_gws_part2
 >>>>&28         string   GWS/Windows
->>>>>0    byte    x   \b, Graphic Workshop self-displaying picture
+>>>>>0          use      exe_gws_part2
+
+0           name      exe_gws_part2
+>(8.s*16)   byte      x   \b, Graphic Workshop self-displaying picture
+>>&10       uleshort  x   \b, %u x
+>>&12       uleshort  x   %u
+>>&16       uleshort  x   \b, %u bits/pixel
+>>&18       uleshort  1   \b, uncompressed
 
 # ----------
 # GRABBER (v3.60?-3.??) self-displaying screen capture
