@@ -4,8 +4,7 @@
 # By Jason Summers, 2024 - Not copyrighted
 
 0       string      MZ
->4      uleshort    >0
->>0     use         exe_part2
+>0      use         exe_part2
 
 0       string      ZM
 >4      uleshort    >0
@@ -15,12 +14,12 @@
 >0      byte        x       MS-DOS executable
 >0      string      ZM      (ZM signature)
 >0      clear       x
->>24    uleshort    >63
->>>0    use         exe_maybe_extended
->>24    uleshort    0
->>>0    use         exe_maybe_extended
->>0     default     x
->>>0    use         dosexe_main
+>24     uleshort    >63
+>>0     use         exe_maybe_extended
+>24     uleshort    0
+>>0     use         exe_maybe_extended
+>0      default     x
+>>0     use         dosexe_main
 
 0       name        exe_maybe_extended
 >0      clear       x
@@ -53,6 +52,7 @@
 >>(60.l+63)  ubyte     x      (v%u
 >>(60.l+62)  ubyte     x      \b.%u)
 >>0     use         exe_pklite_win3
+>0      use         exe_ne_icl
 
 0       name        exe_pe
 >0      byte        x      \b, PE
@@ -87,6 +87,30 @@
 >0      use         exe_overlay
 
 # ----------
+
+0           name        exe_ne_icl
+# Segment count=0 seems like a useful filter, for the formats we
+# identify.
+>(60.l+28)  uleshort  0
+
+# If MZ header is zeroed out
+>>2         string    \0\0\0\0
+
+>>>60    ulelong     64
+# This is a guess. Could be an .NIL file from Norton Icon Editor.
+>>>>0       ubyte     x     \b, Icon library (Norton)
+
+>>>60       ulelong   128
+>>>>126     string    \0\0
+>>>>>182    ubyte     0     \b, Icon library (Icon Manager, v<=2.1)
+>>>>>182    ubyte     !0    \b, Icon library (Icon Manager, v3.1)
+>>>>126     string    IM    \b, Icon library (Icon Manager, v>=3.1a)
+
+# If MZ header is not zeroed-out...
+>>0         default   x
+
+>>>60       ulelong   128
+>>>>125     string    MIR   \b, Icon library (hDC Icon Designer)
 
 # SQWEZ self-extracting EXE, versions 1.0-2.0. (Later versions may be
 # handled elsewhere.)
