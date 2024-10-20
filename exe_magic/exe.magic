@@ -97,14 +97,23 @@
 >>2         string    \0\0\0\0
 
 >>>60    ulelong     64
+
+# Easy Icons (Paul Traver). This is for the known versions for
+# Windows 3.x (3.01, 3.07, 3.2.1).
+>>>>45      string    PT    \b, Icon library (Easy Icons)
+
 # This is a guess. Could be an .NIL file from Norton Icon Editor.
->>>>0       ubyte     x     \b, Icon library (Norton)
+>>>>45      string    \0\0  \b, Icon library (Norton)
 
 >>>60       ulelong   128
 >>>>126     string    \0\0
 >>>>>182    ubyte     0     \b, Icon library (Icon Manager, v<=2.1)
 >>>>>182    ubyte     !0    \b, Icon library (Icon Manager, v3.1)
 >>>>126     string    IM    \b, Icon library (Icon Manager, v>=3.1a)
+
+# Easy Icons 9x patterns are unconfirmed.
+>>>>126     string    ry
+>>>>>103    string    EasyIcons   \b, Icon library (Easy Icons 95/98)
 
 # If MZ header is not zeroed-out...
 >>0         default   x
