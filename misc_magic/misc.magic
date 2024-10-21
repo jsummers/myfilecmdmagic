@@ -157,3 +157,42 @@
 >>>>>(8.l+1)    ubyte&0x01    0x01    image data
 >>>>>>(8.l+18)  uleshort      x       \b, %u x
 >>>>>>(8.l+20)  uleshort      x       %u
+
+# ----------
+# Storyboard PIC/CAP
+
+0       string/b    EP_CAP    Storyboard PIC/CAP (old)
+>7      ubyte   0x03    text screen capture
+>7      ubyte   0x04    image data, 4-color
+>7      ubyte   0x06    image data, 2-color
+# (Other modes exist.)
+
+2       ubyte   0xc1
+>4      ubyte   0x00
+>>0     ubyte   0x00
+>>>0    use     storyboard_partn2
+>>0     ubyte   0x54
+>>>0    use     storyboard_partn2
+
+0       name    storyboard_partn2
+>1      string  \x84\xc1\x01
+>>0     use     storyboard_partn3
+>1      string  \x84\xc1\x03
+>>0     use     storyboard_partn3
+>1      string  \x84\xc1\x07
+>>0     use     storyboard_partn3
+>1      string  \x84\xc1\x08
+>>0     use     storyboard_partn3
+>1      string  \x85\xc1\x0a
+>>0     use     storyboard_partn3
+>1      string  \x86\xc1\x0b
+>>0     use     storyboard_partn3
+
+0       name    storyboard_partn3
+>0      byte    x     Storyboard PIC/CAP (new) image data
+>3      ubyte   0x01  \b, 640x200, 16-color
+>3      ubyte   0x03  \b, 640x350, 16-color
+>3      ubyte   0x07  \b, 640x480, 16-color
+>3      ubyte   0x08  \b, 320x200, 4-color
+>3      ubyte   0x0a  \b, 320x200, 256-color
+>3      ubyte   0x0b  \b, 640x480, 256-color
