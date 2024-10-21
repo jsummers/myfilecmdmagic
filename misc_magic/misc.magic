@@ -120,7 +120,17 @@
 >>>0    use         pcpaint_part2
 
 0       name        pcpaint_part2
->0      byte        x       PC Paint PIC image data
+>0      byte        x       PC Paint PIC
+>0      clear       x
+>12     ubyte       <0x30
+>>0     use         pcpaint_image
+>12     ubyte       >0x33
+>>0     use         pcpaint_image
+>0      default     x
+>>0     byte        x       text data
+
+0       name        pcpaint_image
+>0      byte        x       image data
 >2      uleshort    x       \b, %u x
 >4      uleshort    x       %u
 >10     ubyte       0x01    \b, 2-color
