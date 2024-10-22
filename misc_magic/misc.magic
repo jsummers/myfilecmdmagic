@@ -206,3 +206,97 @@
 >3      ubyte   0x08  \b, 320x200, 4-color
 >3      ubyte   0x0a  \b, 320x200, 256-color
 >3      ubyte   0x0b  \b, 640x480, 256-color
+
+# ----------
+# BMP
+
+0       string      BM
+# bfOffBits shouldn't be too big
+>10     ulelong     <2048
+
+# BMPCOREHEADER
+>>14        ulelong     12
+# @22 = planes
+>>>22       uleshort    1
+# @24 = bitcount
+>>>>24      uleshort    >0
+>>>>>24     uleshort    <25
+>>>>>>0     use         bmp_v2
+
+# BMPINFOHEADER
+>>14        ulelong     >15
+# @26 = planes
+>>>26      uleshort    1
+# @28 = bitcount
+>>>>28     uleshort    <65
+>>>>>14    ulelong     <65
+>>>>>>0    use         bmp_v3
+>>>>>14    ulelong     68
+>>>>>>0    use         bmp_pegasuspic
+>>>>>14    ulelong     108
+>>>>>>0    use         bmp_v3
+>>>>>14    ulelong     124
+>>>>>>0    use         bmp_v3
+
+0       name      bmp_v2
+>0      byte      x     BMP image data
+>2      ulelong   26    \b, OS/2 v1
+>2      ulelong   !26   \b, Windows v2 or OS/2 v1
+>18     uleshort  x     \b, %u x
+>20     uleshort  x     %u
+>24     uleshort  x     \b, %u bits/pixel
+
+0       name      bmp_v3
+>0      byte      x       BMP image data
+
+>0      clear     x
+>14     ulelong   16      \b, OS/2 v2
+>14     ulelong   24      \b, OS/2 v2
+>14     ulelong   36      \b, OS/2 v2
+>14     ulelong   40
+>>2     ulelong   54      \b, OS/2 v2
+>>2     ulelong   !54     \b, Windows v3
+>14     ulelong   48      \b, OS/2 v2
+>14     ulelong   56      \b, Windows v3+ (Photoshop variant)
+>14     ulelong   64      \b, OS/2 v2
+>14     ulelong   108     \b, Windows v4
+>14     ulelong   124     \b, Windows v5
+>0      default   x
+>>0     byte      x       \b, v?
+
+>0      use       bmp_dimensions_etc
+# Header must be at least 20 bytes to have compression field.
+>14     ulelong   >19
+>>30    ulelong   >0
+>>>30   ulelong   <3      \b, RLE compressed
+
+# Pegasus PIC
+0       name        bmp_pegasuspic
+>30     string      JPEG    Pegasus PIC image data
+>>0     use         bmp_dimensions_etc
+
+# BMP - Print (v3 format) dimensions & bit count
+0       name        bmp_dimensions_etc
+>18     lelong      x       \b, %d x
+>22     lelong      >-1     %d
+>22     lelong      <0
+>>22    lelong*-1   x       %d
+>28     uleshort    !0
+>>28    uleshort    x       \b, %u bits/pixel
+
+# ----------
+# OS/2 Bitmap array
+
+0           string      BA
+>14         string      BM
+
+>>28        uleshort    12
+# @36 = planes
+>>>36       uleshort    1     OS/2 bitmap array
+>>>>0       byte        x     \b, of bitmaps
+
+>>28        uleshort    >15
+>>>28       uleshort    <65
+# @40 = planes
+>>>>40      uleshort    1     OS/2 bitmap array
+>>>>>0      byte        x     \b, of bitmaps
