@@ -300,3 +300,64 @@
 # @40 = planes
 >>>>40      uleshort    1     OS/2 bitmap array
 >>>>>0      byte        x     \b, of bitmaps
+
+# ----------
+# ARC archive, and related things
+
+# There's not much magic to work with here.
+# We won't try to detect rare or pathological files.
+
+0     ubyte   0x1a
+
+# ARC
+>1    ubyte   >1
+>>1   ubyte   <7
+>>>0  use     arc_part2
+
+# ARC & PAK
+>1    ubyte   >7
+>>1   ubyte   <12
+>>>0  use     arc_part2
+
+# ARC v7
+>1    ubyte   20
+>>2   ubyte   0
+# ("part3" is not a typo)
+>>>0  use     arc_part3
+
+# Spark
+>1    ubyte   0x82
+>>0   use     arc_part2
+>1    ubyte   0x83
+>>0   use     arc_part2
+>1    ubyte   0x88
+>>0   use     arc_part2
+>1    ubyte   0x89
+>>0   use     arc_part2
+>1    ubyte   0xff
+>>0   use     arc_part2
+
+# (test filename)
+0        name    arc_part2
+
+# Test 1st byte of filename
+>2        ubyte   >0x20
+>>2       ubyte   <0x7f
+
+# Test 2nd byte of filename
+>>>3      ubyte   0x00
+>>>>0     use     arc_part3
+>>>3      ubyte   >0x20
+>>>>3     ubyte   <0x7f
+>>>>>0    use     arc_part3
+
+0       name      arc_part3
+>1      ubyte     <9
+>>1     string    \x03Descript\x00  BTSPK archive data
+>>0     default   x
+>>>0    byte      x       ARC archive data
+>1      ubyte     9       ARC archive data (PKARC variant)
+>1      ubyte     >9
+>>1     ubyte     <12     ARC archive data (PAK variant)
+>1      ubyte     20      ARC archive data (v7)
+>1      ubyte     >0x7f   Spark archive data

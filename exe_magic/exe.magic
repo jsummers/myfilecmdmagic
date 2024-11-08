@@ -48,6 +48,7 @@
 >0      byte        x      \b, NE
 >(60.l+12)   uleshort  &0x8000   (DLL)
 >(60.l+54)   ubyte     0x01   \b, for OS/2
+>>0     use         exe_ne_arc_sfx
 >(60.l+54)   ubyte     0x02   \b, for MS Windows
 >>(60.l+63)  ubyte     x      (v%u
 >>(60.l+62)  ubyte     x      \b.%u)
@@ -80,6 +81,7 @@
 >0      use         exe_rncpropack
 >0      use         exe_spacemaker
 >0      use         exe_pack_turbopower
+>0      use         exe_arc_sfx
 >0      use         exe_sqwez_old_sfx
 >0      use         exe_gws
 >0      use         exe_grabber
@@ -87,6 +89,7 @@
 >0      use         exe_overlay
 
 # ----------
+# Various NE-based icon library formats
 
 0           name        exe_ne_icl
 # Segment count=0 seems like a useful filter, for the formats we
@@ -121,6 +124,7 @@
 >>>60       ulelong   128
 >>>>125     string    MIR   \b, Icon library (hDC Icon Designer)
 
+# ----------
 # SQWEZ self-extracting EXE, versions 1.0-2.0. (Later versions may be
 # handled elsewhere.)
 # These rules are fragile, and may not account for all versions.
@@ -404,3 +408,52 @@
 0       name    exe_txt2exe_pfh
 >28     string  \x57\x9a\x51\x50   \b, TXT2EXE (Fischer-Haaser) (v3.x?)
 >28     string  pfh\x00            \b, TXT2EXE (Fischer-Haaser) (v4.x?)
+
+# ----------
+# ARC self-extracting archives
+
+0       name    exe_arc_sfx
+
+# @24 = reloc. table offset, should be 30
+>24        uleshort 30
+
+>>2        string   \x42\x00\x10\x00
+>>>800     string   unSqueez    \b, ARC self-extracting archive (v6.00-6.01)
+
+>>2        string   \x04\x00\x11\x00
+>>>316     string   unSqueez    \b, ARC self-extracting archive (v6.02var1)
+
+>>2        string   \x0e\x00\x11\x00
+>>>316     string   unSqueez    \b, ARC self-extracting archive (v6.02var2)
+
+>>2        string   \xcf\x00\x14\x00
+>>>6446    string   XARC
+>>>>9935   ubyte    0x1a    \b, ARC self-extracting archive (v7.10)
+
+>>2        string   \x9d\x01\x14\x00
+>>>6606    string   XARC
+>>>>10141  ubyte    0x1a    \b, ARC self-extracting archive (v7.12)
+
+0       name    exe_ne_arc_sfx
+
+# @24 = reloc. table offset, should be 64
+>24        uleshort 64
+
+# /F = hybrid OS/2 & DOS?
+# /P = OS/2 only?
+
+>>2        string   \x88\x00\x2a\x00
+>>>6894    string   XARC
+>>>>21128  ubyte    0x1a    \b, ARC self-extracting archive (v7.10, /F)
+
+>>2        string   \xb6\x00\x2a\x00
+>>>7054    string   XARC
+>>>>21174  ubyte    0x1a    \b, ARC self-extracting archive (v7.12, /F)
+
+>>2        string   \x7e\x01\x15\x00
+>>>7178    string   XARC
+>>>>10622  ubyte    0x1a    \b, ARC self-extracting archive (v7.10, /P)
+
+>>2        string   \xac\x01\x15\x00
+>>>7178    string   XARC
+>>>>10668  ubyte    0x1a    \b, ARC self-extracting archive (v7.12, /P)
