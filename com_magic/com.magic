@@ -175,7 +175,7 @@
 # SHOW (Gary M. Raymond) executable text
 
 0           ubyte   0xe9
->3          string  \x30\x00\x1f\xa0\x00\x00\x53\x48\x4f\x57
+>4          string  \x00\x1f\xa0\x00\x00\x53\x48\x4f\x57
 # +3 because we measure from the end of the JMP instruction,
 # -1 for the dummy "byte x", = +2.
 >>(1.s+2)   byte    x
@@ -313,7 +313,7 @@
 
 0       ubyte       0xe9
 >3      string      DIGPAK\x00\x0d\x0a    DOS executable (COM)
->>0     byte        x       DIGPAK sound driver
+>>0     byte        x       \b, DIGPAK sound driver
 
 # ------
 # GRABBER (v2.10-3.35) self-displaying screen capture
