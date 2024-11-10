@@ -106,19 +106,18 @@
 # COMPACK-compressed COM executable
 
 0     string/b  \xbe
+
 >15   string    \x8b\xce\x8d\x72\x34\xbf\x82\xff\xd1\xe9\xfd\x57\xf3\xa5\x8d
 >>0   byte      x   DOS executable (COM)
->>0   byte      x   \b, COMPACK (v4.4) compressed
+>>0   byte      x   \b, COMPACK compressed (v4.4)
 
-0     string/b  \xbe
 >19   string    \x8b\xce\x8d\x72\x42\xbf\x82\xff\xd1\xe9\xfd\x57\xf3\xa5\x8d
 >>0   byte      x   DOS executable (COM)
->>0   byte      x   \b, COMPACK (v4.5) compressed
+>>0   byte      x   \b, COMPACK compressed (v4.5)
 
-0     string/b  \xbe
 >18   string    \x8b\xce\x8d\x72\x42\xbf\x80\xff\xd1\xe9\xfd\x57\xf3\xa5\x8d
 >>0   byte      x   DOS executable (COM)
->>0   byte      x   \b, COMPACK (v5.1) compressed
+>>0   byte      x   \b, COMPACK compressed (v5.1)
 
 # ----------
 # aPACK-compressed COM file
