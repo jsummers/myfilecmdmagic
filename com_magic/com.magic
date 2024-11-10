@@ -65,22 +65,22 @@
 0       string/b  \xEB\x6C
 >110    string    \xFC\xBC\x00\x01\xBB\x06\x01\xE8\x61\x02\x8C\xC8\x2E\x03\x06\x02
 >>0     byte      x     DOS executable (COM)
->>0     byte      x     \b, LHarc (v1.00) self-extracting archive
+>>0     byte      x     \b, LHarc self-extracting archive (v1.00)
 
 0       string/b  \xEB\x60
 >98     string    \xFC\xBC\x00\x01\xBB\x06\x01\xE8\x54\x02\x8C\xC8\x2E\x03\x06\x02
 >>0     byte      x     DOS executable (COM)
->>0     byte      x     \b, LHarc (v1.12) self-extracting archive
+>>0     byte      x     \b, LHarc self-extracting archive (v1.12)
 
 >98     string    \xFC\xBC\x00\x01\xBB\x06\x01\xE8\x57\x02\x8C\xC8\x2E\x03\x06\x02
 >>6     string    LHarc's\ SFX\ 1.13S\ (
 >>>0    byte      x     DOS executable (COM)
->>>0    byte      x     \b, LHarc (v1.13) self-extracting archive
+>>>0    byte      x     \b, LHarc self-extracting archive (v1.13)
 # This is not really to report modified *files* -- it's to report files made
 # by modified *versions* of LHarc v1.13 (e.g. LHice, or the fake LHARC 1.14).
 >>6     default   x
 >>>0    byte      x     DOS executable (COM)
->>>0    byte      x     \b, LHarc (v1.13-modified) self-extracting archive
+>>>0    byte      x     \b, LHarc self-extracting archive (v1.13-modified)
 
 # ----------
 # DIET-compressed COM executable
@@ -88,19 +88,19 @@
 0       string/b    \xbf
 >17     string      \xfd\xf3\xa5\xfc\x8b\xf7\xbf\x00
 >>0     byte        x       DOS executable (COM)
->>0     byte        x       \b, DIET (v1.00-1.00d) compressed
+>>0     byte        x       \b, DIET compressed (v1.00-1.00d)
 
 0       string/b    \xbe
 >17     string      \xfd\xf3\xa5\xfc\x8b\xf7\xbf\x00
 >>35    string      dlz
 >>>0    byte        x       DOS executable (COM)
->>>0    byte        x       \b, DIET (v1.02b-1.20) compressed
+>>>0    byte        x       \b, DIET compressed (v1.02b-1.20)
 
 0       string/b    \xf9
 >10     string      \x9d\x89
 >>65    string      dlz
 >>>0    byte        x       DOS executable (COM)
->>>0    byte        x       \b, DIET (v1.44-1.45f) compressed
+>>>0    byte        x       \b, DIET compressed (v1.44-1.45f)
 
 # ----------
 # COMPACK-compressed COM executable
@@ -127,10 +127,10 @@
 >>14    string   \xbf\x00\x01\x50\x57\xfc
 >>>20   string   \xb6
 >>>>0   byte     x     DOS executable (COM)
->>>>0   byte     x     \b, aPACK (0.61-0.74) compressed
+>>>>0   byte     x     \b, aPACK compressed (v0.61-0.74)
 >>>20   string   \xb2
 >>>>0   byte     x     DOS executable (COM)
->>>>0   byte     x     \b, aPACK (0.90-1.00,-m) compressed
+>>>>0   byte     x     \b, aPACK compressed (v0.90-1.00, -m)
 
 0       string   \x8c\xc8\x80\xc4\x10\x8e\xc0\xfc\xb9
 >11     string   \xbe\x00\x01\x8b\xfe\x57\xf3\xa5\x5f\xbe
@@ -139,14 +139,14 @@
 # Matches 0.90-0.94 (default) and
 # 0.96-1.00 (large) (for files > ~32KB)
 >>>0    byte     x     DOS executable (COM)
->>>0    byte     x     \b, aPACK (0.90-1.00) compressed
+>>>0    byte     x     \b, aPACK compressed (v0.90-1.00)
 
 0       string   \xbe\x0d\x01\xbf\x00
 # (The byte at 5 could distinguish 0.96 from 0.98+.)
 >6      string   \x8b\xcf\xfc\x57\xf3\xa4\xc3\xbf\x00\x01\x57
 # "Small" format used for source files < ~32KB.
 >>0     byte     x     DOS executable (COM)
->>0     byte     x     \b, aPACK (0.96-1.00,small) compressed
+>>0     byte     x     \b, aPACK compressed (v0.96-1.00, small)
 
 # ----------
 # Realia Spacemaker-compressed COM executable
@@ -295,11 +295,11 @@
 >>16   string   \x4a\xcd\x21\xa1\x2c\x00\x89\x86
 >>>24  string   \x1a\x00\x8b\x9e\x00\x00\xff\xe3
 >>>>0  byte     x     DOS executable (COM)
->>>>0  byte     x     \b, BAT2EXEC (v1.2-1.3) compiled batch file
+>>>>0  byte     x     \b, BAT2EXEC compiled batch file (v1.2-1.3)
 
 0     string    \xeb\x3a\x90
 >3    string    Compiled\ by\ BAT2E    DOS executable (COM)
->>0   byte      x     \b, BAT2EXEC (v1.5) compiled batch file
+>>0   byte      x     \b, BAT2EXEC compiled batch file (v1.5)
 
 # ----------
 # BatLite

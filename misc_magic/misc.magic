@@ -7,13 +7,13 @@
 # DIET-compressed data file
 
 0       string/b    \xb4\x4c\xcd\x21\x9d\x89
->0      byte        x       DIET (v1.00-1.00d) compressed file
+>0      byte        x       DIET compressed file (v1.00-1.00d)
 
 0       string/b    \x9d\x89\x64\x6c\x7a
->0      byte        x       DIET (v1.02b-1.20) compressed file
+>0      byte        x       DIET compressed file (v1.02b-1.20)
 
 0       string/b    \xb4\x4c\xcd\x21\x9d\x89\x64\x6c\x7a
->0      byte        x       DIET (v1.44-1.45f) compressed file
+>0      byte        x       DIET compressed file (v1.44-1.45f)
 
 # ----------
 # Comic Chat
