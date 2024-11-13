@@ -21,6 +21,11 @@
 >>>2560  string    2.04g\ \ 02-01-93
 >>>>0    byte      x     \b, ZIP2EXE (mini format) from PKZIP v2.04g-Reg.
 
+>2       string    \xc0\x01\x06\x00\x00\x00\x02\x00
+>>2512   string    PKSFX
+>>>2566  string    2.04g\ \ 02-01-93
+>>>>0    byte      x     \b, ZIP2EXE (mini format) from PKZIP v2.04-Reg. (French)
+
 >2       string    \x36\x00\x07\x00\x00\x00\x02\x00
 >>2612   string    PKSFX
 >>>2666  string    2.49\ \ 02-14-97

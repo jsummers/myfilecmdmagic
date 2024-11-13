@@ -104,8 +104,18 @@
 >12890  string          \x30\x5a\xe2\x82\x96\x77\x5e\x9f\x7f\x3a\x06\x76
 >>0     byte            x      \b, ZIP2EXE from PKZIP v2.04g
 
+# "Shareware Marketing" edition
+>12890  string          \xdb\x99\xdf\xcc\xdf\x91\x1f\x4c\xbb\x88\xcf\x78
+>>0     byte            x      \b, ZIP2EXE from PKZIP v2.04g (SwMktg)
+
 >12890  string          \xf4\xd4\x00\x48\xa5\x89\xf9\x84\x44\x91\xe4\xc4
 >>0     byte            x      \b, ZIP2EXE from PKZIP v2.04g-Reg.
+
+>12890  string          \x8e\x3f\x9e\xcf\x9e\x4e\x2e\x00\x00\x2a\xde\xbe
+>>0     byte            x      \b, ZIP2EXE from PKZIP v2.04g-Reg. (SwMktg)
+
+>12890  string          \xca\xea\x0c\xfe\x6e\x6a\xe8\xd8\xa8\x7c\xac\xd8
+>>0     byte            x      \b, ZIP2EXE from PKZIP v2.04-Reg. (French)
 
 >12890  string          \x58\x5b\xce\xa9\x88\x16\x33\x11\x06\xc8\xdb\x80
 >>0     byte            x      \b, ZIP2EXE from PKZIP/DOS v2.50
