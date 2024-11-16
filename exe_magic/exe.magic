@@ -437,6 +437,18 @@
 >>>6606    string   XARC
 >>>>10141  ubyte    0x1a    \b, ARC self-extracting archive (v7.12)
 
+>>2        string   \x1e\x00\x14\x00
+>>>8844    string   PKSFX
+>>>>9758   ubyte    0x1a    \b, PKARC self-extracting archive (v3.5)
+
+>>2        string   \x68\x01\x1a\x00
+>>>9696    string   PKSFX
+>>>>13160  ubyte    0x1a    \b, PKARC self-extracting archive (v3.6)
+
+>>2        string   \x52\x01\x1a\x00
+>>>9680    string   PKSFX
+>>>>13138  ubyte    0x1a    \b, PKPAK self-extracting archive (v3.61)
+
 0       name    exe_ne_arc_sfx
 
 # @24 = reloc. table offset, should be 64
