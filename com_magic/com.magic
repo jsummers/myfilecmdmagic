@@ -83,6 +83,14 @@
 >>>0    byte      x     \b, LHarc self-extracting archive (v1.13-modified)
 
 # ----------
+# LArc self-extracting COM archive
+
+0       string  \xeb\x1c
+>41     string  \xbc\xf5\x32\x05\x2f\x03\x3b\x06\x02\x00\x72\x05
+>>0     byte    x     DOS executable (COM)
+>>>0    byte    x     \b, LArc self-extracting archive
+
+# ----------
 # DIET-compressed COM executable
 
 0       string/b    \xbf
