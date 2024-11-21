@@ -443,12 +443,13 @@
 >>>316     string   unSqueez    \b, ARC self-extracting archive (v6.02var2)
 
 >>2        string   \xcf\x00\x14\x00
->>>6446    string   XARC
->>>>9935   ubyte    0x1a    \b, ARC self-extracting archive (v7.10)
+>>>8345    string   .arc
+>>>>8353   ubyte    0x01    \b, ARC self-extracting archive (v7.10, /R)
 
 >>2        string   \x9d\x01\x14\x00
->>>6606    string   XARC
->>>>10141  ubyte    0x1a    \b, ARC self-extracting archive (v7.12)
+>>>8519    string   .arc
+# This byte distinguishes SFX archives from XARC.EXE.
+>>>>8527   ubyte    0x01    \b, ARC self-extracting archive (v7.12, /R)
 
 >>2        string   \x1e\x00\x14\x00
 >>>8844    string   PKSFX
@@ -471,17 +472,17 @@
 # /P = OS/2 only?
 
 >>2        string   \x88\x00\x2a\x00
->>>6894    string   XARC
->>>>21128  ubyte    0x1a    \b, ARC self-extracting archive (v7.10, /F)
+>>>8793    string   .arc
+>>>>8801   ubyte    0x01    \b, ARC self-extracting archive (v7.10, /F)
 
 >>2        string   \xb6\x00\x2a\x00
->>>7054    string   XARC
->>>>21174  ubyte    0x1a    \b, ARC self-extracting archive (v7.12, /F)
+>>>8967    string   .arc
+>>>>8975   ubyte    0x01    \b, ARC self-extracting archive (v7.12, /F)
 
 >>2        string   \x7e\x01\x15\x00
->>>7178    string   XARC
->>>>10622  ubyte    0x1a    \b, ARC self-extracting archive (v7.10, /P)
+>>>9077    string   .arc
+>>>>9085   ubyte    0x01    \b, ARC self-extracting archive (v7.10, /P)
 
 >>2        string   \xac\x01\x15\x00
->>>7178    string   XARC
->>>>10668  ubyte    0x1a    \b, ARC self-extracting archive (v7.12, /P)
+>>>9091    string   .arc
+>>>>9099   ubyte    0x01    \b, ARC self-extracting archive (v7.12, /P)
