@@ -83,6 +83,7 @@
 >0      use         exe_spacemaker
 >0      use         exe_pack_turbopower
 >0      use         exe_arc_sfx
+>0      use         exe_paknogate_sfx
 >0      use         exe_sqwez_old_sfx
 >0      use         exe_gws
 >0      use         exe_grabber
@@ -485,3 +486,29 @@
 >>2        string   \xac\x01\x15\x00
 >>>9091    string   .arc
 >>>>9099   ubyte    0x01    \b, ARC self-extracting archive (v7.12, /P)
+
+# ----------
+# PAK (NoGate Consulting) self-extracting archives
+
+0       name    exe_paknogate_sfx
+
+# @24 = reloc. table offset, should be ...
+>24          uleshort   34
+>>(8.s*16)   string   \xfb\xba\x53\x03\x2e\x89\x16\x65\x01\xb4\x30\xcd
+>>>0         byte     x  \b, PAK (NoGate) self-extracting archive (v1.0)
+
+>>(8.s*16)   string   \x55\x8b
+>>>&7        string   \x0b\xc9\x74\x17\xc4\x76\x04\xb7\x00
+>>>>0        byte     x  \b, PAK (NoGate) self-extracting archive
+# @20 = IP register
+>>>>20       uleshort  2074   (v1.51)
+>>>>20       uleshort  2144   (v1.6)
+
+>>(8.s*16)   string   \0\x55\x8b
+>>>&7        string   \x0b\xc9\x74\x17\xc4\x76\x04\xb7\x00
+>>>>0        byte     x  \b, PAK (NoGate) self-extracting archive (v2.01-2.10)
+
+>24          uleshort   62
+>>(8.s*16)   string   \0\0\0\x55\x8b
+>>>&7        string   \x0b\xc9\x74\x17\xc4\x76\x04\xb7\x00
+>>>>0        byte     x  \b, PAK (NoGate) self-extracting archive (v2.50-2.51)
