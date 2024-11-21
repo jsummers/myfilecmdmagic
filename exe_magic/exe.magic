@@ -433,14 +433,13 @@
 # @24 = reloc. table offset, should be 30
 >24        uleshort 30
 
->>2        string   \x42\x00\x10\x00
->>>800     string   unSqueez    \b, ARC self-extracting archive (v6.00-6.01)
-
->>2        string   \x04\x00\x11\x00
->>>316     string   unSqueez    \b, ARC self-extracting archive (v6.02var1)
-
->>2        string   \x0e\x00\x11\x00
->>>316     string   unSqueez    \b, ARC self-extracting archive (v6.02var2)
+>>(8.s*16)  string  \x8c\xc8\x8c\xdb\x8e\xd8\x8e\xc0
+>>>&0       string  \x89\x1e\xaa\x00\x2b\xc3\xa3\xac
+>>>>&0      string  \x00\x89\x26\xae\x00\xbe\xb6\x00\xb9
+>>>>>0      byte    x     \b, ARC self-extracting archive
+>>>>>&0     string  \x3a\x1b    (v6.00-6.01)
+>>>>>&0     string  \x63\x1c    (v6.02var1)
+>>>>>&0     string  \x59\x1c    (v6.02var2)
 
 >>2        string   \xcf\x00\x14\x00
 >>>8345    string   .arc
