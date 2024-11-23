@@ -442,14 +442,18 @@
 >>>>>&0     string  \x63\x1c    (v6.02var1)
 >>>>>&0     string  \x59\x1c    (v6.02var2)
 
+>>2        string   \x6d\x00\x13\x00
+>>>7772    string   .arc
+>>>>&4     ubyte    0x01    \b, ARC self-extracting archive (v7.x, /R)
+
 >>2        string   \xcf\x00\x14\x00
 >>>8345    string   .arc
->>>>8353   ubyte    0x01    \b, ARC self-extracting archive (v7.10, /R)
+>>>>&4     ubyte    0x01    \b, ARC self-extracting archive (v7.10, /R)
 
 >>2        string   \x9d\x01\x14\x00
 >>>8519    string   .arc
 # This byte distinguishes SFX archives from XARC.EXE.
->>>>8527   ubyte    0x01    \b, ARC self-extracting archive (v7.12, /R)
+>>>>&4     ubyte    0x01    \b, ARC self-extracting archive (v7.12, /R)
 
 >>2        string   \x1e\x00\x14\x00
 >>>8844    string   PKSFX
@@ -465,27 +469,32 @@
 
 0       name    exe_ne_arc_sfx
 
-# @24 = reloc. table offset, should be 64
->24        uleshort 64
-
 # /F = hybrid OS/2 & DOS?
 # /P = OS/2 only?
 
->>2        string   \x88\x00\x2a\x00
->>>8793    string   .arc
->>>>8801   ubyte    0x01    \b, ARC self-extracting archive (v7.10, /F)
+>2        string   \x6e\x00\x27\x00
+>>7772    string   .arc
+>>>&4     ubyte    0x01    \b, ARC self-extracting archive (v7.x, /F)
 
->>2        string   \xb6\x00\x2a\x00
->>>8967    string   .arc
->>>>8975   ubyte    0x01    \b, ARC self-extracting archive (v7.12, /F)
+>2        string   \x88\x00\x2a\x00
+>>8793    string   .arc
+>>>&4     ubyte    0x01    \b, ARC self-extracting archive (v7.10, /F)
 
->>2        string   \x7e\x01\x15\x00
->>>9077    string   .arc
->>>>9085   ubyte    0x01    \b, ARC self-extracting archive (v7.10, /P)
+>2        string   \xb6\x00\x2a\x00
+>>8967    string   .arc
+>>>&4     ubyte    0x01    \b, ARC self-extracting archive (v7.12, /F)
 
->>2        string   \xac\x01\x15\x00
->>>9091    string   .arc
->>>>9099   ubyte    0x01    \b, ARC self-extracting archive (v7.12, /P)
+>2        string   \x00\x01\x0f\x00
+>>6146    string   .arc
+>>>&4     ubyte    0x01    \b, ARC self-extracting archive (v7.x, /P)
+
+>2        string   \x7e\x01\x15\x00
+>>9077    string   .arc
+>>>&4     ubyte    0x01    \b, ARC self-extracting archive (v7.10, /P)
+
+>2        string   \xac\x01\x15\x00
+>>9091    string   .arc
+>>>&4     ubyte    0x01    \b, ARC self-extracting archive (v7.12, /P)
 
 # ----------
 # PAK (NoGate Consulting) self-extracting archives
