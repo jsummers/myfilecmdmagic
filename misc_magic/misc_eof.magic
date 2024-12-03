@@ -38,6 +38,11 @@
 # relative to the beginning of the most recent negative
 # direct offset, and negative direct offsets are relative
 # to the end of the file.
+#
+# Update: The 'file' source code as of 2024-11-27 has a way to do it,
+# by prefixing the offset with "+". But, for now, I want compatibility
+# with older versions.
+#
 #>0     ubyte      0x01   \b, ASCII-optimized
 
 # ----------
