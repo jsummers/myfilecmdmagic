@@ -165,9 +165,13 @@
 >>>35     string     \x50\x06\x8c\xcb\x03\xdd\x8c\xd2\x4b\x8e\xdb\xbe
 >>>>49    string     \xbf\x00\x07\x8e\xc2
 >>>>>0    byte       x     \b, COMPACK compressed
->>>>>94   string     1990  (v4.4)
->>>>>95   string     1991  (v4.5)
->>>>>93   string     1991  (v5.1)
+>>>>>63     ubyte      0x42
+>>>>>>71    ubyte      0x3a       (v4.4)
+>>>>>>>282  string     BUILDSFX   \b, BUILDSFX self-extracting archive
+>>>>>>71    ubyte      0x42       (v4.5)
+>>>>>>>291  string     SFX\ code  \b, BUILDSFX self-extracting archive
+>>>>>63     ubyte      0x8b       (v5.1)
+>>>>>>108   string     SFX\ code  \b, BUILDSFX self-extracting archive
 
 # ----------
 # WWPACK-compressed EXE
