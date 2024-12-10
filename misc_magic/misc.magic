@@ -361,3 +361,19 @@
 >>1     ubyte     <12     ARC archive data (PAK variant)
 >1      ubyte     20      ARC archive data (v7)
 >1      ubyte     >0x7f   Spark archive data
+
+# ----------
+# PackIt (classic Mac format)
+
+0       string    PMa
+>3      ubyte     <0x37
+>>3     ubyte     >0x30
+>>>3    ubyte     !0x33
+>>>>0   use       packit_part2
+>3      ubyte     0x67
+>>0     use       packit_part2
+
+0       name      packit_part2
+>0      byte      x      PackIt archive data
+>>3     ubyte     0x34   \b, compressed
+>>3     ubyte     0x67   \b, uncompressed
