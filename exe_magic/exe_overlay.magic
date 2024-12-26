@@ -27,13 +27,15 @@
 # When type 'offset' is used with an indirect offset, it takes
 # the starting offset at which the first read would happen,
 # performs math on it, and sets the current offset to the result.
-# (The value read from the file is thrown away.)
+# (The value read from the file is thrown away, though its type can
+# have an effect on the kind of arithmetic used. Using a large
+# integer like ",q" seems safest.)
 # This allows us to subtract 1, then multiply by 512.
 # (Another way to do it would be to multiply by 512, then subtract 512.
 # That's easy to do in two lines, without black magic. The problem is
 # that the intermediate offset may be beyond the end of the file, and
 # such offsets are not allowed.)
->>>(&0.b*512)    offset     x
+>>>(&0,q*512)    offset     x
 
 # Add the "# of bytes in last page", and read 1 byte to confirm
 # existence of an overlay.
@@ -44,7 +46,8 @@
 
 >>>>>>&0         use        exe_overlay_part2
 
-# Some tests that use 'search' can't be done via 'use', due to a bug.
+# Some tests that use 'search' can't be done via 'use', due to a bug
+# (fixed in v5.46).
 >>>>>>&0          search/8    \x60\xea
 >>>>>>>&8         ubyte       0x02    \b, ARJ self-extracting archive
 
