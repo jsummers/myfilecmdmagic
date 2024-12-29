@@ -332,6 +332,18 @@
 >>>>>>>0        byte    x   \b, PACK (TurboPower) compressed
 
 # ----------
+# SCRNCH compressed DOS EXE
+# @6 = number of relocs, should be 0
+>6              uleshort    0
+
+>>(8.s*16)   string  \xbb\xff\xff\xb4\x4a\xcd\x21\x81\xeb
+>>>0         byte    x   \b, SCRNCH compressed (v1.00)
+
+>>(8.s*16)   string  \xeb\x13sC  \b, SCRNCH compressed (v1.02)
+>>>&0        string  hf   (run mode)
+>>>&0        string  yf   (write mode)
+
+# ----------
 # LHarc/LHA self-extracting EXE
 #
 # Goal is to identify DOS EXE files made by original versions

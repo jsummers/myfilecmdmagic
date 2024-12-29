@@ -7,7 +7,7 @@ https://github.com/jsummers/myfilecmdmagic
 This project contains some experimental "magic" signature files for
 the _file_ command, a Unix-centric file format identification utility.
 
-To try these signatures: Assuming have a way to run _file_, run it
+To try these signatures: Assuming you have a way to run _file_, run it
 with the `-m` option. For example:
 
 `$ file -m [...]/myfilecmdmagic/exe_magic example.exe`

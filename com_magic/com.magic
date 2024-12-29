@@ -388,3 +388,15 @@
 >(9.s+9)  string  \xff\xad\x8b\xc8\xf3\xa4\xe9\x30
 >>0       byte    x       DOS executable (COM)
 >>0       byte    x       \b, ExeLITE compressed (v2.00)
+
+# ----------
+# SCRNCH
+
+0       string  \xbb\xff\xff\xb4\x4a\xcd  DOS executable (COM)
+>0      byte    x       \b, SCRNCH compressed (v1.00)
+
+0       string  \xeb\x13sC
+>5      string  f      DOS executable (COM)
+>>0     byte    x      \b, SCRNCH compressed (v1.02)
+>>>4    string  e      (run mode)
+>>>4    string  w      (write mode)
