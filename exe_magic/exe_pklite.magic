@@ -14,17 +14,19 @@
 #     self-extracting ZIP files.
 # - Identify even files that use low-tech obfuscation: erasure of the
 #   copyright message, or of the "Not enough memory" error message, etc.
-# - Print the likely version number of PKLITE that made the file.
+# - Print the likely version number of PKLITE that made the file. We do
+#   some amount of fingerprinting, instead of just trusting the version
+#   label. (Though improvements are possible.)
 # - Report if a PKLITE-compressed file is also a ZIP2EXE-style self-
 #   extracting ZIP archive.
 
 # Non-goals:
-# - Identify files from the leaked beta version of PKLITE (that's done
-#   separately).
+# - Identify files from beta versions of PKLITE (that's done separately).
 # - Identify compressed COM format (that's done separately).
-# - Identify PKLITE/PKLITE32-compressed Windows executables.
+# - Identify PKLITE-compressed 16-bit Windows executables (that's done
+#   separately).
+# - Identify PKLITE32-compressed Windows executables.
 # - Identify self-extracting ZIP files that aren't also PKLITE-compressed.
-# - Fingerprint the version of PKLITE that made the file.
 # - Identify files made by high-tech obfuscators, such as MEGALITE and
 #   UN2PACK.
 # - Identify files that use a simple obfuscation trick other than
@@ -37,14 +39,15 @@
 >20             uleshort        0x0100
 # @22 = CS register, expected to be -16 (0xfff0)
 >>22            leshort         -16
-# @6 = number of relocs, should be 0 or 1
->>>6            uleshort        <2
+# @6 = number of relocs, should be 0 or 1 (we allow 2)
+>>>6            uleshort        <3
 
 # This "use/name" is not currently needed, and may be removed.
 >>>>0           use             pklite_exe_part2
 
 # -----------
-# Test the "code image" segment.
+
+# This part mainly tests the "code image" segment.
 
 0               name            pklite_exe_part2
 
@@ -52,39 +55,61 @@
 >>&2            string          \xBA
 # v1.00, 1.03, 1.05, and some "1.10" versions
 >>>&2           string          \x8C\xDB\x03\xD8\x3B\x1E\x02\x00\x73
->>>>0           use             pklite_exe_part3
+>>>>0   use   id_as_pklite_exe
+
+>>>>28  clear            x
+>>>>28  uleshort&0x0fff  0x100    (v1.00)
+>>>>28  uleshort&0x0fff  0x103    (v1.03)
+>>>>28  uleshort&0x0fff  0x105    (v1.05)
+>>>>28  uleshort&0x0fff  0x106    (LOWFIX patched)
+>>>>28  uleshort&0x0fff  0x10a    (special version)
+>>>>28  default          x        (v1.00-1.05)
+
+>>>>0   use   pklite_dos_exe_appl
 
 # v1.12, 1.13, and some "1.20" versions
+
 >>>&2           string          \x05\x00\x00\x3B\x06\x02\x00\x73
->>>>0           use             pklite_exe_part3
+>>>>0   use   id_as_pklite_exe
+
+>>>>28  clear            x
+>>>>28  uleshort&0x0fff  0x10c    (v1.12)
+>>>>28  uleshort&0x0fff  0x10d    (v1.13)
+>>>>28  uleshort&0x0fff  0x114    (special version)
+>>>>28  default          x        (v1.12-1.13)
+
+>>>>0   use   pklite_dos_exe_appl
 
 # v1.14, 1.15, and some "1.20" versions
->>>&2           string          \x05\x00\x00\x3B\x06\x02\x00\x72
->>>>0           use             pklite_exe_part3
 
-# # v1.50, 2.01
+>>>&2           string          \x05\x00\x00\x3B\x06\x02\x00\x72
+>>>>0   use   id_as_pklite_exe
+
+>>>>28  clear            x
+>>>>28  uleshort&0x0fff  0x10e    (v1.14)
+>>>>28  uleshort&0x0fff  0x10f    (v1.15)
+>>>>28  uleshort&0x0fff  0x114    (special version)
+>>>>28  default          x        (v1.14-1.15)
+
+>>>>0   use   pklite_dos_exe_appl
+
+# v1.50, 2.01
 >(8.s*16)       string          \x50\xB8
 >>&2            string          \xBA
 >>>&2           string          \x05\x00\x00\x3B\x06\x02\x00\x72
->>>>0           use             pklite_exe_part3
+>>>>0   use   id_as_pklite_exe
+
+>>>>28  clear            x
+>>>>28  uleshort&0x0fff  0x132    (v1.50)
+>>>>28  uleshort&0x0fff  0x201    (v2.01)
+>>>>28  default          x        (v1.50-2.01)
+
+>>>>0   use   pklite_dos_exe_appl
 
 # -----------
-# At this point, we know it is DOS EXE PKLITE-compressed
-
-0       name            pklite_exe_part3
->0      byte            x       \b, PKLITE compressed
-
-# Print the reported version number, handling some special versions.
-# (The number is sometimes faked, but usually not.)
->0      clear           x
->28     leshort&0x0fff  0x0106  (LOWFIX patched)
->28     leshort&0x0fff  0x010a  (special version)
->28     leshort&0x0fff  0x0114  (special version)
->28     default         x
->>29    ubyte&0x0f      x       (v%u.
->>28    ubyte           x       \b%02u)
-
 # Check for some known PKLITE-derived formats.
+
+0      name       pklite_dos_exe_appl
 
 # Offset 12890 is the first meaningful place in the file where all
 # the ZIP2EXE formats differ. (2.04e and 2.04g are very similar.)
@@ -163,11 +188,13 @@
 # (Include a fudge factor of -2 for the "byte x" dummy bytes we read.)
 >>>>>>>&254       string    \x2E\x8C\x1E
 >>>>>>>>&2        string    \x8B\x1E\x02\x00\x8C\xDA\x81
->>>>>>>>>0        byte      x         \b, PKLITE compressed (v1.00beta)
+>>>>>>>>>0        use       id_as_pklite_exe
+>>>>>>>>>0        byte      x    (v1.00beta)
 # The next test is for files made with the "load high" option.
 # (Rare. This part could be deleted.)
 >>>>>>>>&2        string    \xFC\x8C\xC8\x2E\x2B\x06
->>>>>>>>>0        byte      x         \b, PKLITE compressed (v1.00beta)
+>>>>>>>>>0        use       id_as_pklite_exe
+>>>>>>>>>0        byte      x    (v1.00beta)
 
 # -----------
 # Rules for Windows 3.x files.
@@ -176,15 +203,18 @@
 0             name      exe_pklite_win3
 >0            clear     x
 # E.g. PKLITE 2.01.
->66           string    PKlite(R)   \b, PKLITE compressed
+>66           string    PKlite(R)
+>>0           use       id_as_pklite_exe
 >>0           use       exe_win3_pksfx
 # E.g. PKZIP/Windows 2.50 (convert to PKSFX16).
->66           string    Pklite(R)   \b, PKLITE compressed
+>66           string    Pklite(R)
+>>0           use       id_as_pklite_exe
 >>0           use       exe_win3_pksfx
 >0            default   x
 # Don't know if this is a real signature, but "TN" and "T4"
 # do appear in the PKLITE software.
->>(60.l+8)    string    TNT4        \b, PKLITE compressed
+>>(60.l+8)    string    TNT4
+>>>0          use       id_as_pklite_exe
 >>>0          use       exe_win3_pksfx
 
 0             name      exe_win3_pksfx
@@ -195,3 +225,8 @@
 # are unique.
 >590          string    PKSFX\ for\ Windows
 >>0           byte      x       \b, ZIP self-extracting archive
+
+# -----------
+
+0       name     id_as_pklite_exe
+>0      byte     x     \b, PKLITE compressed
