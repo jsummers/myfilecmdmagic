@@ -5,6 +5,9 @@
 # but some patterns decode to third-party machine code that *might* be
 # big enough for someone to try to claim copyright on)
 
+# The version number is fingerprinted to the extent possible, as opposed
+# to trusting the version label.
+
 # The number of bytes matched in the rules below is overkill.
 # It's not clear how many should be used.
 
@@ -18,27 +21,45 @@
 0       string/b    \xB8
 >&2     string      \xBA
 >>&2    string      \x3B\xC4\x73\x67\x8B\xC4\x2D\x44\x03\x25\xF0\xFF\x8B\xF8\xB9
->>>44   use         pklite_com_part2
+>>>0    use         id_as_pklite_com
+
+>>>0    clear       x
+>>>390  string      \x50
+>>>>44  uleshort&0x0fff   0x100   (v1.00)
+>>>>44  uleshort&0x0fff   0x103   (v1.03)
+>>>>44  default           x       (v1.00-1.03)
+>>>390  string      \x06
+>>>>44  uleshort&0x0fff   0x105   (v1.05)
+>>>>44  uleshort&0x0fff   0x10c   (v1.12)
+>>>>44  uleshort&0x0fff   0x10d   (v1.13)
+>>>>44  uleshort&0x0fff   0x10e   (v1.14)
+>>>>44  default           x       (v1.05-1.14)
+>>>390  default     x      (v?)
 
 # PKLITE/COM v1.15
 # Note: v1.15 COM files erroneously contain version number 1.14,
 # but can be distinguished from real v1.14 files.
 >>&2    string      \x3B\xC4\x73\x69\x8B\xC4\x2D\x44\x03\x90\x25\xF0\xFF\x8B\xF8\xB9
->>>0    byte        x       DOS executable (COM)
->>>0    byte        x       \b, PKLITE compressed (v1.15)
+>>>0    use         id_as_pklite_com
+>>>0    byte        x       (v1.15)
 
 # PKLITE/COM v1.50-v2.01
 0       string/b    \x50\xB8
 >&2     string      \xBA
 >>&2    string      \x3B\xC4\x73
-# The skipped byte here is usually 0x79, but 0x74 is seen in the
-# "v1.16" format from FORMAT.COM from PC DOS 6.3.
 >>>&1    string     \x8B\xC4\x2D\x42\x03\x25\xF0\xFF\x8B\xF8\xB9
->>>>46   use        pklite_com_part2
+>>>>0    use        id_as_pklite_com
+# Go back and read a skipped byte. It's usually 0x79, but 0x74 is seen
+# in the "v1.16" format from FORMAT.COM from PC DOS 6.3.
+>>>>0     clear    x
+>>>>&-12  string   \x79
+>>>>>46   uleshort&0x0fff    0x132     (v1.50)
+>>>>>46   uleshort&0x0fff    0x201     (v2.01)
+>>>>>46   default            x         (v1.50-2.01)
+>>>>0     default  x      (v?)
 
 # ------------
 
-0       name        pklite_com_part2
->0      byte        x       DOS executable (COM)
->1      ubyte&0x0f  x       \b, PKLITE compressed (v%u.
->0      ubyte       x       \b%02u)
+0       name        id_as_pklite_com
+>0      byte   x    DOS executable (COM)
+>0      byte   x    \b, PKLITE compressed
