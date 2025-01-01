@@ -82,6 +82,8 @@
 >0      use         exe_larc_sfx
 >0      use         exe_spacemaker
 >0      use         exe_pack_turbopower
+>0      use         exe_scrnch
+>0      use         exe_scre2b
 >0      use         exe_arc_sfx
 >0      use         exe_paknogate_sfx
 >0      use         exe_sqwez_old_sfx
@@ -333,15 +335,39 @@
 
 # ----------
 # SCRNCH compressed DOS EXE
+
+0               name       exe_scrnch
+
 # @6 = number of relocs, should be 0
 >6              uleshort    0
 
 >>(8.s*16)   string  \xbb\xff\xff\xb4\x4a\xcd\x21\x81\xeb
 >>>0         byte    x   \b, SCRNCH compressed (v1.00)
+# v1.00 EXE files only support "write" mode.
+>>>0         byte    x   (write mode)
 
->>(8.s*16)   string  \xeb\x13sC  \b, SCRNCH compressed (v1.02)
->>>&0        string  hf   (run mode)
->>>&0        string  yf   (write mode)
+# (This is basically duplicated in the COM patterns.)
+>>(8.s*16)        ubyte  0xeb
+>>>&1     string  sC
+>>>>&1    string  f
+>>>>>0    byte    x      \b, SCRNCH compressed (v1.02)
+>>>>>&-2  string  e      (run mode)
+>>>>>&-2  string  g      (run mode)
+>>>>>&-2  string  h      (run mode)
+>>>>>&-2  string  w      (write mode)
+>>>>>&-2  string  y      (write mode)
+>>>>>&-2  string  z      (write mode)
+
+# ----------
+# SCRE2B
+
+# This type of file is normally in COM format, but there are
+# ways that it could get converted to EXE.
+
+0           name    exe_scre2b
+>(8.s*16)   string  \x8c\xda\x01\x16\x0c\x01\xff\x2e\x0a\x01
+>>0         byte    x    \b, SCRE2B converted EXE->COM
+>>0         byte    x    (converted back to EXE)
 
 # ----------
 # LHarc/LHA self-extracting EXE

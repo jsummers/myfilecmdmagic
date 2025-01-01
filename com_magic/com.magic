@@ -394,9 +394,24 @@
 
 0       string  \xbb\xff\xff\xb4\x4a\xcd  DOS executable (COM)
 >0      byte    x       \b, SCRNCH compressed (v1.00)
+>37     ubyte   0x8c    (run mode)
+>37     ubyte   0xfc    (write mode)
 
-0       string  \xeb\x13sC
->5      string  f      DOS executable (COM)
->>0     byte    x      \b, SCRNCH compressed (v1.02)
->>>4    string  e      (run mode)
->>>4    string  w      (write mode)
+# (This is basically duplicated in the EXE patterns.)
+0       ubyte   0xeb
+>&1     string  sC
+>>&1    string  f      DOS executable (COM)
+>>>0    byte    x      \b, SCRNCH compressed (v1.02)
+>>>&-2  string  e      (run mode)
+>>>&-2  string  g      (run mode)
+>>>&-2  string  h      (run mode)
+>>>&-2  string  w      (write mode)
+>>>&-2  string  y      (write mode)
+>>>&-2  string  z      (write mode)
+
+# ----------
+# SCRE2B
+
+0     string  \x8c\xda\x01\x16\x0c\x01\xff\x2e\x0a\x01
+>0    byte    x   DOS executable (COM)
+>0    byte    x   \b, SCRE2B converted EXE->COM
