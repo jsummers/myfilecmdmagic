@@ -43,6 +43,14 @@
 >>>0    use         id_as_pklite_com
 >>>0    byte        x       (v1.15)
 
+# EXE files made by v1.00 (not beta) through 1.05 (plus maybe "1.10"),
+# have characteristics that may allow them to be converted to COM
+# format just by stripping off the EXE header. Such files exist.
+>>&2    string      \x8C\xDB\x03\xD8\x3B\x1E\x02\x00\x73
+>>>0    use         id_as_pklite_com
+>>>0    byte        x     (v1.00-1.05)
+>>>0    byte        x     (converted from EXE)
+
 # PKLITE/COM v1.50-v2.01
 0       string/b    \x50\xB8
 >&2     string      \xBA
