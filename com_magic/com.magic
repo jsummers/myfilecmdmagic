@@ -46,7 +46,7 @@
 0          ubyte     0xe9
 # +3 because we measure from the end of the JMP instruction,
 # -1 for the dummy "byte x", = +2.
->(1,s+2)   byte      x
+>(1.s+2)   byte      x
 >>&0       string    \xb8\x03\x00\xcd\x10\xb4\x01\xb9\x00\x20\xcd\x10\xe8
 >>>0       byte      x    DOS executable (COM)
 >>>0       byte      x    \b, ACiDDraw COM file
@@ -176,7 +176,7 @@
 # be discriminating.
 >>>&15      string    \xB9\x07\x00\xF3\xA5
 >>>>0       byte      x    DOS executable (COM)
->>>>0       byte      x    \b, converted by EXE2COM (PSP Soft)
+>>>>0       byte      x    \b, EXE2COM (PSP Soft)
 
 # ----------
 # SHOW (Gary M. Raymond) executable text
@@ -333,7 +333,7 @@
 0       ubyte   0xe9
 # +3 because we measure from the end of the JMP instruction,
 # -1 for the dummy "byte x", = +2.
->(1,s+2)   byte   x
+>(1.s+2)   byte   x
 >>&0    string  \xbe\x81\x00\xad\x80\xfc\x0d\x74
 >>>&0   string  \x17\x3c\x0d\x74\x13\x3d\x2f\x46
 >>>>0   byte    x    DOS executable (COM)
@@ -415,3 +415,35 @@
 0     string  \x8c\xda\x01\x16\x0c\x01\xff\x2e\x0a\x01
 >0    byte    x   DOS executable (COM)
 >0    byte    x   \b, SCRE2B converted EXE->COM
+
+# ----------
+# EXE2COM by The Doors of Perception
+# A.k.a. E2C by The DoP Timisoara
+
+0    string/b   \xbe\x4a\x01\xbf\x50\xfe\xb9
+>9   string     \xfc\x57\xf3\xa5\xc3
+>>0   use       id_as_dos_com
+>>0   byte      x     \b, EXE2COM (Doors of Perception)
+
+# ----------
+# ExeToCom (anonymous)
+# 4417-byte EXETOCOM.COM file
+
+0           ubyte     0xe9
+>(1.s+103)  byte      x
+>>&0        string    \xf3\xa4\x58\xfa\x8e\x57\xfb\x8b
+>>>0        use       id_as_dos_com
+>>>0        byte      x     \b, ExeToCom file converter
+
+# ----------
+# XLOADER
+
+0     string/b  \xfc\x8c\xdb\x33
+>616  string    CM/ST
+>>0   use       id_as_dos_com
+>>0   byte      x     \b, XLOADER converted EXE->COM
+
+# ----------
+
+0     name      id_as_dos_com
+>0    byte      x     DOS executable (COM)
