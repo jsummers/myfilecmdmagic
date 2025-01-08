@@ -402,12 +402,12 @@
 >&1     string  sC
 >>&1    string  f      DOS executable (COM)
 >>>0    byte    x      \b, SCRNCH compressed (v1.02)
->>>&-2  string  e      (run mode)
->>>&-2  string  g      (run mode)
->>>&-2  string  h      (run mode)
->>>&-2  string  w      (write mode)
->>>&-2  string  y      (write mode)
->>>&-2  string  z      (write mode)
+>>>&-2  string  e      (run mode type %s)
+>>>&-2  string  g      (run mode type %s)
+>>>&-2  string  h      (run mode type %s)
+>>>&-2  string  w      (write mode type %s)
+>>>&-2  string  y      (write mode type %s)
+>>>&-2  string  z      (write mode type %s)
 
 # ----------
 # SCRE2B
