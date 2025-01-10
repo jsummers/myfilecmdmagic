@@ -60,6 +60,13 @@
 >>>0       byte      x    \b, ACiDDraw COM file
 
 # ----------
+# Font Mania (REXXCOM) self-loading font
+0       ubyte     0xeb
+>8      string    FONT\ MANIA,\ V
+>>0     use       id_as_dos_com
+>>0     byte      x     \b, Font Mania font
+
+# ----------
 # LHarc self-extracting COM archive
 
 0       string/b  \xEB\x6C
