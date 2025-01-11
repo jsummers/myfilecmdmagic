@@ -393,26 +393,96 @@
 >>>>>20         uleshort    0x0100
 # @22 = CS, should be -16
 >>>>>>22        leshort     -16
-# e9 = a 2-byte JMP distance
->>>>>>>32       ubyte       0xe9
->>>>>>>>(33.s+35)   use     lha_sfx_exe_part2
-# eb = a 1-byte JMP distance
->>>>>>>32       ubyte       0xeb
->>>>>>>>(33.b+34)   use     lha_sfx_exe_part2
 
-0           name    lha_sfx_exe_part2
->0          string  \xFC\xBC\x00\x01
->>&0        string  \xBB
-# (missing byte here is 0x05 or 0x06)
->>>&1       string  \x01\xE8
->>>>&2      string  \x8C\xC8
->>>>>0      byte    x   \b, LHarc self-extracting archive
+# e9 = a 2-byte JMP offset
+# (These "name" routines aren't really needed, but it keeps the
+# number of ">"s sane.)
+>>>>>>>32   ubyte   0xe9
+>>>>>>>>0   use     lha_sfx_exe_part2_e9
+
+# eb = a 1-byte JMP offset
+>>>>>>>32   ubyte   0xeb
+>>>>>>>>0   use     lha_sfx_exe_part2_eb
+
+0           name    lha_sfx_exe_part2_e9
+>(33.s+35)  string  \xFC\xBC\x00\x01
+>>&0        string  \xBB\x05\x01\xE8
+
+>>>&2       string  \x8C\xC8
+>>>>0       byte    x   \b, LHarc self-extracting archive
+
+>>>>0       clear   x
+>>>>&-4     ubyte   0x49
+>>>>>37     string  LHarc's\ SFX\ 1.12L       (v1.12
+>>>>>37     string  LHarc's\ SFX\ 1.12bL      (v1.12b
+>>>>>37     default x       (v1.12-1.12b
+>>>>&-4     ubyte   0x20
+>>>>>37     string  LHarc's\ SFX\ 1.13L\ (c)Y     (v1.13
+>>>>>37     string  LHarc's\ SFX\ 1.13L\ (c)\ Y   (v1.13c
+>>>>>37     string  LHice                     (v1.13c, LHice hack
+>>>>>37     string  LHarc's\ SFX\ 1.14aL      (v1.13c, "1.14a" hack
+>>>>>37     string  LHARC\ SFX\ \ v1.14\xe1   (v1.13c, "1.14B" hack
+>>>>>37     default x       (v1.13-1.13c
+>>>>&-4     ubyte   0x28    (v1.13d
+>>>>0       default x       (v?
+>>>>0       byte    x       \b, large model)
+
+0           name    lha_sfx_exe_part2_eb
+>(33.b+34)  string  \xFC\xBC\x00\x01
+>>&0        string  \xBB\x06\x01\xE8
+
+>>>&2       string  \x8C\xC8
+>>>>0       byte    x   \b, LHarc self-extracting archive
+
+>>>>0       clear   x
+>>>>&-4     ubyte   0x61    (v1.00
+>>>>&-4     ubyte   0x54
+>>>>>38     string  LHarc's\ SFX\ 1.12S       (v1.12
+>>>>>38     string  LHarc's\ SFX\ 1.12bS      (v1.12b
+>>>>>38     default x       (v1.12-1.12b
+>>>>&-4     ubyte   0x57
+# v1.13 & v1.13d produce identical small model files.
+# But strangely, v1.13c has an extra space in the ID string.
+>>>>>38     string  LHarc's\ SFX\ 1.13S\ (c)\ Y   (v1.13c
+>>>>>38     string  LHice                     (v1.13c, LHice hack
+>>>>>38     string  LHarc's\ SFX\ 1.14aS      (v1.13c, "1.14a" hack
+>>>>>38     string  LHARC\ SFX\ \ v1.14\xe1   (v1.13c, "1.14B" hack
+>>>>>0      default x       (v1.13-1.13d
+>>>>0       default x       (v?
+
+# v1.00 only has one model, so don't print "small model" for it.
+>>>>&-4     ubyte   !0x61   \b, small model
+>>>>0       byte    x       \b)
 
 >>&0        string  \x8C\xC8\x05
-# (missing byte here is 0x88 or 0x8C)
+# (Missing byte here is 0x88 or 0x8C, will be tested later.)
 >>>&1       string  \x00\x8E\xC0
+
 >>>>0       byte    x   \b, LHA self-extracting archive
-# (next byte is 0xE8 or 0xEB)
+
+>>>>0       clear   x
+
+>>>>&-4     ubyte   0x88
+>>>>>36     string  LH's\ SFX\ 2.05     (v2.05
+>>>>>36     string  LHa's\ SFX\ 2.05    (v2.05b
+>>>>>36     string  LHa's\ SFX\ 2.06    (v2.06
+>>>>>36     string  LHa's\ SFX\ 2.10    (v2.10
+>>>>>36     string  LHA's\ SFX\ 2.11    (v2.11
+>>>>>36     string  LHA's\ SFX\ 2.12    (v2.12
+>>>>>36     string  LHA's\ SFX\ 2.13    (v2.13
+>>>>>0      default x       (v2.05-2.13
+
+>>>>&-4     ubyte   0x8c
+>>>>>36     string  LHA's\ SFX\ 2.50    (v2.50-2.52
+>>>>>36     string  LHA's\ SFX\ 2.54    (v2.54-2.55b
+>>>>>36     string  LHA's\ SFX\ 2.65    (v2.65-2.67
+>>>>>0      default x       (v2.50-2.67
+
+>>>>0       default x       (v?
+
+>>>>&0      ubyte   0xe8    \b, large model
+>>>>&0      ubyte   0xeb    \b, small model
+>>>>0       byte    x       \b)
 
 # ----------
 # LArc self-extracting EXE

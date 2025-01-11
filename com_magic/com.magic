@@ -71,23 +71,30 @@
 
 0       string/b  \xEB\x6C
 >110    string    \xFC\xBC\x00\x01\xBB\x06\x01\xE8\x61\x02\x8C\xC8\x2E\x03\x06\x02
->>0     byte      x     DOS executable (COM)
+>>0     use       id_as_dos_com
 >>0     byte      x     \b, LHarc self-extracting archive (v1.00)
 
 0       string/b  \xEB\x60
 >98     string    \xFC\xBC\x00\x01\xBB\x06\x01\xE8\x54\x02\x8C\xC8\x2E\x03\x06\x02
->>0     byte      x     DOS executable (COM)
->>0     byte      x     \b, LHarc self-extracting archive (v1.12)
+>>0     use       id_as_dos_com
+>>0     byte      x     \b, LHarc self-extracting archive
+
+>>6     clear     x
+>>6     string    LHarc's\ SFX\ 1.12S    (v1.12)
+>>6     string    LHarc's\ SFX\ 1.12bS   (v1.12b)
+>>6     default   x     (v1.12-1.12b)
 
 >98     string    \xFC\xBC\x00\x01\xBB\x06\x01\xE8\x57\x02\x8C\xC8\x2E\x03\x06\x02
->>6     string    LHarc's\ SFX\ 1.13S\ (
->>>0    byte      x     DOS executable (COM)
->>>0    byte      x     \b, LHarc self-extracting archive (v1.13)
-# This is not really to report modified *files* -- it's to report files made
-# by modified *versions* of LHarc v1.13 (e.g. LHice, or the fake LHARC 1.14).
->>6     default   x
->>>0    byte      x     DOS executable (COM)
->>>0    byte      x     \b, LHarc self-extracting archive (v1.13-modified)
+>>0     use       id_as_dos_com
+>>0     byte      x     \b, LHarc self-extracting archive
+
+>>6     clear     x
+>>6     string    LHarc's\ SFX\ 1.13S\ (c)\ Y    (v1.13c)
+>>6     string    LHarc's\ SFX\ 1.13S\ (c)Y      (v1.13-1.13d)
+>>6     string    LHice                     (v1.13c, LHice hack)
+>>6     string    LHarc's\ SFX\ 1.14aS      (v1.13c, "1.14a" hack)
+>>6     string    LHARC\ SFX\ \ v1.14\xe1   (v1.13c, "1.14B" hack)
+>>6     default   x     (v1.13-1.13d, modified)
 
 # ----------
 # LArc self-extracting COM archive
