@@ -65,6 +65,14 @@
 >8      string    FONT\ MANIA,\ V
 >>0     use       id_as_dos_com
 >>0     byte      x     \b, Font Mania font
+>>4     ubyte     0x10  (v1.0)
+>>4     ubyte     0x20  (v2.0)
+>>4     ubyte     0x21  (v2.1)
+>>4     ubyte     0x22  (v2.2)
+>>4     ubyte     0x23
+>>>28   string    2.3   (v2.3)
+>>>28   string    6.0   (v6.0)
+>>5     ubyte     x     \b, 8x%u
 
 # ----------
 # LHarc self-extracting COM archive
