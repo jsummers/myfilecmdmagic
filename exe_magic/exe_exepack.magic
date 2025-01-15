@@ -13,18 +13,53 @@
 >>>16               uleshort          0x0080
 # @20 = IP register, expecting 16 or 18
 >>>>20              uleshort&0xfffd   0x0010
+>>>>>0    use    exepack_part2
 
+0         name   exepack_part2
 # Calculate the start-of-execution point...
 # @8 = header size, in paragraphs (usually 32*16=512, but not always)
->>>>>(8.s*16)       byte              x
+>(8.s*16)       byte              x
 # @22 = CS register, in paragraphs
->>>>>>&(22,s*16)    byte              x
+>>&(22,s*16)    byte              x
 # @20 = IP register. Should take us just past the "RB" signature if
 #  it exists, so subtract 2 for "RB", and another -2 fudge factor for
 #  the two "byte x" dummy bytes we read.
->>>>>>>&(20.s-4)    string            RB
->>>>>>>>0           byte              x     \b, EXEPACK compressed
->>>>>>>>0           use               exepack_appl
+>>>&(20.s-4)    string            RB
+>>>>0           byte              x     \b, EXEPACK compressed
+
+# Any attempt at using EXEPACK version numbers would, IMO, be less
+# useful than this.
+>>>>20          uleshort  x   (hdrsize=%u
+# "decsize" is the distance from the end of the "RB" signature,
+# to the start of the compressed relocation table. The compressed
+# relocation table should start at the end of the "Packed file
+# is corrupt" message.
+>>>>&229   string  \xcd\x21\xb8\xff\x4c\xcd\x21  \b, decsize=258
+>>>>&248   string  \xcd\x21\xb8\xff\x4c\xcd\x21  \b, decsize=277
+>>>>&250   string  \xcd\x21\xb8\xff\x4c\xcd\x21  \b, decsize=279
+>>>>&254   string  \xcd\x21\xb8\xff\x4c\xcd\x21  \b, decsize=283
+>>>>&261   string  \xcd\x21\xb8\xff\x4c\xcd\x21  \b, decsize=290
+>>>>&262   string  \xcd\x21\xb8\xff\x4c\xcd\x21  \b, decsize=291
+
+# EXPAKFIX-patched:
+# Unfortunately, in this case the location of the "cd 21" epilog
+# does not tell us the "decsize".
+# We'll look for an EXPAKFIX signature, between the "cd 21" epilog,
+# and the "Packed" message. There are at least 4 possible signatures
+# (it just uses whatever space it has left over).
+# Before the first "cd 21" is a pointer to the
+# "Packed file is corrupt" message, relative to CS.
+# This math-magic assumes the header size is 18 bytes, which it
+# always is for EXPAKFIX.
+>>>>&219    string  \xcd\x21\xb8\xff\x4c\xcd\x21
+>>>>>&0     string  *ADM*
+>>>>>>&-14  uleshort+4   x    \b, decsize=%u, EXPAKFIX patched
+>>>>>&0     string  (C)\ A
+>>>>>>&-14  uleshort+4   x    \b, decsize=%u, EXPAKFIX patched
+
+>>>>0           byte      x   \b)
+
+>>>>0           use               exepack_appl
 
 0         name       exepack_appl
 
