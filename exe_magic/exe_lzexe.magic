@@ -91,6 +91,8 @@
 >>4315  string  Joh\xe1\x00\x67\x44\x9d
 >>>0    byte    x   \b, TXT2EXE.COM (De Palma) (v2.2)
 
+# -------
+
 # Module size 3541
 >2      string      \xd5\x01\x07\x00
 # An arbitrary probe of the compressed data in the T2BR.EXE file
@@ -106,3 +108,13 @@
 >2      string      \xbf\x00\x08\x00
 >>3309  string      auf/a\x7f\xfc\x62
 >>>0    byte        x   \b, T2E PD (Fischer-Haaser)
+
+# -------
+
+>2      string      \x20\x00\x0e\x00
+>>5883  string      BLASTER
+>>>0    byte        x   \b, Blaster Master VCOMP audio (v4.1 / 1.0)
+
+>2      string      \x66\x00\x0f\x00
+>>6450  string      BLASTER
+>>>0    byte        x   \b, Blaster Master VCOMP audio (v4.2 / 1.1)
