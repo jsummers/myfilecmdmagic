@@ -60,6 +60,16 @@
 >>>0       byte      x    \b, ACiDDraw COM file
 
 # ----------
+# Fontastic .COM (self-displaying text screen image)
+
+# (These are just random byte samples, not a sophisticated
+# way to identify the format.)
+0       string/b  \xe8\x6b\x00\xe8
+>32     string    \xd7\x01\xa0\x0f
+>>0     use       id_as_dos_com
+>>0     byte      x   \b, Fontastic .COM screen
+
+# ----------
 # Font Mania (REXXCOM) self-loading font
 0       ubyte     0xeb
 >8      string    FONT\ MANIA,\ V
@@ -73,6 +83,20 @@
 >>>28   string    2.3   (v2.3)
 >>>28   string    6.0   (v6.0)
 >>5     ubyte     x     \b, 8x%u
+
+# ----------
+# FONTEDIT 1.0 self-loading font
+# by Michael J. Mefford
+# From the 1988-09-13 issue of PC Magazine.
+
+0             ubyte   0xeb
+>1            ubyte   >0x31
+>>1           ubyte   <0x34
+# This is normally at offset 92. 91 in some variants.
+>>>(1,b+41)   string  \xb8\x10\x11\xcd\x10
+>>>>0         use     id_as_dos_com
+>>>>0         byte    x   \b, FONTEDIT font
+>>>>(1,b-1)   ubyte   x   \b, 8x%u
 
 # ----------
 # LHarc self-extracting COM archive
