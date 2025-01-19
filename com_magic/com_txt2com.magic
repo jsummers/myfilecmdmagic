@@ -24,15 +24,15 @@
 # Generated files contain no version number.
 >1     string    \x2F\x01
 >>306  string    \xC7\x06\x61\x07\x00\x00\x80\x3E\x6D\x07\x7E\x75\x07\x8D\x36\x6E
->>>0   byte      x       DOS executable (COM)
->>>0   byte      x       \b, Graham's TXT2COM (v1.0)
+>>>0   use       t2c_id_as_com_txt2com
+>>>0   byte      x       (v1.0)
 
 # TXT2COM.COM [size=3775] calls itself "version 1.1".
 # Generated files contain "Vers 1.1".
 >1     string    \x38\x01
 >>315  string    \xC7\x06\x73\x07\x00\x00\x80\x3E\x7F\x07\x7E\x75\x07\x8D\x36\x80
->>>0   byte      x       DOS executable (COM)
->>>0   byte      x       \b, Graham's TXT2COM (v1.1)
+>>>0   use       t2c_id_as_com_txt2com
+>>>0   byte      x       (v1.1)
 
 # --- The v2.0-2.03 format family ("TXT2COM" at offset 5)
 
@@ -42,26 +42,26 @@
 # TXT2COM.COM [size=3938] calls itself "version 1.1", presumably a clerical
 # error. Generated files contain "Vers 1.1".
 >>317  string    \xC7\x06\x16\x08\x00\x00\x80\x3E\x22\x08\x7E\x75\x07\x8D\x36\x23
->>>0   byte      x       DOS executable (COM)
->>>0   byte      x       \b, Graham's TXT2COM (v2.0)
+>>>0   use       t2c_id_as_com_txt2com
+>>>0   byte      x       (v2.0)
 
 # TXT2COM.COM [size=4356] calls itself "version 1.1", presumably a clerical
 # error. Generated files contain "Vers 1.1".
 >>317  string    \xC7\x06\xB8\x09\x00\x00\x80\x3E\xC4\x09\x7E\x75\x07\x8D\x36\xC5
->>>0   byte      x       DOS executable (COM)
->>>0   byte      x       \b, Graham's TXT2COM (v2.1)
+>>>0   use       t2c_id_as_com_txt2com
+>>>0   byte      x       (v2.1)
 
 # TXT2COM.COM [size=4380] calls itself "version 2.2".
 # Generated files contain "Vers 2.2".
 >>317  string    \xC7\x06\xD0\x09\x00\x00\x80\x3E\xDC\x09\x7E\x75\x07\x8D\x36\xDD
->>>0   byte      x       DOS executable (COM)
->>>0   byte      x       \b, Graham's TXT2COM (v2.2)
+>>>0   use       t2c_id_as_com_txt2com
+>>>0   byte      x       (v2.2)
 
 # TXT2COM.COM [size=5173] calls itself "version 2.3".
 # Generated files contain "Vers 2.3".
 >>317  string    \xC7\x06\xE9\x0C\x00\x00\x80\x3E\xF5\x0C\x7E\x75\x07\x8D\x36\xF6
->>>0   byte      x       DOS executable (COM)
->>>0   byte      x       \b, Graham's TXT2COM (v2.03)
+>>>0   use       t2c_id_as_com_txt2com
+>>>0   byte      x       (v2.03)
 
 # --- The v2.06-2.10 format family ("TXT2COM" at offset 14)
 
@@ -72,18 +72,18 @@
 # Generated files contain "Vers 2.06".
 >>5     string    \x9C\x01
 >>>419  string    \xB4\x0F\xCD\x10\x3C\x07\x74\x1E\xC7\x06\x93\x02\x00\xB8\xC7\x06
->>>>0   byte      x       DOS executable (COM)
->>>>0   byte      x       \b, Graham's TXT2COM (v2.06var1-1988)
+>>>>0   use       t2c_id_as_com_txt2com
+>>>>0   byte      x       (v2.06var1-1988)
 
 >>5     string    \x4D\x01
 >>>340  string    \xB4\x0F\xCD\x10\x3C\x07\x74\x1E\xC7\x06\x44\x02\x00\xB8\xC7\x06
->>>>0   byte      x       DOS executable (COM)
->>>>0   byte      x       \b, Graham's TXT2COM (v2.06var2-1989)
+>>>>0   use       t2c_id_as_com_txt2com
+>>>>0   byte      x       (v2.06var2-1989)
 
 >>5     string    \xA2\x01
 >>>425  string    \xB4\x0F\xCD\x10\x3C\x07\x74\x1E\xC7\x06\x99\x02\x00\xB8\xC7\x06
->>>>0   byte      x       DOS executable (COM)
->>>>0   byte      x       \b, Graham's TXT2COM (v2.06var3-1990)
+>>>>0   use       t2c_id_as_com_txt2com
+>>>>0   byte      x       (v2.06var3-1990)
 
 # v2.09 not found.
 # Generated files contain "Vers 2.09".
@@ -91,36 +91,37 @@
 # "1991"
 >>5     string    \xD5\x02
 >>>732  string    \xB4\x0F\xCD\x10\x3C\x07\x74\x1E\xC7\x06\xB4\x02\x00\xB8\xC7\x06
->>>>0   byte      x       DOS executable (COM)
->>>>0   byte      x       \b, Graham's TXT2COM (v2.09var1)
+>>>>0   use       t2c_id_as_com_txt2com
+>>>>0   byte      x       (v2.09var1)
 
 # From a registered/customized version, "1992".
 >>5     string    \xD3\x03
 >>>986  string    \xB4\x0F\xCD\x10\x3C\x07\x74\x1E\xC7\x06\xB2\x03\x00\xB8\xC7\x06
->>>>0   byte      x       DOS executable (COM)
->>>>0   byte      x       \b, Graham's TXT2COM (v2.09var2).
+>>>>0   use       t2c_id_as_com_txt2com
+>>>>0   byte      x       (v2.09var2).
 
 # README.COM from v2.10. Could be an unreleased version. "1992".
 >>5     string    \xD6\x02
 >>>733  string    \xB4\x0F\xCD\x10\x3C\x07\x74\x1E\xC7\x06\xB4\x02\x00\xB8\xC7\x06
->>>>0   byte      x       DOS executable (COM)
->>>>0   byte      x       \b, Graham's TXT2COM (v2.09var3)
+>>>>0   use       t2c_id_as_com_txt2com
+>>>>0   byte      x       (v2.09var3)
 
 # TXT2COM.COM [size=8525] calls itself "version 2.10".
 # Generated files contain "Vers 2.10".
 >>5     string    \x01\x03
 >>>776  string    \xB4\x0F\xCD\x10\x3C\x07\x74\x1E\xC7\x06\xDF\x02\x00\xB8\xC7\x06
->>>>0   byte      x       DOS executable (COM)
->>>>0   byte      x       \b, Graham's TXT2COM (v2.10)
+>>>>0   use       t2c_id_as_com_txt2com
+>>>>0   byte      x       (v2.10)
 
 # TXT2RES.COM
 
 0       string    \xe9\xd0\x19TXT2COM
->0      byte      x    DOS executable (COM)
+>0      use       t2c_id_as_dos_com
 >0      byte      x    \b, TXT2RES (v1.0) from Graham's TXT2COM (v2.0-2.2)
 
 0       string    \xe9
->3      string    TXT2RES\ Conv    DOS executable (COM)
+>3      string    TXT2RES\ Conv
+>>0     use       t2c_id_as_dos_com
 >>3     byte      x                \b, TXT2RES (
 >>>36   string    2.3\x0d          \bv2.03
 >>>36   string    2.06             \bv2.06
@@ -131,7 +132,8 @@
 # TXT2PAS.COM
 
 0       string    \xe9
->3      string    TXT2PAS\ Conv    DOS executable (COM)
+>3      string    TXT2PAS\ Conv
+>>0     use       t2c_id_as_dos_com
 >>3     byte      x                \b, TXT2PAS (
 >>>36   string    2.3\x0d          \bv2.03
 >>>36   string    2.06             \bv2.06
@@ -148,13 +150,22 @@
 0       string/b  \xe8
 !:strength / 2
 >5      string    TXT2COM\ Conv
->>0     byte      x       DOS executable (COM)
->>0     byte      x       \b, Graham's TXT2COM (v?)
+>>0     use       t2c_id_as_com_txt2com
+>>0     byte      x       (v?)
 
 # Unknown version v2.04+
 0       string/b  \x8d
 !:strength / 2
 >4      string    \xe8
 >>14    string    TXT2COM\ Conv
->>>0    byte      x       DOS executable (COM)
->>>0    byte      x       \b, Graham's TXT2COM (v?)
+>>>0    use       t2c_id_as_com_txt2com
+>>>0    byte      x       (v?)
+
+# ----------
+
+0     name      t2c_id_as_com_txt2com
+>0    byte      x     DOS executable (COM)
+>0    byte      x     \b, Graham's TXT2COM
+
+0     name      t2c_id_as_dos_com
+>0    byte      x     DOS executable (COM)

@@ -13,7 +13,7 @@
 
 0     string/b  \xeb\x0a
 >12   string    \xbe\x26\x01\x8b\xfe\x8b\x0e\x08\x01\x8b\x16\x02
->>0   byte      x       DOS executable (COM)
+>>0   use       id_as_dos_com
 >>0   byte      x       \b, ICE compressed
 
 # ----------
@@ -22,22 +22,22 @@
 0       string/b  \xEB\x3D\x90
 >6      byte      0x02
 >>63    string    \xB4\x0F\xCD\x10\xBB\x00\xB8\x3C\x02\x74\x18\x3C\x03\x74\x14\xC6
->>>0    byte      x     DOS executable (COM)
+>>>0    use       id_as_dos_com
 >>>0    byte      x     \b, TheDraw COM file (type 2)
 
 >6      byte      0x00
 >>63    string    \xB4\x0F\xCD\x10\x8C\xCB\x8E\xDB\xBB\x00\xB0\xB4\x00\x3C\x07\x74
 >>>117  string    \x8D\x36
->>>>0   byte      x     DOS executable (COM)
+>>>>0   use       id_as_dos_com
 >>>>0   byte      x     \b, TheDraw COM file (type 0)
 >>>117  string    \xBE\xE5
->>>>0   byte      x     DOS executable (COM)
+>>>>0   use       id_as_dos_com
 >>>>0   byte      x     \b, P-Screen COM file
 
 0       string/b  \xEB\x18\x90
 >6      byte      0x01
 >>26    string    \xB4\x0F\xCD\x10\x8B\x3E\x07\x01\xBE\x5E\x01\x8B\x0E\x04\x01\xFC
->>>0    byte      x     DOS executable (COM)
+>>>0    use       id_as_dos_com
 >>>0    byte      x     \b, TheDraw COM file (type 1)
 
 # ----------
@@ -48,7 +48,7 @@
 # -1 for the dummy "byte x", = +2.
 >(1.s+2)   byte      x
 >>&0       string    \xb8\x03\x00\xcd\x10\xb4\x01\xb9\x00\x20\xcd\x10\xe8
->>>0       byte      x    DOS executable (COM)
+>>>0       use       id_as_dos_com
 >>>0       byte      x    \b, ACiDDraw COM file
 
 0          ubyte     0xeb
@@ -56,7 +56,7 @@
 # -1 for the dummy "byte x", = +1.
 >(1,b+1)   byte      x
 >>&0       string    \xb8\x03\x00\xcd\x10\xb4\x01\xb9\x00\x20\xcd\x10\xe8
->>>0       byte      x    DOS executable (COM)
+>>>0       use       id_as_dos_com
 >>>0       byte      x    \b, ACiDDraw COM file
 
 # ----------
@@ -133,8 +133,8 @@
 
 0       string  \xeb\x1c
 >41     string  \xbc\xf5\x32\x05\x2f\x03\x3b\x06\x02\x00\x72\x05
->>0     byte    x     DOS executable (COM)
->>>0    byte    x     \b, LArc self-extracting archive
+>>0     use     id_as_dos_com
+>>0     byte    x     \b, LArc self-extracting archive
 
 # ----------
 # DIET-compressed COM executable
@@ -162,15 +162,15 @@
 0     string/b  \xbe
 
 >15   string    \x8b\xce\x8d\x72\x34\xbf\x82\xff\xd1\xe9\xfd\x57\xf3\xa5\x8d
->>0   byte      x   DOS executable (COM)
+>>0   use       id_as_dos_com
 >>0   byte      x   \b, COMPACK compressed (v4.4)
 
 >19   string    \x8b\xce\x8d\x72\x42\xbf\x82\xff\xd1\xe9\xfd\x57\xf3\xa5\x8d
->>0   byte      x   DOS executable (COM)
+>>0   use       id_as_dos_com
 >>0   byte      x   \b, COMPACK compressed (v4.5)
 
 >18   string    \x8b\xce\x8d\x72\x42\xbf\x80\xff\xd1\xe9\xfd\x57\xf3\xa5\x8d
->>0   byte      x   DOS executable (COM)
+>>0   use       id_as_dos_com
 >>0   byte      x   \b, COMPACK compressed (v5.1)
 
 # ----------
@@ -180,10 +180,10 @@
 >5      string   \x8e\xc0\x59\x8e\xd0\x51\xbe
 >>14    string   \xbf\x00\x01\x50\x57\xfc
 >>>20   string   \xb6
->>>>0   byte     x     DOS executable (COM)
+>>>>0   use      id_as_dos_com
 >>>>0   byte     x     \b, aPACK compressed (v0.61-0.74)
 >>>20   string   \xb2
->>>>0   byte     x     DOS executable (COM)
+>>>>0   use      id_as_dos_com
 >>>>0   byte     x     \b, aPACK compressed (v0.90-1.00, -m)
 
 0       string   \x8c\xc8\x80\xc4\x10\x8e\xc0\xfc\xb9
@@ -192,14 +192,14 @@
 # (Note that testing any more bytes will miss files with "-x" option.)
 # Matches 0.90-0.94 (default) and
 # 0.96-1.00 (large) (for files > ~32KB)
->>>0    byte     x     DOS executable (COM)
+>>>0    use      id_as_dos_com
 >>>0    byte     x     \b, aPACK compressed (v0.90-1.00)
 
 0       string   \xbe\x0d\x01\xbf\x00
 # (The byte at 5 could distinguish 0.96 from 0.98+.)
 >6      string   \x8b\xcf\xfc\x57\xf3\xa4\xc3\xbf\x00\x01\x57
 # "Small" format used for source files < ~32KB.
->>0     byte     x     DOS executable (COM)
+>>0     use      id_as_dos_com
 >>0     byte     x     \b, aPACK compressed (v0.96-1.00, small)
 
 # ----------
@@ -207,7 +207,8 @@
 
 0       string/b  \x9c\x55\x56\x8c\xcd\x83\xc5\x10\x8d\xb6
 >&2     string    \x56\xbe
->>&2    string    \x56\xcb  DOS executable (COM)
+>>&2    string    \x56\xcb
+>>>0    use       id_as_dos_com
 >>>0    byte      x         \b, Spacemaker compressed
 
 # ----------
@@ -221,7 +222,7 @@
 # Could match many more bytes at &0. These are just some that are likely to
 # be discriminating.
 >>>&15      string    \xB9\x07\x00\xF3\xA5
->>>>0       byte      x    DOS executable (COM)
+>>>>0       use       id_as_dos_com
 >>>>0       byte      x    \b, EXE2COM (PSP Soft)
 
 # ----------
@@ -299,12 +300,14 @@
 # the noise.
 
 0      string    \xbc\x34\x13\x1e\x2b\xc0\x50\x89\x26\x6e\x01\xb4
->139   string    *FLAG*    DOS executable (COM)
+>139   string    *FLAG*
+>>0    use       id_as_dos_com
 >>0    byte      x         \b, Borland README.COM viewer (v2.00)
 
 0      string    \xbc
 >3     string    \x1e\x2b\xc0\x50\x89\x26\x71\x01\xb4\x30\xcd\x21
->>142  string    *FLAG*    DOS executable (COM)
+>>142  string    *FLAG*
+>>>0   use       id_as_dos_com
 >>>0   byte      x         \b, Borland README.COM viewer (v2.03)
 
 # ----------
@@ -315,24 +318,29 @@
 0     ubyte  0xe9
 
 >1      leshort  0x0452
->>1409  string   TEXT\ FILE\ READER    DOS executable (COM)
+>>1409  string   TEXT\ FILE\ READER
+>>>0    use      id_as_dos_com
 >>>0    byte     x     \b, Creative text file reader (v2.20)
 
 >1      leshort  0x053f
->>282   string   TEXT\ FILE\ READER    DOS executable (COM)
+>>282   string   TEXT\ FILE\ READER
+>>>0    use      id_as_dos_com
 >>>0    byte     x     \b, Creative text file reader (v2.20)
 
 # German?
 >1      leshort  0x0533
->>287   string   TEXT\ FILE\ READER    DOS executable (COM)
+>>287   string   TEXT\ FILE\ READER
+>>>0    use      id_as_dos_com
 >>>0    byte     x     \b, Creative text file reader (v2.20)
 
 >1      leshort  0x054c
->>327   string   TEXT\ FILE\ READER    DOS executable (COM)
+>>327   string   TEXT\ FILE\ READER
+>>>0    use      id_as_dos_com
 >>>0    byte     x     \b, Creative text file reader (v3.00)
 
 >1      leshort  0x0583
->>323   string   TEXT\ FILE\ READER    DOS executable (COM)
+>>323   string   TEXT\ FILE\ READER
+>>>0    use      id_as_dos_com
 >>>0    byte     x     \b, Creative text file reader (v3.00B)
 
 # ----------
@@ -349,24 +357,27 @@
 >8     string   \xa6\x02\x00\x8b\x9e\x04\x00\xb4
 >>16   string   \x4a\xcd\x21\xa1\x2c\x00\x89\x86
 >>>24  string   \x1a\x00\x8b\x9e\x00\x00\xff\xe3
->>>>0  byte     x     DOS executable (COM)
+>>>>0  use      id_as_dos_com
 >>>>0  byte     x     \b, BAT2EXEC compiled batch file (v1.2-1.3)
 
 0     string    \xeb\x3a\x90
->3    string    Compiled\ by\ BAT2E    DOS executable (COM)
+>3    string    Compiled\ by\ BAT2E
+>>0   use       id_as_dos_com
 >>0   byte      x     \b, BAT2EXEC compiled batch file (v1.5)
 
 # ----------
 # BatLite
 
-0     string    \xeb\x37\xb0\xb1\xb2\x20    DOS executable (COM)
+0     string    \xeb\x37\xb0\xb1\xb2\x20
+>0    use       id_as_dos_com
 >0    byte      x     \b, BatLite compiled batch file
 
 # ------
 # DIGPAK
 
 0       ubyte       0xe9
->3      string      DIGPAK\x00\x0d\x0a    DOS executable (COM)
+>3      string      DIGPAK\x00\x0d\x0a
+>>0     use         id_as_dos_com
 >>0     byte        x       \b, DIGPAK sound driver
 
 # ------
@@ -374,7 +385,7 @@
 
 0       string  \xfb\xbe\x81\x00\x8a\x4c\xff\x30
 >8      string  \xed\x09\xc9\x74\x20\x56\xfc\xac
->>0     byte    x    DOS executable (COM)
+>>0     use     id_as_dos_com
 >>0     byte    x    \b, GRABBER (v2.10-2.20)
 
 0       ubyte   0xe9
@@ -383,11 +394,11 @@
 >(1.s+2)   byte   x
 >>&0    string  \xbe\x81\x00\xad\x80\xfc\x0d\x74
 >>>&0   string  \x17\x3c\x0d\x74\x13\x3d\x2f\x46
->>>>0   byte    x    DOS executable (COM)
+>>>>0   use     id_as_dos_com
 >>>>0   byte    x    \b, GRABBER (v3.0-3.3)
 >>&0    string  \xbe\x81\x00\xfc\xad\x80\xfc\x0d
 >>>&0   string  \x74\x1c\x3c\x0d\x74\x18\x3d\x2f
->>>>0   byte    x    DOS executable (COM)
+>>>>0   use     id_as_dos_com
 >>>>0   byte    x    \b, GRABBER (v3.34-3.35)
 
 # ------
@@ -429,19 +440,20 @@
 # minus 31.
 # That seems like a good enough place to test the data.
 >(6.s)    string  \xff\xad\x8b\xc8\xf3\xa4\xe9\x33
->>0       byte    x       DOS executable (COM)
+>>0       use     id_as_dos_com
 >>0       byte    x       \b, ExeLITE compressed (v1.00)
 
 # For v2.00S, we have to adjust some things.
 0         string  \xeb\x01\x90\x9c\x06\x1e\x60\xfd\xb9
 >(9.s+9)  string  \xff\xad\x8b\xc8\xf3\xa4\xe9\x30
->>0       byte    x       DOS executable (COM)
+>>0       use     id_as_dos_com
 >>0       byte    x       \b, ExeLITE compressed (v2.00)
 
 # ----------
 # SCRNCH
 
-0       string  \xbb\xff\xff\xb4\x4a\xcd  DOS executable (COM)
+0       string  \xbb\xff\xff\xb4\x4a\xcd
+>0      use     id_as_dos_com
 >0      byte    x       \b, SCRNCH compressed (v1.00)
 >37     ubyte   0x8c    (run mode)
 >37     ubyte   0xfc    (write mode)
@@ -449,7 +461,8 @@
 # (This is basically duplicated in the EXE patterns.)
 0       ubyte   0xeb
 >&1     string  sC
->>&1    string  f      DOS executable (COM)
+>>&1    string  f
+>>>0    use     id_as_dos_com
 >>>0    byte    x      \b, SCRNCH compressed (v1.02)
 >>>&-2  string  e      (run mode type %s)
 >>>&-2  string  g      (run mode type %s)
@@ -462,7 +475,7 @@
 # SCRE2B
 
 0     string  \x8c\xda\x01\x16\x0c\x01\xff\x2e\x0a\x01
->0    byte    x   DOS executable (COM)
+>0    use     id_as_dos_com
 >0    byte    x   \b, SCRE2B converted EXE->COM
 
 # ----------
