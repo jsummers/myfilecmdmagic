@@ -5,15 +5,13 @@
 
 0       name        exe_exepack
 
-# @24 = reloc. table offset, expecting 28, 30, or 62
->24                 uleshort          <64
 # @6 = number of relocations, expecting 0
->>6                 uleshort          0x0000
+>6                  uleshort          0x0000
 # @16 = SP register, expecting 0x80 in all EXEPACK files
->>>16               uleshort          0x0080
+>>16                uleshort          0x0080
 # @20 = IP register, expecting 16 or 18
->>>>20              uleshort&0xfffd   0x0010
->>>>>0    use    exepack_part2
+>>>20               uleshort&0xfffd   0x0010
+>>>>0     use    exepack_part2
 
 0         name   exepack_part2
 # Calculate the start-of-execution point...
@@ -27,35 +25,51 @@
 >>>&(20.s-4)    string            RB
 >>>>0           byte              x     \b, EXEPACK compressed
 
-# Any attempt at using EXEPACK version numbers would, IMO, be less
-# useful than this.
->>>>20          uleshort  x   (hdrsize=%u
-# "decsize" is the distance from the end of the "RB" signature,
-# to the start of the compressed relocation table. The compressed
-# relocation table should start at the end of the "Packed file
-# is corrupt" message.
->>>>&229   string  \xcd\x21\xb8\xff\x4c\xcd\x21  \b, decsize=258
->>>>&248   string  \xcd\x21\xb8\xff\x4c\xcd\x21  \b, decsize=277
->>>>&250   string  \xcd\x21\xb8\xff\x4c\xcd\x21  \b, decsize=279
->>>>&254   string  \xcd\x21\xb8\xff\x4c\xcd\x21  \b, decsize=283
->>>>&261   string  \xcd\x21\xb8\xff\x4c\xcd\x21  \b, decsize=290
->>>>&262   string  \xcd\x21\xb8\xff\x4c\xcd\x21  \b, decsize=291
+>>>>0       byte    x     (version=
+>>>>0       clear   x
 
-# EXPAKFIX-patched:
-# Unfortunately, in this case the location of the "cd 21" epilog
-# does not tell us the "decsize".
-# We'll look for an EXPAKFIX signature, between the "cd 21" epilog,
-# and the "Packed" message. There are at least 4 possible signatures
-# (it just uses whatever space it has left over).
-# Before the first "cd 21" is a pointer to the
-# "Packed file is corrupt" message, relative to CS.
-# This math-magic assumes the header size is 18 bytes, which it
-# always is for EXPAKFIX.
->>>>&219    string  \xcd\x21\xb8\xff\x4c\xcd\x21
->>>>>&0     string  *ADM*
->>>>>>&-14  uleshort+4   x    \b, decsize=%u, EXPAKFIX patched
->>>>>&0     string  (C)\ A
->>>>>>&-14  uleshort+4   x    \b, decsize=%u, EXPAKFIX patched
+# The numbers like "258" are the "decoder size", measured from the
+# "entry point" (i.e., the end of the "RB" signature),
+# to the start of the compressed relocation table
+# (generally the end of the "Packed file is corrupt" message).
+
+# Note that the byte patterns we look for include a pointer to the
+# relocation table. We may not identify every variant accurately,
+# but if a number is printed, it's almost certain to be correct.
+
+>>>>&137    string  \x12\x01\x0e\x1f\x8b\x1e
+>>>>>&-40   string  \x92\x4e\xad\x91              \bEXEPATCK258
+>>>>>0      default x                             \bcommon258
+
+>>>>&135    string  \x25\x01\x0e\x1f\x8b\x1e
+>>>>>&-38   string  \x92\x4e\xad\x91              \bEXEPATCK277
+>>>>>0      default x                             \bcommon277
+
+>>>>&137    string  \x27\x01\x0e\x1f\x8b\x1e
+>>>>>&-40   string  \x92\x4e\xad\x91              \bEXEPATCK279
+>>>>>0      default x                             \bcommon279
+
+>>>>&141    string  \x2d\x01\x0e\x1f\x8b\x1e
+>>>>>&-14   string  \xf3\xa4\xf6\xc2              \bLOWFIX283
+>>>>>&-38   string  \x92\x4e\xad\x91              \bEXEPATCK283
+>>>>>0      default x                             \bcommon283
+
+>>>>&148    string  \x2d\x01\x0e\x1f\x8b\x1e      \bWordPerfect283
+
+>>>>&146    string  \x32\x01\x0e\x1f\x8b\x1e
+>>>>>&-148  string  \x05\x10\x00                  \bcommon290
+# Mainly for the "DECOMP" variant:
+>>>>>0      default x                             \bother290
+
+# EXEPAKFIX-patched files always have an 18-byte header, so if the
+# original file had a 16-byte header, the "decoder size" gets reduced
+# by 2.
+>>>>&141    string  \x12\x01\x0e\x1f\xfc\x8b      \bEXPAKFIX258to256
+>>>>&141    string  \x25\x01\x0e\x1f\xfc\x8b      \bEXPAKFIX277to275
+>>>>&141    string  \x27\x01\x0e\x1f\xfc\x8b      \bEXPAKFIX279to277
+>>>>&141    string  \x2d\x01\x0e\x1f\xfc\x8b      \bEXPAKFIX283
+
+>>>>0       default x                             \bunknown
 
 >>>>0           byte      x   \b)
 
