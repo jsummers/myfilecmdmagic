@@ -83,3 +83,14 @@
 
 >4        uleshort   30
 >>13945   string     Raymond\ Payette    \b, TEXE
+
+# DemoMaker by R. Janorkar
+# (v2.00 is PKLITE-compressed, so it's handled elsewhere.)
+>0        clear   x
+>816      string  \x0c\0\xf6\x01\0\0\x56\x01\0\0\0\0\x06\x02
+>>0       byte    x   \b, DemoMaker (R. Janorkar) (v1.00-1.50)
+>928      string  \0\0\xf7\x01\0\0\x56\x01\0\0\0\0\x0d\x02
+>>0       byte    x   \b, DemoMaker (R. Janorkar) (v1.55)
+>0        default x
+>>512     string  \0\0DemoMaker\ v
+>>>0      byte    x   \b, DemoMaker (R. Janorkar)
