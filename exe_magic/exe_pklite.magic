@@ -33,23 +33,13 @@
 #   those listed as goals.
 # - Print various properties of the file, beyond the version number.
 
-0               name            exe_pklite
-
-# @20 = IP register, expected to be 0x0100
->20             uleshort        0x0100
-# @22 = CS register, expected to be -16 (0xfff0)
->>22            leshort         -16
-# @6 = number of relocs, should be 0 or 1 (we allow 2)
->>>6            uleshort        <3
-
-# This "use/name" is not currently needed, and may be removed.
->>>>0           use             pklite_exe_part2
-
 # -----------
 
 # This part mainly tests the "code image" segment.
+# Due to excessive PKLITE hacking, there just aren't any EXE header
+# fields that we can really use to screen out files.
 
-0               name            pklite_exe_part2
+0               name            exe_pklite
 
 >(8.s*16)       string          \xB8
 >>&2            string          \xBA
@@ -65,6 +55,7 @@
 >>>>28  uleshort&0x0fff  0x10a    (special version)
 >>>>28  default          x        (v1.00-1.05)
 
+>>>>0   use   pklite_exe_check_mod
 >>>>0   use   pklite_dos_exe_appl
 
 # v1.12, 1.13, and some "1.20" versions
@@ -78,6 +69,7 @@
 >>>>28  uleshort&0x0fff  0x114    (special version)
 >>>>28  default          x        (v1.12-1.13)
 
+>>>>0   use   pklite_exe_check_mod
 >>>>0   use   pklite_dos_exe_appl
 
 # v1.14, 1.15, and some "1.20" versions
@@ -91,6 +83,7 @@
 >>>>28  uleshort&0x0fff  0x114    (special version)
 >>>>28  default          x        (v1.14-1.15)
 
+>>>>0   use   pklite_exe_check_mod
 >>>>0   use   pklite_dos_exe_appl
 
 # v1.50, 2.01
@@ -104,7 +97,17 @@
 >>>>28  uleshort&0x0fff  0x201    (v2.01)
 >>>>28  default          x        (v1.50-2.01)
 
+>>>>0   use   pklite_exe_check_mod
 >>>>0   use   pklite_dos_exe_appl
+
+# -----------
+# Report if the PKLITE file seems to have been patched to run
+# extra code before the PKLITE code.
+# Could be an application format, or a tamper detection system,
+# or even another (very weak) EXE compressor, etc.
+
+0      name       pklite_exe_check_mod
+>20    string     !\x00\x01\xf0\xff    (patched)
 
 # -----------
 # Check for some known PKLITE-derived formats.
