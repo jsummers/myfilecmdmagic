@@ -506,6 +506,14 @@
 >>0   byte      x     \b, XLOADER converted EXE->COM
 
 # ----------
+# Central Point Anti-Virus
+
+0     ubyte     0xe9
+>6    string    \x22\x19\x35\x93\x59\x57\x54\x80
+>>0   use       id_as_dos_com
+>>0   byte      x   \b, Central Point Anti-Virus immunized
+
+# ----------
 
 0     name      id_as_dos_com
 >0    byte      x     DOS executable (COM)

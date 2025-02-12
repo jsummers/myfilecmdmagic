@@ -90,6 +90,7 @@
 >0      use         exe_gws
 >0      use         exe_grabber
 >0      use         exe_txt2exe_pfh
+>0      use         exe_central_point_av
 >0      use         exe_overlay
 
 # ----------
@@ -633,3 +634,19 @@
 >>(8.s*16)   string   \0\0\0\x55\x8b
 >>>&7        string   \x0b\xc9\x74\x17\xc4\x76\x04\xb7\x00
 >>>>0        byte     x  \b, PAK (NoGate) self-extracting archive (v2.50-2.51)
+
+# ----------
+# Central Point Anti-Virus
+
+0               name       exe_central_point_av
+
+# Calculate the start-of-execution point...
+# @8 = header size, in paragraphs
+>(8.s*16)       byte      x
+# @22 = CS register, in paragraphs
+>>&(22,s*16)    byte      x
+# @20 = IP register
+# (-2 fudge factor for the two "byte x" dummy bytes we read.)
+>>>&(20.s-2)    string    \xe8\x20\x00
+>>>>&32         string    \x5b\x81\xeb\x03\x01\x50\x51\x52
+>>>>>0          byte      x   \b, Central Point Anti-Virus immunized
