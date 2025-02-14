@@ -70,6 +70,15 @@
 >>0     byte      x   \b, Fontastic .COM screen
 
 # ----------
+# Laughing Dog Screen Maker COM file
+# Self-displaying screen image
+
+0     string    \x06\xb4\x0f\xcd
+>4    string    \x10\x3c\x07\x74\x06\xb8\x00\xb8\xeb\x04\x90\xb8
+>>0   use       id_as_dos_com
+>>0   byte      x   \b, Laughing Dog COM file
+
+# ----------
 # Font Mania (REXXCOM) self-loading font
 0       ubyte     0xeb
 >8      string    FONT\ MANIA,\ V
