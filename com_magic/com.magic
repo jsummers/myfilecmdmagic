@@ -108,6 +108,42 @@
 >>>>(1,b-1)   ubyte   x   \b, 8x%u
 
 # ----------
+# FontEdit II by Ivan Llanas and SEI Soft'94
+
+0       string    \xeb\x02\x90
+>4      string    \xb8\x10\x11
+>>22    string    \xcd\x10
+>>>0    use       fontedit2_1_part2
+
+0       string    \xe9\xd1\x01
+>7      string    FontEdit\ ][
+>>0     use       fontedit2_1_part2
+
+0       name      fontedit2_1_part2
+>0      byte      x       FontEdit II font loader
+>0      byte      x       (v1.00)
+>7      ubyte     0x8a    \b, executable mode
+>7      ubyte     0x46    \b, TSR mode
+>3      ubyte     x       \b, 8x%u
+
+0       ubyte     0xeb
+>3      string    FE][
+>>0     use       fontedit2_2_part2
+
+0       ubyte     0xe9
+>3      string    FE][
+>>0     use       fontedit2_2_part2
+
+0       name      fontedit2_2_part2
+>0      byte      x       FontEdit II font loader
+>7      ubyte     x       (v%u.
+>8      ubyte     x       \b%02u)
+>9      ubyte     0       \b, executable mode
+>9      ubyte     1
+>>10    ubyte     x       \b, TSR v%u mode
+>12     ubyte     x       \b, 8x%u
+
+# ----------
 # LHarc self-extracting COM archive
 
 0       string/b  \xEB\x6C
