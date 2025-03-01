@@ -477,6 +477,15 @@
 >>0     byte    x   \b, T2CX (Fischer-Haaser) (ver~1.08)
 
 # ----------
+# ASCOM - Kevin Tseng
+
+0       ubyte     0xe9
+>1      string    \x00\x00\xe8\x00\x00\x8b\xfc
+>>8     string    \x36\x8b\x2d\x83\xc4\x02\x81\xed
+>>>0    use       id_as_dos_com
+>>>0    byte      x   \b, ASCOM
+
+# ----------
 # ExeLITE
 
 0         string  \x9c\x06\x1e\x60\xfd\xb9
