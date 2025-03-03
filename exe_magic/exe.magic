@@ -77,6 +77,8 @@
 >0      use         exe_wwpack
 >0      use         exe_compack
 >0      use         exe_tinyprog
+>0      use         exe_pktiny
+>0      use         exe_axe_sea
 >0      use         exe_uc2
 >0      use         exe_rncpropack
 >0      use         exe_larc_sfx
@@ -242,6 +244,46 @@
 >>>>>>0       byte    x       \b, TINYPROG compressed (old)
 >>>>>&8       string  \x50\xbe\x05\x01\x03\x36\x01\x01\x8c\xd2\x8c\xd8\x03\x44
 >>>>>>0       byte    x       \b, TINYPROG compressed (v3.x)
+
+# ----------
+# PKTINY-compressed EXE
+0        name        exe_pktiny
+
+# @6 = number of relocs, should be 0
+>6              uleshort    0
+# @8 = header size, should be 2
+>>8             uleshort    0x0002
+# @16 = SP, should be 0x0300
+>>>16           uleshort    0x0300
+# @20 = IP, should be 256
+>>>>20          uleshort    0x0100
+# @22 = CS, should be 0
+>>>>>22         leshort     0
+>>>>>>288  string \x1e\x0e\x1f\xb8\xf0\xff\x8e\xc0\x26\x8a\x1e\x0e
+>>>>>>>0   byte   x   \b, PKTINY compressed
+>>>>>>288  string \x2e\xc6\x06\x00\x00\xe9\x2e\xc6\x06\x01\x00\x1d
+>>>>>>>0   byte   x   \b, PKTINY compressed
+
+# ----------
+# AXE (System Enhancement Associates) compressed EXE
+0         name exe_axe_sea
+
+# @6 = number of relocs, should be 0
+>6        uleshort    0
+# @8 = header size, should be 2
+>>8       uleshort    0x0002
+
+# Calculate the EXE start-of-execution point.
+# @22 = CS register, in paragraphs
+>>>(22,s*16)      byte    x
+# Add the IP register, +32 for header, -2 dummy "byte x"
+>>>>&(20.s+30)    byte    x
+
+>>>>>&0     ubyte   0xfc
+>>>>>>&16   string  \x2b\xc3\x8e\xc0\xb1\x03\xd3\xe3\x8b\xcb\xbf\x00
+>>>>>>>0    byte    x    \b, AXE (SEA) compressed
+>>>>>>&18   string  \x2b\xc3\x8e\xc0\xb1\x03\xd3\xe3\x8b\xcb\xbf\x00
+>>>>>>>0    byte    x    \b, AXE (SEA) compressed
 
 # ----------
 # UC2EXE (from UltraCompressor II) -compressed EXE
