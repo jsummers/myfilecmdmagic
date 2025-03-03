@@ -79,6 +79,7 @@
 >0      use         exe_tinyprog
 >0      use         exe_pktiny
 >0      use         exe_axe_sea
+>0      use         exe_ainexe
 >0      use         exe_uc2
 >0      use         exe_rncpropack
 >0      use         exe_larc_sfx
@@ -284,6 +285,31 @@
 >>>>>>>0    byte    x    \b, AXE (SEA) compressed
 >>>>>>&18   string  \x2b\xc3\x8e\xc0\xb1\x03\xd3\xe3\x8b\xcb\xbf\x00
 >>>>>>>0    byte    x    \b, AXE (SEA) compressed
+
+# ----------
+# AINEXE
+
+0       name    exe_ainexe
+
+# @6 = number of relocs, should be 0
+>6              uleshort    0
+# @8 = header size, should be 2
+>>8             uleshort    0x0002
+# @16 = SP, should be 0x0100
+>>>16           uleshort    0x0100
+# @20 = IP, should be 20
+>>>>20          uleshort    20
+
+# Calculate the EXE start-of-execution point.
+# @22 = CS register, in paragraphs
+>>>>>(22,s*16)      byte    x
+# Add the IP register, +32 for header, -2 dummy "byte x"
+>>>>>>&(20.s+30)    byte    x
+
+>>>>>>>&0   string  \xa1\x02\x00\x2d\xe1\x0b\x8e\xd0\xbc\x00\xbe\x8c
+>>>>>>>>0   byte    x   \b, AINEXE compressed (<=v2.22)
+>>>>>>>&0   string  \x0e\x07\xb9\x14\x00\xbe\x00\x01\x33\xff\xfc\xf3
+>>>>>>>>0   byte    x   \b, AINEXE compressed (v2.23+)
 
 # ----------
 # UC2EXE (from UltraCompressor II) -compressed EXE
