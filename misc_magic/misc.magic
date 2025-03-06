@@ -377,3 +377,21 @@
 >0      byte      x      PackIt archive data
 >>3     ubyte     0x34   \b, compressed
 >>3     ubyte     0x67   \b, uncompressed
+
+# ----------
+# Aldus LZW and PKZP
+
+0       string/b  ALDUS\x20
+>6      string    PKZP    Aldus PKZP compressed file
+
+>6      string    LZW     Aldus LZW compressed file
+>>60    ubyte     0       \b, Windows
+>>60    ubyte     >31     \b, Macintosh
+>>>60   use       mac_type_creator
+>>>82   ubyte     1       \b, resource fork only
+
+# ----------
+
+0       name   mac_type_creator
+>0      string/4  x       \b, type '%s'
+>4      string/4  x       \b, creator '%s'
