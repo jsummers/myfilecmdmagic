@@ -106,7 +106,10 @@
 >1        leshort   0x04c9
 >>2814    string    \x49\xe3\x0e\x33\xd2\x8a\x14\xfe\xc2\x03\xf2\x49
 >>>0      use       id_as_com_a2c
->>>0      byte      x       (v1.75-1.76)
+>>>0      clear     x
+>>>2812   uleshort  0x1062  (v1.75)
+>>>2812   uleshort  0x1073  (v1.76)
+>>>0      default   x       (v?)
 >>>0      byte      x       \b, lister=page
 
 >1        leshort   0x0612
