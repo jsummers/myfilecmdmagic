@@ -15,7 +15,7 @@
 0       string/b    \xBA
 >&2     string      \xA1\x02\x00\x2D\x20\x06\x8C\xCB\x81\xC3\x00\x02\x3B\xC3\x77\x53
 >>0     byte        x       DOS executable (COM)
->>0     byte        x       \b, PKLITE compressed (v1.00beta)
+>>0     byte        x       \b, PKLITE compressed (v1.00beta900529)
 
 # PKLITE/COM v1.00-v1.14
 0       string/b    \xB8
