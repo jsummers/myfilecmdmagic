@@ -169,6 +169,10 @@
 >>48    string   \xb2\x21\x0e\xb4\x5a\xd9\xeb\xc1\x0e\xb4\xba\xd8
 >>>0    byte     x    \b, DemoMaker (R. Janorkar) (v2.x)
 
+# Read-A-Matic, a.k.a. README.EXE, by M.L. Wester
+# (RAM.EXE, RAM.OVL)
+>594    string   blTVNEW3\x20    \b, Read-A-Matic
+
 # -----------
 # Rules for beta versions
 #
