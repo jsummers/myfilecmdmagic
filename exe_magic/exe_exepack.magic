@@ -61,6 +61,9 @@
 # Mainly for the "DECOMP" variant:
 >>>>>0      default x                             \bother290
 
+# Seen in Artisoft/LANtastic files
+>>>>&147    string  \x33\x01\x0e\x1f\x8b\x1e      \bArtisoft291
+
 # EXEPAKFIX-patched files always have an 18-byte header, so if the
 # original file had a 16-byte header, the "decoder size" gets reduced
 # by 2.
