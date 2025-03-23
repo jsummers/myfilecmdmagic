@@ -391,6 +391,20 @@
 >>>82   ubyte     1       \b, resource fork only
 
 # ----------
+# InstallShield Z
+
+0       string        \x13\x5d\x65\x8c\x3a\x01\x02\x00
+>0      byte          x     InstallShield Z archive data
+>12     uleshort      x     \b, %u file(s)
+>14     lemsdosdate   x     \b, timestamp=[%s
+>16     lemsdostime   x     %s]
+>10     uleshort      0     \b, single-volume
+>10     uleshort      1     \b, volume
+>>31    ubyte         x     %u
+>>30    ubyte         !0    of %u
+>>30    ubyte         0     of ?
+
+# ----------
 
 0       name   mac_type_creator
 >0      string/4  x       \b, type '%s'
