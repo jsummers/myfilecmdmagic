@@ -520,7 +520,7 @@
 # ----------
 # Com2txt (Naoyuki Nide)
 
-0     string    T_OOWW3=XXWX
+0     string/t  T_OOWW3=XXWX
 >0    use       id_as_dos_com
 >0    byte      x   \b, Com2txt
 
