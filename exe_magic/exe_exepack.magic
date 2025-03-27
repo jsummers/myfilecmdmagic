@@ -7,11 +7,15 @@
 
 # @6 = number of relocations, expecting 0
 >6                  uleshort          0x0000
-# @16 = SP register, expecting 0x80 in all EXEPACK files
->>16                uleshort          0x0080
+
+# @16 = SP register, expecting 0x80
+# (but not testing this because there are rare exceptions, and the
+# IP test should be good enough).
+
 # @20 = IP register, expecting 16 or 18
->>>20               uleshort&0xfffd   0x0010
->>>>0     use    exepack_part2
+>>20    uleshort&0xfffd   0x0010
+
+>>>0    use               exepack_part2
 
 0         name   exepack_part2
 # Calculate the start-of-execution point...

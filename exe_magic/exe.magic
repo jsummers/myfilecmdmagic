@@ -32,8 +32,10 @@
 >>>>0   use         exe_ne
 >>>&0   string      PE\0\0
 >>>>0   use         exe_pe
->>>&0   string      LX     \b, LX
->>>&0   string      LE     \b, LE
+>>>&0   string      LX
+>>>>0   use         exe_lx
+>>>&0   string      LE
+>>>>0   use         exe_le
 # If we didn't recognize the signature...
 >>>0    default     x
 >>>>0   use         dosexe_main
@@ -45,6 +47,7 @@
 >>0     use         dosexe_main
 
 0       name        exe_ne
+>0      use         dosexe_minimal
 >0      byte        x      \b, NE
 >(60.l+12)   uleshort  &0x8000   (DLL)
 >(60.l+54)   ubyte     0x01   \b, for OS/2
@@ -55,7 +58,16 @@
 >>0     use         exe_pklite_win3
 >0      use         exe_ne_icl
 
+0       name        exe_lx
+>0      use         dosexe_minimal
+>0      byte        x   \b, LX
+
+0       name        exe_le
+>0      use         dosexe_minimal
+>0      byte        x   \b, LE
+
 0       name        exe_pe
+>0      use         dosexe_minimal
 >0      byte        x      \b, PE
 >(60.l+22)      uleshort    &0x2000   (DLL)
 >(60.l+20)      uleshort    !0
@@ -66,8 +78,14 @@
 >>>(60.l+92)    uleshort    2       (GUI)
 >>>(60.l+92)    uleshort    3       (console)
 
-0       name        dosexe_main
+# Things to check for even in extended EXE formats (NE, etc.)
+0       name        dosexe_minimal
+# Extended formats where the DOS part is EXEPACK-compressed are
+# just barely common enough that we'll look for them.
 >0      use         exe_exepack
+
+0       name        dosexe_main
+>0      use         dosexe_minimal
 >0      use         exe_lzexe
 >0      use         exe_pklite
 >0      use         exe_pklite_beta
