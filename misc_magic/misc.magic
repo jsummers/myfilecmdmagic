@@ -1,7 +1,7 @@
 
 # "file command" rules for miscellaneous files
 #
-# By Jason Summers, 2024 - Not copyrighted
+# By Jason Summers, 2024-2025 - Not copyrighted, unless noted.
 
 # ----------
 # DIET-compressed data file
@@ -403,6 +403,68 @@
 >>31    ubyte         x     %u
 >>30    ubyte         !0    of %u
 >>30    ubyte         0     of ?
+
+# ----------
+# PCX
+#
+# Portions of this section are based on rules from the darwinsys
+# version of file (I want the output to be similar), so there could
+# be copyrighted material here.
+
+0         ubyte   0x0a
+>1        ubyte   <6
+>>1       ubyte   !1
+>>>2      ubyte   <2
+>>>>3     ubyte   1
+>>>>>0    use     pcx_part2
+>>>>3     ubyte   2
+>>>>>0    use     pcx_part2
+>>>>3     ubyte   4
+>>>>>0    use     pcx_part2
+>>>>3     ubyte   8
+>>>>>0    use     pcx_part2
+
+0       name    pcx_part2
+>0      byte    x   PCX image data
+!:mime  image/vnd.zbrush.pcx
+!:ext   pcx/pcc
+>1      ubyte   0   \b, PC Paintbrush v2.5
+>1      ubyte   2   \b, PC Paintbrush v2.8 (with palette)
+>1      ubyte   3   \b, PC Paintbrush v2.8 (without palette)
+>1      ubyte   4   \b, Paintbrush for Windows
+>1      ubyte   5   \b, PC Paintbrush v3.0+
+
+# dimensions
+>4      ulelong      0
+>>8     uleshort+1   x     \b, %u x
+>>10    uleshort+1   x     %u
+>4      ulelong      !0
+>>4     uleshort     x     \b, bounding box [%d,
+>>6     uleshort     x     %d] -
+>>8     uleshort     x     [%d,
+>>10    uleshort     x     %d]
+
+# color type
+>3      ubyte   1
+>>65    ubyte   x     \b, %u-bit colour
+>>65    ubyte   !1    planar
+
+>3      ubyte   !1
+>>65    ubyte   1
+>>>3    ubyte   x     \b, %u-bit colour
+
+>>3     ubyte   8
+>>>65   ubyte   3     \b, 24-bit colour
+>>>65   ubyte   4     \b, 32-bit colour
+
+>>68    uleshort  2   \b, grayscale mode
+
+# Resolution. Unfortunately, this is often wrong.
+>14     ulelong   !0
+>>12    uleshort  !0    \b, %u x
+>>>14   uleshort  x     %u dpi
+
+>2      ubyte     0     \b, uncompressed
 
 # ----------
 
