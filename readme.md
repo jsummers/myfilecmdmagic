@@ -17,6 +17,11 @@ isolation. Integrating them into the main database (often found at
 /usr/share/misc/magic or /etc/magic) may be difficult to do without
 breaking things, and may be beyond the scope of this project.
 
+Patterns in the "workshop" subdirectory are even more experimental
+than the others. They may cause too many false positives, or need
+more testing, or just not be very good, or have a special purpose;
+or the format may be too rare or out of scope.
+
 For more information about the _file_ command:
 * [File command website](https://www.darwinsys.com/file/)
 * [Wikipedia article](https://en.wikipedia.org/wiki/File_%28command%29)

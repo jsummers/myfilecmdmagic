@@ -1,0 +1,20 @@
+
+# "file command" rules for miscellaneous files
+#
+# By Jason Summers, 2025 - Not copyrighted
+
+# ----------
+# These patterns could be used along with patterns for COM-based
+# formats, if you just want to identify EXE files that, for example,
+# have a misleading ".COM" extension.
+
+0       ubeshort   0x4d5a
+>0      use        exe_part_2
+
+0       ubeshort   0x5a4d
+>0      use        exe_part_2
+
+0       name       exe_part_2
+# Ensure the file is at least 33 bytes in size
+>32     byte       x        MS-DOS executable
+>>0     ubeshort   0x5a4d   (ZM signature)

@@ -1,0 +1,38 @@
+
+# "file command" rules
+#
+# By Jason Summers, 2024 - Not copyrighted
+
+# ----------
+# Creative Technology text file viewer
+# This is a normal piece of software, not an executable text format.
+# But it's common enough that identifying it helps reduce the noise.
+
+0     ubyte  0xe9
+
+>1      leshort  0x0452
+>>1409  string   TEXT\ FILE\ READER
+>>>0    use      id_as_dos_com
+>>>0    byte     x     \b, Creative text file reader (v2.20)
+
+>1      leshort  0x053f
+>>282   string   TEXT\ FILE\ READER
+>>>0    use      id_as_dos_com
+>>>0    byte     x     \b, Creative text file reader (v2.20)
+
+# German?
+>1      leshort  0x0533
+>>287   string   TEXT\ FILE\ READER
+>>>0    use      id_as_dos_com
+>>>0    byte     x     \b, Creative text file reader (v2.20)
+
+>1      leshort  0x054c
+>>327   string   TEXT\ FILE\ READER
+>>>0    use      id_as_dos_com
+>>>0    byte     x     \b, Creative text file reader (v3.00)
+
+>1      leshort  0x0583
+>>323   string   TEXT\ FILE\ READER
+>>>0    use      id_as_dos_com
+>>>0    byte     x     \b, Creative text file reader (v3.00B)
+

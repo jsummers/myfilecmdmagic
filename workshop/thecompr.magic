@@ -1,0 +1,42 @@
+
+# "file command" rules
+#
+# By Jason Summers, 2024 - Not copyrighted
+
+# -----------
+# The Compressor (TRS-80)
+# Archiver by John Lauro
+
+# sequence number
+0       ubyte      0x01
+
+# version number
+>14     ubyte      0x01
+
+# compression method
+>>18    ubyte      <2
+
+# 1st byte of filename
+>>>1    ubyte      >32
+
+# last byte of filename (extension)
+>>>>11   ubyte     >31
+
+# ASCII flag, apparently can be 0 or 255
+>>>>>13  ubyte    0x00
+>>>>>>0  use      tc_trs80_part2
+>>>>>13  ubyte    0xff
+>>>>>>0  use      tc_trs80_part2
+
+0    name    tc_trs80_part2
+
+# Set the current offset to the start of the file data @19
+>18    byte     x
+
+# File data size is a 3-byte BE integer at offset 15.
+# Skip past it, and read the next byte, which is the sequence number
+# for the 2nd member file (must be 2), or 0 if there is no such
+# member file
+>>&(14.L&0x00ffffff)   ubyte&0xfd     0
+>>>0    byte     x    The Compressor archive (TRS-80)
+

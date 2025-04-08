@@ -1,0 +1,63 @@
+
+# Experimental "file command" rules
+#
+# By Jason Summers, 2024 - Not copyrighted
+
+# ----------
+# RISC OS Sprite
+
+# First sprite pointer. 16 and 32 are the only values I've seen,
+# but I assume others are possible.
+
+# Note: Compare to the GLS_BINARY_LSB_FIRST pattern.
+4               ulelong   16
+!:strength -20
+>0              use       rosprite_part2
+
+4               ulelong   32
+!:strength -20
+>0              use       rosprite_part2
+
+# ---
+0               name      rosprite_part2
+
+# Number of sprites sanity check
+>0              ulelong   <1001
+>>0             ulelong   >0
+
+# EOF pointer sanity check
+>>>8            ulelong   >59
+
+# Make sure file is big enough.
+>>>>(8.l-5)     byte      x
+
+# First character of sprite name
+>>>>>(4.l)          ulelong   >0x20
+
+# Check "first bit"/"last bit" fields
+>>>>>>(4.l+20)      ulelong   <32
+>>>>>>>(4.l+24)     ulelong   <32
+
+# Row-span sanity check. Biased by 1. Encoded: 0 = 1 word = 4 bytes.)
+>>>>>>>>(4.l+12)    ulelong   <4096
+# Height sanity check. Biased by 1. Encoded 0 = 1 pixel.)
+>>>>>>>>>(4.l+16)   ulelong   <4096
+>>>>>>>>>>0         use       rosprite_found
+
+# ---
+0               name          rosprite_found
+>0              byte          x       RISC OS Sprite
+>0              ulelong       x       \b, %u image(s)
+# Width is too hard to calculate.
+>(4.l+16)       ulelong+1     x       \b, height %u
+
+>(4.l+36)       ulelong       <128    \b, old style
+>>(4.l+36)      ulelong       x       \b, mode %u
+>(4.l+36)       ulelong       >255
+
+>>(4.l+36)      ubyte&0x01    1
+
+>>>(4.l+36)     ubyte&0x78    !0x78   \b, v3.5 style
+# (Do v5 files exist?)
+>>>(4.l+36)     ubyte&0x78    0x78    \b, v5 style
+

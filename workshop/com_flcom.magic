@@ -1,0 +1,25 @@
+
+# "file command" rules
+#
+# By Jason Summers, 2024 - Not copyrighted
+
+# ----------
+
+0    ubyte    0xeb
+>0   use      flcom_part2
+
+0    ubyte    0xe9
+>0   use      flcom_part2
+
+0    name     flcom_part2
+>3   string   FL2COM    DOS executable (COM)
+>>0  byte     x         \b, FL2COM
+
+#0    ubyte    0xeb
+#>128  string   \xbe\x00\x00\xbf\x00\x00\x53\xbb
+#>>0   byte    x   maybe FL2COM
+#
+#0    ubyte    0xe9
+#>296  string   \xbe\x00\x00\xbf\x00\x00\x53\x8d
+#>>0   byte     x   maybe FL2COM
+

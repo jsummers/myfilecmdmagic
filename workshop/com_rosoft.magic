@@ -1,0 +1,14 @@
+
+# "file command" rules
+#
+# By Jason Summers, 2024 - Not copyrighted
+
+# ----------
+# Executable compression by RO-SOFT / Robert Ossowski.
+# Associated with FM.EXE (File Manager), and other utilities.
+
+0       ubyte   0xb8
+>48     string  RO-SOFT\ PK
+>>0     byte    x    DOS executable (COM)
+>>0     byte    x    \b, RO-SOFT packed
+

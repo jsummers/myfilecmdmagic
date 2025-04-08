@@ -1,0 +1,16 @@
+
+# "file command" rules
+#
+# By Jason Summers, 2024 - Not copyrighted
+
+# ----------
+# X-pack for executable
+
+0    string   \x0e\xbe\x00\x01\x56\x8b\xfe\x8c\xc8\x80\xc4\x10
+>0   byte     x   DOS executable (COM)
+>0   byte     x   \b, XE compressed
+
+0    string   \xbe\x00\x01\x56\xbf\x00\x71\xb9
+>0   byte     x   DOS executable (COM)
+>0   byte     x   \b, XE compressed
+
