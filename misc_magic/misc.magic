@@ -519,6 +519,21 @@
 >>>14   uleshort  x     %u dpi
 
 >2      ubyte     0     \b, uncompressed
+>0      use       pcx_appl
+
+# Special PCX-based formats
+0         name      pcx_appl
+>4        uleshort  80
+>>1       string    \x05\x01\x01
+>>>8      string    \x7f\x02\xdf\x01
+>>>>65    ubyte     4
+>>>>>16   string    \0\0\0\0\0\0\0\0
+>>>>>>0   use       pcx_berts
+>>>>>16   string    \x80\x80\x80\0\0\0\0\0\xfc
+>>>>>>0   use       pcx_berts
+
+0         name      pcx_berts
+>0        byte      x   \b, BMG (Bert's Coloring Programs)
 
 # ----------
 
