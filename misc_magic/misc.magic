@@ -536,6 +536,42 @@
 >0        byte      x   \b, BMG (Bert's Coloring Programs)
 
 # ----------
+# MS Compress, etc.
+
+0     string    SZDD\x88\xf0\x27\x33
+>0    byte      x       MS Compress, "SZDD" variant
+
+0     string    KWAJ\x88\xf0\x27\xd1
+>0    byte      x       MS Compress, "KWAJ" variant
+>8    uleshort  x       \b, cmpr type %u
+>8    uleshort  2       (LZSS)
+>8    uleshort  3       (LZH)
+>8    uleshort  4       (MSZIP)
+
+0     string    SZ\x20\x88\xf0\x27\x33
+>0    byte      x       MS Compress, "SZ" variant
+>7    ubyte     <0xd1   \b, fragment %u
+
+0     string    MRNZ\x88\xf0\x27\x33
+>0    byte      x       MRNZ installer archive
+>12   string    \xe5\xf9\xef\xe4\x26\x5e\x89\x7f
+>>0   byte      x       \b, containing KWAJ archive
+
+0     string    FXPF\0
+>0    byte      x       Microsoft FXPF patch file
+
+# ----------
+# OS/2 PACK
+
+0     string    \xa5\x96
+>2    uleshort  0x0a14  OS/2 PACK archive, 0x%04x variant
+>2    uleshort  0x1400  OS/2 PACK archive, 0x%04x variant
+>2    uleshort  0xfffd  OS/2 PACK archive, PACK2 version
+>2    uleshort  0xfffe  OS/2 PACK archive, 0x%04x variant
+>2    uleshort  0xffff  OS/2 PACK archive, 0x%04x variant
+
+# ====================
+# Shared routines
 
 0       name   mac_type_creator
 >0      string/4  x       \b, type '%s'
