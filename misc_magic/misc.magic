@@ -405,7 +405,7 @@
 >>30    ubyte         0     of ?
 
 # ----------
-# Raw PKWARE DCL Impode data (a.k.a. TTCOMP)
+# Raw PKWARE DCL Implode data (a.k.a. TTCOMP)
 #
 # Caution: This might rely on undocumented behavior. You're only
 # supposed to use negative direct offsets at continuation level 0.
@@ -443,7 +443,7 @@
 # by prefixing the offset with "+". But, for now, I want compatibility
 # with older versions.
 #
-#>0     ubyte      0x01   \b, ASCII-optimized
+#>+0     ubyte      0x01   \b, ASCII-optimized
 
 # ----------
 # DWC archive
