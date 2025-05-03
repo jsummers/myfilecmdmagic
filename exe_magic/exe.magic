@@ -212,18 +212,24 @@
 >6                  uleshort    0
 # @8 = header size, should be 2
 >>8                 uleshort    0x0002
-# @16 = SP, should be 0x0150
->>>16               uleshort    0x0150
+# @16 = SP, should be 0x0150, but variations have been seen
+#>>>16               uleshort    0x0150
 # @22 = CS, should be 0
->>>>22              leshort     0
+>>>22              leshort     0
 # Could also test that reloc. tbl. offs. @24 = 28, but it wouldn't
 # really help.
 
 # @20 = IP register (expecting 1 or 4)
+>>>>20      uleshort    1
+>>>>>0      use         exe_wwpack_part2
+>>>>20      uleshort    4
+>>>>>0      use         exe_wwpack_part2
+
+0       name      exe_wwpack_part2
 # +32 for the header and CS
->>>>>(20.s+32)      string      \xb8
->>>>>>&2            string      \x8c\xca\x03\xd0\x8c\xc9\x81\xc1
->>>>>>>0            byte        x   \b, WWPACK compressed
+>(20.s+32)      string      \xb8
+>>&2            string      \x8c\xca\x03\xd0\x8c\xc9\x81\xc1
+>>>0            byte        x   \b, WWPACK compressed
 
 # ----------
 # TINYPROG-compressed EXE
