@@ -98,7 +98,9 @@
 >8      ulelong     !0          \b, BMP
 >28     ubyte       x           \b, %u cards
 
-# Not a REKO format, but may be found with REKO files.
+# ----------
+# Wiz Solitaire
+
 0       string/b    WizSolitaireDeck  Wiz Solitaire deck
 
 # ----------
@@ -534,6 +536,21 @@
 
 0         name      pcx_berts
 >0        byte      x   \b, BMG (Bert's Coloring Programs)
+
+# ----------
+# Dr. Halo PIC
+
+0         string/b  AH
+>4        uleshort  0
+>>2       uleshort  >199
+>>>2      uleshort  <230
+>>>>6     ubyte     0x02  Dr. Halo PIC image data
+>>>>>7    ubyte     0x01  \b, CGA
+>>>>>7    ubyte     0x07  \b, Hercules
+>>>>>7    ubyte     0x15  \b, EGA, 16-color
+>>>>>7    ubyte     0x3c  \b, VGA
+>>>>>7    ubyte     0x47  \b, VGA, 16-color
+>>>>6     ubyte     0x0a  Dr. Halo palette
 
 # ----------
 # MS Compress, etc.
