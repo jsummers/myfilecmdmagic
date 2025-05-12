@@ -111,6 +111,8 @@
 >0      use         exe_gws
 >0      use         exe_grabber
 >0      use         exe_txt2exe_pfh
+>0      use         exe_textlife
+>0      use         exe_bigtext
 >0      use         exe_central_point_av
 >0      use         exe_overlay
 

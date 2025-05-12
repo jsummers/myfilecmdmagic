@@ -1,0 +1,97 @@
+
+# "file command" rules for some EXE-based formats that share an author
+#
+# By Jason Summers, 2025 - Not copyrighted
+#
+
+# ----------
+# Bigtext, by Kevin Solway
+#
+# (This pattern is not great. There could be false positives.)
+
+0           name        exe_bigtext
+
+# @16 = SP, expecting 6000
+>16         uleshort    6000
+
+# @6 = number of relocs, range test
+>>6         uleshort    >449
+>>>6        uleshort    <751
+
+# Number of blocks (= approx. file size), rough minimum
+>>>>4       uleshort    >249
+
+>>>>>0      use   exe_bigtext_part2
+
+0       name   exe_bigtext_part2
+
+# Calculate the start-of-execution point...
+# @8 = header size, in paragraphs
+>(8.s*16)       byte      x
+# @22 = CS register, in paragraphs
+>>&(22,s*16)    byte      x
+# @20 = IP register
+# (-2 fudge factor for the two "byte x" dummy bytes we read,
+# +10 for because that's where we want to read.)
+>>>&(20.s+8)    string    \x9a\x05\x00
+>>>>0           use     exe_bigtext_part3
+
+0     name      exe_bigtext_part3
+>0    byte      x       \b, Bigtext
+# (Detecting the version is possible, given a copy of the BIGTEXT.EXE
+# file that created it. But we don't always have that file, and it's
+# tedious even when we do.)
+
+# ----------
+# Breeze-Text-to-EXE and TextLife, by Kevin Solway
+
+0       name     exe_textlife
+
+# @16 = SP, expecting 65520
+>16           uleshort    65520
+
+# @20 = IP register, range test
+>>20          uleshort    >6999
+>>>20         uleshort    <12001
+
+# @6 = number of relocs, range test
+>>>>6         uleshort    >229
+>>>>>6        uleshort    <311
+
+# Start of code segment
+>>>>>>(8.s*16)  string  \x55\x89\xe5\x83\xec\x02\x9a
+>>>>>>>0      use    exe_textlife_part2
+
+0     name exe_textlife_part2
+# It's usually possible to distinguish BreezeT2E and TextLife,
+# but we'll just call it "TextLife" format.
+>0    byte   x   \b, TextLife
+
+>(8.s*16)    byte   x
+# Measurement below are from the start of the code segment, plus 1 byte.
+
+>>&14595      string   \x05ZZZZZ   (Breeze v3.2)
+>>&14659      string   \x05ZZZZZ   (v2.3, or Breeze v4.1)
+>>&14547      string   \x05ZZZZZ   (Breeze v4.3)
+>>&16569      string   \x05ZZZZZ   (Breeze v4.5)
+
+>>&16585      string   \x05ZZZZZ
+>>>(8.s*16)   byte     x
+>>>>&2793     string   Textlife    (v2.6)
+>>>>0         default  x           (Breeze v4.6)
+
+>>&16761      string   \x05ZZZZZ   (v2.7var1)
+>>&16729      string   \x05ZZZZZ   (v2.7var2)
+>>&17033      string   \x05ZZZZZ   (v2.7var3)
+
+# A quirk: In this version only, for the smallest template (28000),
+# the offset of the text is slightly different than for the other
+# five templates.
+>>&16711      string   \x05ZZZZZ   (Breeze v4.9-5.2)
+>>&16713      string   \x05ZZZZZ   (Breeze v4.9-5.2)
+
+# Breeze version numbers are not unique.
+# These files are made by late "v5.2" and early "v5.3".
+>>&16665      string   \x05ZZZZZ   (Breeze v5.2-5.3)
+
+>>&16969      string   \x05ZZZZZ   (Breeze v5.3-5.6)
