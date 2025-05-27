@@ -11,7 +11,7 @@
 >>0     use         exe_part2
 
 0       name        exe_part2
->0      byte        x       MS-DOS executable
+>0      byte        x       EXE executable
 >0      string      ZM      (ZM signature)
 >0      clear       x
 # Nearly all extended EXE files have a reloc. table offset that is
@@ -91,6 +91,7 @@
 >0      use         exe_exepack
 
 0       name        dosexe_main
+>0      byte        x       \b, for MS-DOS
 >0      use         dosexe_minimal
 >0      use         exe_lzexe
 >0      use         exe_pklite
