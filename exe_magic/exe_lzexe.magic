@@ -71,6 +71,7 @@
 >>16240   string  \xe6\xe4\xf1\x99\x00\xb1  \b, GIFEXE (v1.2)
 >>16240   string  \xb6\xb9\xf8\x09\xe5\xfc  \b, GIFEXE (v2.0)
 >>16240   string  \x48\x94\x21\x76\x3a\xc7  \b, GIFEXE (v3.0)
+>>16240   string  \xcc\x39\x6c\x2d\x2b\x3c  \b, GIFEXE (v3.1)
 >>16240   string  \x16\x7e\x7c\x2c\xa1\x07  \b, GIFEXE (v3.2)
 >>16240   string  \x8d\x44\xfe\xcc\xf6\x8c  \b, GIFEXE (v4.1var1)
 >>16240   string  \xef\x22\x82\x46\x8d\x44  \b, GIFEXE (v4.1var2)
@@ -78,8 +79,8 @@
 >>16240   string  \x19\x11\x08\x01\x37\x54  \b, GIFEXE (v4.4)
 >>16240   string  \x74\x08\xe8\xd8\xe8\x59  \b, GIFEXE (v4.5)
 >>0       default x
->>>-6     string  GIFEXE    \b, GIFEXE
->>>-8     string  GIFEXE3   \b, GIFEXE
+>>>-6     string  GIFEXE    \b, GIFEXE (v1.x-2.x)
+>>>-8     string  GIFEXE3   \b, GIFEXE (v3+)
 
 # -------
 
