@@ -14,12 +14,18 @@
 >0      byte        x       MS-DOS executable
 >0      string      ZM      (ZM signature)
 >0      clear       x
+# Nearly all extended EXE files have a reloc. table offset that is
+# uncommon for DOS EXE...
 >24     uleshort    >63
 >>0     use         exe_maybe_extended
 >24     uleshort    0
 >>0     use         exe_maybe_extended
+# ...but not quite all, so we'll add other tests below as needed.
 >0      default     x
->>0     use         dosexe_main
+>>60    ulelong     128
+>>>0    use         exe_maybe_extended
+>>0     default     x
+>>>0    use         dosexe_main
 
 0       name        exe_maybe_extended
 >0      clear       x
