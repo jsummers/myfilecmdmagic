@@ -75,12 +75,17 @@
 0       name        exe_pe
 >0      use         dosexe_minimal
 >0      byte        x      \b, PE
+# @PEhdr+22: "characteristics"
 >(60.l+22)      uleshort    &0x2000   (DLL)
+# @PEhdr+20: Size of optional header
 >(60.l+20)      uleshort    !0
+# PEhdr+24 = Start of optional header
 >>(60.l+24)     uleshort    0x010b  \b, PE32
+# @PE32_opt_hdr+68: subsystem
 >>>(60.l+92)    uleshort    2       (GUI)
 >>>(60.l+92)    uleshort    3       (console)
 >>(60.l+24)     uleshort    0x020b  \b, PE32+
+# @PE32plus_opt_hdr+68: subsystem
 >>>(60.l+92)    uleshort    2       (GUI)
 >>>(60.l+92)    uleshort    3       (console)
 
