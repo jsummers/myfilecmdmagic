@@ -165,7 +165,9 @@
 
 0     name      t2c_id_as_com_txt2com
 >0    byte      x     DOS executable (COM)
+!:ext   com
 >0    byte      x     \b, Graham's TXT2COM
 
 0     name      t2c_id_as_dos_com
 >0    byte      x     DOS executable (COM)
+!:ext   com

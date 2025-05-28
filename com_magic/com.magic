@@ -528,3 +528,4 @@
 
 0     name      id_as_dos_com
 >0    byte      x     DOS executable (COM)
+!:ext   com

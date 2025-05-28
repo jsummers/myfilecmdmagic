@@ -27,6 +27,7 @@
 # We expect 0x0001 here.
 >>>>6   uleshort   <0x0020
 >>>>>0  byte       x  MS Comic Chat character (v1.0-2.1)
+!:ext   avb
 
 0       string/b   \x81\x81
 >2      uleshort   >0x0000
@@ -37,6 +38,7 @@
 # We expect 0x0001 or 0x0107 here.
 >>>>6   uleshort   <0x0120
 >>>>>0  byte       x  MS Comic Chat character (v2.5)
+!:ext   avb
 
 0       string/b   \x81\x81\x03\x00\x02\x00
 # Value at offset 6 is a "tag". Tags for this subtype are
@@ -46,6 +48,7 @@
 # We expect 0x0103 or 0x0107 here.
 >6      uleshort   <0x0120
 >>0     byte       x  MS Comic Chat background (v2.5)
+!:ext   bgb
 
 # ----------
 # STOS
@@ -102,6 +105,7 @@
 # Wiz Solitaire
 
 0       string/b    WizSolitaireDeck  Wiz Solitaire deck
+!:ext   deck
 
 # ----------
 # PC Paint PIC
@@ -123,6 +127,7 @@
 
 0       name        pcpaint_part2
 >0      byte        x       PC Paint PIC
+!:ext   pic
 >0      clear       x
 >12     ubyte       <0x30
 >>0     use         pcpaint_image
@@ -165,6 +170,7 @@
 # Follow the first item's pointer. Make sure we can read 32
 # bytes starting at that offset.
 >>>>(8.l+31)    byte          x       Inset PIX
+!:ext   pix
 >>>>>(8.l+1)    ubyte&0x01    0x00    text data
 >>>>>(8.l+1)    ubyte&0x01    0x01    image data
 >>>>>>(8.l+18)  uleshort      x       \b, %u x
@@ -356,13 +362,19 @@
 0       name      arc_part3
 >1      ubyte     <9
 >>1     string    \x03Descript\x00  BTSPK archive data
+!:ext   bts
 >>0     default   x
 >>>0    byte      x       ARC archive data
+!:ext   arc
 >1      ubyte     9       ARC archive data (PKARC variant)
+!:ext   arc
 >1      ubyte     >9
 >>1     ubyte     <12     ARC archive data (PAK variant)
+!:ext   pak
 >1      ubyte     20      ARC archive data (v7)
+!:ext   arc
 >1      ubyte     >0x7f   Spark archive data
+!:ext   spk/arc
 
 # ----------
 # PackIt (classic Mac format)
@@ -451,6 +463,7 @@
 # DWC archive
 -3      string/b    DWC
 >&-27   string      \x1b\x00\x22    DWC archive
+!:ext   dwc
 
 # ----------
 # InstallIt!: DOS installer by Coffee Mug Software
@@ -545,6 +558,7 @@
 >>2       uleshort  >199
 >>>2      uleshort  <230
 >>>>6     ubyte     0x02  Dr. Halo PIC image data
+!:ext   pic
 >>>>>7    ubyte     0x01  \b, CGA
 >>>>>7    ubyte     0x07  \b, Hercules
 >>>>>7    ubyte     0x15  \b, EGA, 16-color
