@@ -587,6 +587,24 @@
 >2    uleshort  0xfffe  OS/2 PACK archive, 0x%04x variant
 >2    uleshort  0xffff  OS/2 PACK archive, 0x%04x variant
 
+# ----------
+# DIV Games Studio
+
+3     string/b  \x1a\x0d\x0a\x00
+>0    string    map     DIV Games Studio image
+!:ext   map
+>>8   uleshort  x       \b, %u x
+>>10  uleshort  x       %u
+>0    string    fpg     DIV Games Studio image archive
+!:ext   fpg
+>0    string    f16     DIV Games Studio image archive
+!:ext   fpg
+>>0   byte      x       (16 bits/pixel)
+>0    string    pal     DIV Games Studio palette
+!:ext   pal
+>0    string    fnt     DIV Games Studio font
+!:ext   fnt
+
 # ====================
 # Shared routines
 
