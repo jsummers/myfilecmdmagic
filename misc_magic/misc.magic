@@ -604,6 +604,120 @@
 >2    uleshort  0xffff  OS/2 PACK archive, 0x%04x variant
 
 # ----------
+# ARJ
+
+# Some of the words in this section were copied from the darwinsys
+# version of file, so there could be copyrighted material here.
+
+0       uleshort   0xea60
+>10     ubyte      0x02      ARJ archive data
+!:ext   arj
+>>0     use        arj-archive
+
+0       name       arj-archive
+>5      ubyte      x         \b, v%u
+>5      ubyte      1         (ARJ 0.13-0.14)
+>5      ubyte      2         (ARJ 0.15-1.00)
+>5      ubyte      3         (ARJ 1.10-2.22)
+>5      ubyte      4         (ARJ 2.30)
+>5      ubyte      5         (ARJ 2.39a-2.39b)
+>5      ubyte      6         (ARJ 2.39c-2.41a)
+>5      ubyte      7         (ARJ 2.42a-2.50a)
+>5      ubyte      8         (ARJ 2.55-2.61)
+>5      ubyte      9         (ARJ 2.62-2.63)
+>5      ubyte      10        (ARJ 2.63-2.76)
+>5      ubyte      11        (ARJ 2.81+)
+>5      ubyte      51        (ARJZ)
+>5      ubyte      100       (ARJ32 3.00a-3.01a)
+>5      ubyte      101       (ARJ32 3.02-3.09)
+>5      ubyte      102       (ARJ32 3.10+)
+
+>6      ubyte      >1        \b, min to extract: %u
+
+>7      ubyte      x         \b, os: %u
+>7      ubyte      0         (MS-DOS)
+>7      ubyte      2         (Unix)
+>7      ubyte      3         (Amiga)
+>7      ubyte      4         (Mac)
+>7      ubyte      5         (OS/2)
+>7      ubyte      10        (Windows)
+>7      ubyte      11        (Windows)
+
+>8      ubyte      &0x01     \b, password-protected
+# Knowing if the files are password-protected is important, but the flag
+# in the archive header doesn't always tell us. So, also look at the
+# first member file.
+# (For more info about this logic, see the multi-volume section below.)
+>8      ubyte      ^0x01
+>>(2.s+8)   uleshort    0
+>>>&0       uleshort    0xea60
+>>>>&6      ubyte       &0x01   \b, password-protected
+
+# ANSIPAGE (depends on format version)
+>8      ubyte      &0x02
+>>5     ubyte      >8
+>>>5    ubyte      <50       \b, ANSI codepage
+>>5     ubyte      >99       \b, ANSI codepage
+
+>8      ubyte      &0x08     \b, recoverable
+>>34    ubyte      x         (factor %u)
+
+>8      ubyte      &0x02
+>>5     ubyte      <9        \b, secured (old)
+>8      ubyte      &0x40
+>>9     ubyte      >1        \b, secured (
+>>>9    ubyte      x         \bv%u
+>>>24   ulelong    x         \b, envelope: pos=%u
+>>>30   uleshort   x         \b, len=%u)
+
+# Test for multi-volume archives.
+# To get full info, we need both the EXTFILE flag of the first
+# member file, and the VOLUME flag of the archive header.
+# Simplest way is to find the first member file, then look back at
+# the archive header.
+#
+# Make sure there are no extended headers. (Highly unlikely that
+# there are any, but if so, give up on this.)
+>(2.s+8)   uleshort    0
+# An extra test to make sure we're in the right place.
+>>&0       uleshort    0xea60
+# 0x08 is the EXTFILE flag of the first archive member.
+>>>&6      ubyte       &0x08   \b, multi-volume
+# 0x04 is the VOLUME flag of the archive header.
+# (Note that member files also have the VOLUME flag, but we'd have
+# to look at the *last* member file, not the first.)
+>>>>8      ubyte       &0x04   (middle part)
+>>>>8      ubyte       ^0x04   (last part)
+>>>&6      ubyte       ^0x08
+>>>>8      ubyte       &0x04   \b, multi-volume (first part)
+
+# PATHSYM (Meh. Even if this were useful, here it technically only
+# applies to the name of the archive itself, not the filenames in
+# the archive.)
+#>8      ubyte      &0x10     \b, slash-switched
+
+>8      ubyte      &0x20     \b, backup
+>8      ubyte      &0x80     \b, dual-name
+
+# TODO: Some rare files use Unix time format instead, and it's
+# supposed to be possible to detect such files, though it might
+# be unpleasant to write the rules.
+>14     lemsdosdate   x      \b, created=[%s
+>12     lemsdostime   x      %s]
+
+# Mod time was added in format v6.
+>5      ubyte         >5
+>>18    lemsdosdate   x      \b, modified=[%s
+>>16    lemsdostime   x      %s]
+
+# TODO?: Chapters
+# TODO?: ALTVOLNAME_FLAG
+
+# Archive name is NUL terminated. We can find it using the
+# "first_hdr_size" field.
+>(4.b+4)    string/80   x   \b, original name: %s
+
+# ----------
 # DIV Games Studio
 
 3     string/b  \x1a\x0d\x0a\x00
