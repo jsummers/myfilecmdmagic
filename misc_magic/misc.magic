@@ -454,10 +454,12 @@
 # to the end of the file.
 #
 # Update: The 'file' source code as of 2024-11-27 has a way to do it,
-# by prefixing the offset with "+". But, for now, I want compatibility
-# with older versions.
+# by changing the offset of each "use" line above from "0" to "+0".
+# Then, put this line here:
 #
-#>+0     ubyte      0x01   \b, ASCII-optimized
+#>0     ubyte      0x01   \b, ASCII-optimized
+#
+# But, for now, I want compatibility with older versions.
 
 # ----------
 # DWC archive
