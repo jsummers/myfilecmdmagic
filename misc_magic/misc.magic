@@ -735,6 +735,17 @@
 >0    string    fnt     DIV Games Studio font
 !:ext   fnt
 
+# ----------
+# Pegasus ePIC, "PIC2" version
+
+0       string/b  PIC2
+# Type of 1st segment; expecting 1.
+>4      ubyte     0x01
+# Expecting segment 1 size to be 8, or at least small.
+>>5     ulelong   >7
+>>>5    ulelong   <33   Pegasus PIC2 image data
+!:ext   pic
+
 # ====================
 # Shared routines
 
