@@ -73,10 +73,35 @@
 >>>18   default    x
 >>>>18  ubelong    x              type 0x%08x
 
-0       ubelong    0x06071963     STOS picture bank
->4      ubeshort   x              \b, res %u
+0       ubelong    0x06071963
+>4      ubeshort   <3
+# @18=flags. Don't know what's valid, but I've only seen 0-3,
+# and this is one of the only decent ways to distinguish it from
+# the AMOS format.
+>>18    ubeshort   <8             STOS picture bank
+>>>4    ubeshort   x              \b, res %u
 
 0       ubelong    0x19861987     STOS sprite bank
+
+# ----------
+# AMOS formats
+
+0         ubelong     0x06071963
+# @8="width in bytes", tested because it corresponds to a STOS field
+# that's often (but unfortunately not always) 0.
+>8        ubeshort    !0
+# @14=bitplanes
+>>14      ubeshort    >0
+>>>14     ubeshort    <9          AMOS raw picture
+>>>>14    ubeshort    x           \b, %u bits
+
+0         ubelong     0x12031990
+90        ubelong     0x06071963
+>98       ubeshort    !0
+>>104     ubeshort    >0
+>>>104    ubeshort    <9          AMOS screen+picture
+>>>>22    ubeshort    x           \b, %u colors
+>>>>104   ubeshort    x           \b, %u bits
 
 # ----------
 # REKO cardset
