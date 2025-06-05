@@ -92,16 +92,24 @@
 >8        ubeshort    !0
 # @14=bitplanes
 >>14      ubeshort    >0
->>>14     ubeshort    <9          AMOS raw picture
+>>>14     ubeshort    <7          AMOS picture (without palette)
 >>>>14    ubeshort    x           \b, %u bits
 
-0         ubelong     0x12031990
-90        ubelong     0x06071963
->98       ubeshort    !0
->>104     ubeshort    >0
->>>104    ubeshort    <9          AMOS screen+picture
->>>>22    ubeshort    x           \b, %u colors
->>>>104   ubeshort    x           \b, %u bits
+3         ubyte       0x90
+>0        ubelong     0x12031990
+>>0       use         amos_pic_part2
+>0        ubelong     0x00031990
+>>0       use         amos_pic_part2
+>0        ubelong     0x12030090
+>>0       use         amos_pic_part2
+
+0         name        amos_pic_part2
+>90       ubelong     0x06071963
+>>98      ubeshort    !0
+>>>104    ubeshort    >0
+>>>>104   ubeshort    <7          AMOS picture
+>>>>>22   ubeshort    x           \b, %u colors
+>>>>>104  ubeshort    x           \b, %u bits
 
 # ----------
 # REKO cardset
