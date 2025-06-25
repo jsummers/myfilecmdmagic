@@ -452,47 +452,49 @@
 >>30    ubyte         0     of ?
 
 # ----------
-# Raw PKWARE DCL Implode data (a.k.a. TTCOMP)
-#
-# Caution: This might rely on undocumented behavior. You're only
-# supposed to use negative direct offsets at continuation level 0.
+# Raw PKWARE DCL Implode data
+# (Also known as TTCOMP.)
 
-0     ubyte      <2
-# 4 and 5 are also valid, but rare.
->1    ubyte      6
->>-4  ubelong&0x0000ffff  0x000001ff
->>>0  use raw_dclimplode_part2
->>-4  ubelong&0x0080ffff  0x0080807f
->>>0  use raw_dclimplode_part2
->>-4  ubelong&0x00c0ffff  0x0040c03f
->>>0  use raw_dclimplode_part2
->>-4  ubelong&0x00e0ffff  0x0020e01f
->>>0  use raw_dclimplode_part2
->>-4  ubelong&0x00f0ffff  0x0010f00f
->>>0  use raw_dclimplode_part2
->>-4  ubelong&0x00f8ffff  0x0008f807
->>>0  use raw_dclimplode_part2
->>-4  ubelong&0x00fcffff  0x0004fc03
->>>0  use raw_dclimplode_part2
->>-4  ubelong&0x00feffff  0x0002fe01
->>>0  use raw_dclimplode_part2
+0       ubyte   <2
+# 6 is common; 4 and 5 are rare (maybe shouldn't even be included?).
+>1      ubyte   >3
+>>1     ubyte   <7
 
-0 name raw_dclimplode_part2
->0     byte       x      PKWARE DCL Implode compressed data
+# This relies on a "use" rule evaluating to true if and only if
+# something was printed via the "name" routine. That seems to be
+# the intended (and actual) behavior, but might not be clearly
+# documented.
 
-# I'd like to look back at the beginning of the file, but
-# I don't know how to do that. Nonnegative direct offsets are
-# relative to the beginning of the most recent negative
-# direct offset, and negative direct offsets are relative
-# to the end of the file.
-#
-# Update: The 'file' source code as of 2024-11-27 has a way to do it,
-# by changing the offset of each "use" line above from "0" to "+0".
-# Then, put this line here:
-#
-#>0     ubyte      0x01   \b, ASCII-optimized
-#
-# But, for now, I want compatibility with older versions.
+>>>0    use     dclimplode-eof
+>>>>0   use     dclimplode-header
+
+0       name                dclimplode-eof
+>-2     ubeshort            0x01ff
+>>0     use                 dclimplode-id
+>-4     ubelong&0x0080ffff  0x0080807f
+>>0     use                 dclimplode-id
+>-4     ubelong&0x00c0ffff  0x0040c03f
+>>0     use                 dclimplode-id
+>-4     ubelong&0x00e0ffff  0x0020e01f
+>>0     use                 dclimplode-id
+>-4     ubelong&0x00f0ffff  0x0010f00f
+>>0     use                 dclimplode-id
+>-4     ubelong&0x00f8ffff  0x0008f807
+>>0     use                 dclimplode-id
+>-4     ubelong&0x00fcffff  0x0004fc03
+>>0     use                 dclimplode-id
+>-4     ubelong&0x00feffff  0x0002fe01
+>>0     use                 dclimplode-id
+
+0       name    dclimplode-id
+>0      byte    x       PKWARE DCL Implode compressed data
+
+0       name    dclimplode-header
+>0      ubyte   1       \b, ASCII-optimized
+>1      ubyte   4       \b, 1K
+>1      ubyte   5       \b, 2K
+>1      ubyte   6       \b, 4K
+>1      ubyte   x       dictionary
 
 # ----------
 # DWC archive
