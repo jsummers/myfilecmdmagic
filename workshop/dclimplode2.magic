@@ -1,0 +1,45 @@
+
+# "file command" rules
+#
+# By Jason Summers, 2025 - Not copyrighted
+
+# ----------
+# Raw PKWARE DCL Implode data
+# (Also known as TTCOMP.)
+#
+# !! This pattern uses a feature ("+0") that was added to the
+# 'file' command around 2024-11-27. It will not work with released
+# versions 5.46 and older. And it fails in a bad way: It prints
+# nonsense.
+
+0       ubyte   <2
+# 6 is common; 4 and 5 are rare (maybe shouldn't even be included?).
+>1      ubyte   >3
+>>1     ubyte   <7
+>>>0    use     dclimplode-eof
+
+0       name                dclimplode-eof
+>-2     ubeshort            0x01ff
+>>+0    use                 dclimplode-header
+>-4     ubelong&0x0080ffff  0x0080807f
+>>+0    use                 dclimplode-header
+>-4     ubelong&0x00c0ffff  0x0040c03f
+>>+0    use                 dclimplode-header
+>-4     ubelong&0x00e0ffff  0x0020e01f
+>>+0    use                 dclimplode-header
+>-4     ubelong&0x00f0ffff  0x0010f00f
+>>+0    use                 dclimplode-header
+>-4     ubelong&0x00f8ffff  0x0008f807
+>>+0    use                 dclimplode-header
+>-4     ubelong&0x00fcffff  0x0004fc03
+>>+0    use                 dclimplode-header
+>-4     ubelong&0x00feffff  0x0002fe01
+>>+0    use                 dclimplode-header
+
+0       name    dclimplode-header
+>0      byte    x       PKWARE DCL Implode compressed data
+>0      ubyte   1       \b, ASCII-optimized
+>1      ubyte   4       \b, 1K
+>1      ubyte   5       \b, 2K
+>1      ubyte   6       \b, 4K
+>1      ubyte   x       dictionary
