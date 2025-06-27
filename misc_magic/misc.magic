@@ -452,6 +452,61 @@
 >>30    ubyte         0     of ?
 
 # ----------
+# InstallShield TSComp
+
+0     string    \x65\x5d\x13\x8c\x08\x01
+>0    byte      x   InstallShield TSComp archive
+>18   ulelong   0   \b, single-file
+>18   ulelong   !0  \b, multi-file
+
+# ----------
+# InstallShield CAB
+
+0     string/b  ISc(   InstallShield CAB
+!:ext cab
+
+# ----------
+# InstallShield INS
+
+0     string  \xff\xff\x0c\x00
+>5    string  \x00\x34\x12  InstallShield INS (1993 era)
+!:ext ins
+
+0     string  \xb8\xc9\x0c\x00
+>5    string  \x00\x34\x12  InstallShield INS (1995 era)
+!:ext ins
+>5    string  \x00\x01\x00  InstallShield INS (1997 era)
+!:ext ins
+
+# ----------
+# InstallShield INX
+
+0     string/b  aLuZ   InstallShield INX
+!:ext inx
+
+# ----------
+# InstallShield _inst32i.ex_, etc.
+
+0     string  \x2a\xab\x79\xd8  InstallShield installer archive
+!:ext ex_
+>78   uleshort    x    \b, %u files
+
+# ----------
+# InstallShield IBT
+
+0       string/b    setup.dl_\0
+>&0     string      setup.dll\0
+>>0     byte        x   InstallShield IBT
+!:ext ibt
+
+# ----------
+# InstallShield PKG
+
+0     string   \x4a\xa3
+>6    string   \x02\0\0\0   InstallShield PKG
+!:ext pkg
+
+# ----------
 # Raw PKWARE DCL Implode data
 # (Also known as TTCOMP.)
 
