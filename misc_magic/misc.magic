@@ -836,6 +836,14 @@
 >>>5    ulelong   <33   Pegasus PIC2 image data
 !:ext   pic
 
+# ----------
+# Hemera thumbnail archive; Thumbs.hta
+
+0       string    \x89HTA\x0d\x0a\x1a\x0a  Hemera thumbnails
+!:ext   hta
+>8      ulelong   100
+>>12    ulelong   x   \b, %u items
+
 # ====================
 # Shared routines
 
