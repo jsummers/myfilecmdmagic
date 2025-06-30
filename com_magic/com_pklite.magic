@@ -1,74 +1,82 @@
 
 # "file command" rules for PKLITE-compressed COM files
 #
-# By Jason Summers, 2024 - Not copyrighted (by the writer of these rules,
-# but some patterns decode to third-party machine code that *might* be
-# big enough for someone to try to claim copyright on)
+# By Jason Summers, 2024-2025 - Not copyrighted (by the writer of these
+# rules, but some patterns decode to third-party machine code that
+# I suppose someone could try to claim copyright on)
 
-# The version number is fingerprinted to the extent possible, as opposed
-# to trusting the version label.
-
-# The number of bytes matched in the rules below is overkill.
-# It's not clear how many should be used.
-
-# PKLITE/COM v1.00beta
-0       string/b    \xBA
->&2     string      \xA1\x02\x00\x2D\x20\x06\x8C\xCB\x81\xC3\x00\x02\x3B\xC3\x77\x53
->>0     use         id_as_pklite_com
->>0     byte        x       (v1.00beta900529)
-
-# PKLITE/COM v1.00-v1.14
-0       string/b    \xB8
->&2     string      \xBA
->>&2    string      \x3B\xC4\x73\x67\x8B\xC4\x2D\x44\x03\x25\xF0\xFF\x8B\xF8\xB9
->>>0    use         id_as_pklite_com
-
->>>0    clear       x
->>>390  string      \x50
->>>>44  uleshort&0x0fff   0x100   (v1.00)
->>>>44  uleshort&0x0fff   0x103   (v1.03)
->>>>44  default           x       (v1.00-1.03)
->>>390  string      \x06
->>>>44  uleshort&0x0fff   0x105   (v1.05)
->>>>44  uleshort&0x0fff   0x10c   (v1.12)
->>>>44  uleshort&0x0fff   0x10d   (v1.13)
->>>>44  uleshort&0x0fff   0x10e   (v1.14)
->>>>44  default           x       (v1.05-1.14)
->>>390  default     x      (v?)
-
-# PKLITE/COM v1.15
-# Note: v1.15 COM files erroneously contain version number 1.14,
-# but can be distinguished from real v1.14 files.
->>&2    string      \x3B\xC4\x73\x69\x8B\xC4\x2D\x44\x03\x90\x25\xF0\xFF\x8B\xF8\xB9
->>>0    use         id_as_pklite_com
->>>0    byte        x       (v1.15)
-
-# EXE files made by v1.00 (not beta) through 1.05 (plus maybe "1.10"),
-# have characteristics that may allow them to be converted to COM
-# format just by stripping off the EXE header. Such files exist.
->>&2    string      \x8C\xDB\x03\xD8\x3B\x1E\x02\x00\x73
->>>0    use         id_as_pklite_com
->>>0    byte        x     (v1.00-1.05)
->>>0    byte        x     (converted from EXE)
-
-# PKLITE/COM v1.50-v2.01
-0       string/b    \x50\xB8
->&2     string      \xBA
->>&2    string      \x3B\xC4\x73
->>>&1    string     \x8B\xC4\x2D\x42\x03\x25\xF0\xFF\x8B\xF8\xB9
->>>>0    use        id_as_pklite_com
-# Go back and read a skipped byte. It's usually 0x79, but 0x74 is seen
-# in the "v1.16" format from FORMAT.COM from PC DOS 6.3.
->>>>0     clear    x
->>>>&-12  string   \x79
->>>>>46   uleshort&0x0fff    0x132     (v1.50)
->>>>>46   uleshort&0x0fff    0x201     (v2.01)
->>>>>46   default            x         (v1.50-2.01)
->>>>0     default  x      (v?)
+# The version is fingerprinted to some extent, as opposed to just
+# trusting the version label.
 
 # ------------
 
-0       name        id_as_pklite_com
->0      byte   x    DOS executable (COM)
-!:ext   com
->0      byte   x    \b, PKLITE compressed
+# PKLITE/COM v1.00beta:1990-05-29
+0       ubyte       0xba
+>6      string      \x2d\x20\x06\x8c
+>>16    string      \xc3\x77\x53\x05
+>>>0    use         pklite-com-found
+>>>0    byte        x       (v1.00beta900529)
+
+# ------------
+
+# PKLITE/COM v1.00-v1.15
+0       ubyte       0xb8
+>3      ubyte       0xba
+
+>>6     string      \x3b\xc4\x73\x67\x8b\xc4\x2d\x44\x03\x25
+>>>0    use         pklite-com-found
+
+>>>0    clear       x
+>>>390  ubyte       0x50
+>>>>44  uleshort    0x0100  (v1.00)
+>>>>44  uleshort    0x0103  (v1.03)
+>>>>44  default     x       (v1.00-1.03)
+>>>390  ubyte       0x06
+>>>>44  uleshort    0x0105  (v1.05)
+>>>>44  uleshort    0x010c  (v1.12)
+>>>>44  uleshort    0x010d  (v1.13)
+>>>>44  uleshort    0x010e  (v1.14)
+>>>>44  default     x       (v1.05-1.14)
+>>>390  default     x       (v?)
+
+# Note: v1.15 COM files erroneously contain version number 1.14,
+# but can be distinguished from real v1.14 files.
+>>6     string      \x3b\xc4\x73\x69\x8b\xc4\x2d\x44\x03\x90\x25
+>>>0    use         pklite-com-found
+>>>0    byte        x       (v1.15)
+
+# ------------
+
+# PKLITE/COM v1.50-v2.01
+0         string    \x50\xb8
+>4        ubyte     0xba
+>>7       string    \x3b\xc4\x73
+>>>11     string    \x8b\xc4\x2d\x42\x03\x25
+>>>>0     use       pklite-com-found
+# Go back and read a byte we skipped. It's usually 0x79, but it's 0x74
+# in the "v1.16" format from FORMAT.COM from PC DOS 6.3.
+>>>>10    ubyte     !0x79   (v?)
+>>>>10    ubyte     0x79
+>>>>>46   uleshort  0x0132  (v1.50)
+>>>>>46   uleshort  0x0201  (v2.01)
+>>>>>46   default   x       (v1.50-2.01)
+
+# ------------
+
+# EXE files made by v1.00 (not beta900529) through 1.05
+# have characteristics that may allow them to be converted to COM
+# format just by stripping off the EXE header. Such files exist.
+# https://archive.org/download/hacks-and-cracks/Hacks_and_Cracks.iso/vol1%2Fpc_cw414.zip
+0       ubyte     0xb8
+>3      ubyte     0xba
+>>6     string    \x8c\xdb\x03\xd8\x3b\x1e\x02\x00\x73
+>>>0    use       pklite-com-found
+>>>0    byte      x     (v1.00-1.05)
+>>>0    byte      x     (converted from EXE)
+
+# ------------
+
+0       name    pklite-com-found
+>0      byte    x     DOS executable (COM)
+!:ext com
+>0      byte    x     \b, PKLITE compressed
