@@ -6,19 +6,19 @@
 # ----------
 # DIET-compressed data file
 
-0       string/b    \xb4\x4c\xcd\x21\x9d\x89
+0       string      \xb4\x4c\xcd\x21\x9d\x89
 >0      byte        x       DIET compressed file (v1.00-1.00d)
 
-0       string/b    \x9d\x89\x64\x6c\x7a
+0       string      \x9d\x89\x64\x6c\x7a
 >0      byte        x       DIET compressed file (v1.02b-1.20)
 
-0       string/b    \xb4\x4c\xcd\x21\x9d\x89\x64\x6c\x7a
+0       string      \xb4\x4c\xcd\x21\x9d\x89\x64\x6c\x7a
 >0      byte        x       DIET compressed file (v1.44-1.45f)
 
 # ----------
 # Comic Chat
 
-0       string/b   \x81\x00
+0       string     \x81\x00
 >2      uleshort   >0x0000
 >>2     uleshort   <0x0003
 >>>4    uleshort   0x0001
@@ -29,7 +29,7 @@
 >>>>>0  byte       x  MS Comic Chat character (v1.0-2.1)
 !:ext   avb
 
-0       string/b   \x81\x81
+0       string     \x81\x81
 >2      uleshort   >0x0000
 >>2     uleshort   <0x0003
 >>>4    uleshort   0x0002
@@ -40,7 +40,7 @@
 >>>>>0  byte       x  MS Comic Chat character (v2.5)
 !:ext   avb
 
-0       string/b   \x81\x81\x03\x00\x02\x00
+0       string     \x81\x81\x03\x00\x02\x00
 # Value at offset 6 is a "tag". Tags for this subtype are
 # believed to be from 0x0001 to 0x0107 (but we allow for more).
 # (Actually, only tags from 0x0102 to 0x0107 have been seen in
@@ -180,7 +180,7 @@
 >10     ubyte       0x11    \b, 4-color planar
 >10     ubyte       0x31    \b, 16-color planar
 
-0       string/b    \xfd\x00\xb8\x00\x00
+0       string      \xfd\x00\xb8\x00\x00
 >5      uleshort    0
 >>7     string      \x00\x40\x02\x00
 >>>13   string      \x00\x20       PC Paint compressed BSAVE image data
@@ -494,7 +494,7 @@
 # ----------
 # InstallShield IBT
 
-0       string/b    setup.dl_\0
+0       string      setup.dl_\0
 >&0     string      setup.dll\0
 >>0     byte        x   InstallShield IBT
 !:ext ibt

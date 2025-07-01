@@ -18,7 +18,7 @@
 
 # --- The v1.x format family ("TXT2COM" at offset 3)
 
-0     string/b  \xE9
+0     string    \xE9
 
 # TXT2COM.COM [size=3757] does not use a version number.
 # Generated files contain no version number.
@@ -36,7 +36,7 @@
 
 # --- The v2.0-2.03 format family ("TXT2COM" at offset 5)
 
-0     string/b  \xE8
+0     string    \xE8
 >1    string    \x3A\x01
 
 # TXT2COM.COM [size=3938] calls itself "version 1.1", presumably a clerical
@@ -65,7 +65,7 @@
 
 # --- The v2.06-2.10 format family ("TXT2COM" at offset 14)
 
-0     string/b  \x8d
+0     string     \x8d
 >4    string     \xE8
 
 # TXT2COM.COM [size=7772] calls itself "version 2.06".
@@ -147,14 +147,14 @@
 # fallback rules for versions before that.
 
 # Unknown version ~v2.0-2.04
-0       string/b  \xe8
+0       string    \xe8
 !:strength / 2
 >5      string    TXT2COM\ Conv
 >>0     use       t2c_id_as_com_txt2com
 >>0     byte      x       (v?)
 
 # Unknown version v2.04+
-0       string/b  \x8d
+0       string    \x8d
 !:strength / 2
 >4      string    \xe8
 >>14    string    TXT2COM\ Conv

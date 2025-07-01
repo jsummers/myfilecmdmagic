@@ -11,7 +11,7 @@
 #  fe 8b 0e 08 01 8b 16 02 01 b8 77 01 50 fc ad 33
 #  c2 ab 8b d0 e2 f8 ?? ?? ...
 
-0     string/b  \xeb\x0a
+0     string    \xeb\x0a
 >12   string    \xbe\x26\x01\x8b\xfe\x8b\x0e\x08\x01\x8b\x16\x02
 >>0   use       id_as_dos_com
 >>0   byte      x       \b, ICE compressed
@@ -19,7 +19,7 @@
 # ----------
 # TheDraw COM file - self-displaying ANSI art
 
-0       string/b  \xEB\x3D\x90
+0       string    \xEB\x3D\x90
 >6      byte      0x02
 >>63    string    \xB4\x0F\xCD\x10\xBB\x00\xB8\x3C\x02\x74\x18\x3C\x03\x74\x14\xC6
 >>>0    use       id_as_dos_com
@@ -34,7 +34,7 @@
 >>>>0   use       id_as_dos_com
 >>>>0   byte      x     \b, P-Screen COM file
 
-0       string/b  \xEB\x18\x90
+0       string    \xEB\x18\x90
 >6      byte      0x01
 >>26    string    \xB4\x0F\xCD\x10\x8B\x3E\x07\x01\xBE\x5E\x01\x8B\x0E\x04\x01\xFC
 >>>0    use       id_as_dos_com
@@ -64,7 +64,7 @@
 
 # (These are just random byte samples, not a sophisticated
 # way to identify the format.)
-0       string/b  \xe8\x6b\x00\xe8
+0       string    \xe8\x6b\x00\xe8
 >32     string    \xd7\x01\xa0\x0f
 >>0     use       id_as_dos_com
 >>0     byte      x   \b, Fontastic .COM screen
@@ -146,12 +146,12 @@
 # ----------
 # LHarc self-extracting COM archive
 
-0       string/b  \xEB\x6C
+0       string    \xEB\x6C
 >110    string    \xFC\xBC\x00\x01\xBB\x06\x01\xE8\x61\x02\x8C\xC8\x2E\x03\x06\x02
 >>0     use       id_as_dos_com
 >>0     byte      x     \b, LHarc self-extracting archive (v1.00)
 
-0       string/b  \xEB\x60
+0       string    \xEB\x60
 >98     string    \xFC\xBC\x00\x01\xBB\x06\x01\xE8\x54\x02\x8C\xC8\x2E\x03\x06\x02
 >>0     use       id_as_dos_com
 >>0     byte      x     \b, LHarc self-extracting archive
@@ -184,18 +184,18 @@
 # ----------
 # DIET-compressed COM executable
 
-0       string/b    \xbf
+0       string      \xbf
 >17     string      \xfd\xf3\xa5\xfc\x8b\xf7\xbf\x00
 >>0     use         id_as_dos_com
 >>0     byte        x       \b, DIET compressed (v1.00-1.00d)
 
-0       string/b    \xbe
+0       string      \xbe
 >17     string      \xfd\xf3\xa5\xfc\x8b\xf7\xbf\x00
 >>35    string      dlz
 >>>0    use         id_as_dos_com
 >>>0    byte        x       \b, DIET compressed (v1.02b-1.20)
 
-0       string/b    \xf9
+0       string      \xf9
 >10     string      \x9d\x89
 >>65    string      dlz
 >>>0    use         id_as_dos_com
@@ -204,7 +204,7 @@
 # ----------
 # COMPACK-compressed COM executable
 
-0     string/b  \xbe
+0     string    \xbe
 
 >15   string    \x8b\xce\x8d\x72\x34\xbf\x82\xff\xd1\xe9\xfd\x57\xf3\xa5\x8d
 >>0   use       id_as_dos_com
@@ -250,7 +250,7 @@
 # ----------
 # Realia Spacemaker-compressed COM executable
 
-0       string/b  \x9c\x55\x56\x8c\xcd\x83\xc5\x10\x8d\xb6
+0       string    \x9c\x55\x56\x8c\xcd\x83\xc5\x10\x8d\xb6
 >&2     string    \x56\xbe
 >>&2    string    \x56\xcb
 >>>0    use       id_as_dos_com
@@ -259,7 +259,7 @@
 # ----------
 # EXE2COM (PSP Soft, Paul Shpilsher)
 
-0           string/b  \xE9
+0           string    \xE9
 >3          string    EXE2COM
 # +3 because we measure from the end of the JMP instruction,
 # -1 for the dummy "byte x", = +2.
@@ -486,7 +486,7 @@
 # EXE2COM by The Doors of Perception
 # A.k.a. E2C by The DoP Timisoara
 
-0    string/b   \xbe\x4a\x01\xbf\x50\xfe\xb9
+0    string     \xbe\x4a\x01\xbf\x50\xfe\xb9
 >9   string     \xfc\x57\xf3\xa5\xc3
 >>0   use       id_as_dos_com
 >>0   byte      x     \b, EXE2COM (Doors of Perception)
@@ -504,7 +504,7 @@
 # ----------
 # XLOADER
 
-0     string/b  \xfc\x8c\xdb\x33
+0     string    \xfc\x8c\xdb\x33
 >616  string    CM/ST
 >>0   use       id_as_dos_com
 >>0   byte      x     \b, XLOADER converted EXE->COM
