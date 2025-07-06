@@ -424,6 +424,16 @@
 >>>>>>>>>0      byte      x           \b, Spacemaker compressed
 
 # ----------
+# Executrix (by Knowledge Dynamics) compressed DOS EXE
+
+# @6 = number of relocs, should be 1
+>6              uleshort    1
+
+>>(8.s*16)      ubyte   0xe9
+>>>&2           string  Copyright
+>>>>&9          string  Knowledge\ D    \b, Executrix compressed
+
+# ----------
 # PACK (by TurboPower Software) compressed DOS EXE
 
 0               name       exe_pack_turbopower
