@@ -12,6 +12,10 @@ with the `-m` option. For example:
 
 `$ file -m [...]/myfilecmdmagic/exe_magic example.exe`
 
+Alternatively, you can compile the patterns to .mgc format first.
+There's a Makefile in the "mgc" subdirectory that creates a
+compiled file "mgc/mfcm.mgc".
+
 These pattern files or subdirectories are designed to be used in
 isolation. Integrating them into the main database (often found at
 /usr/share/misc/magic or /etc/magic) may be difficult to do without
