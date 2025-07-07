@@ -3,32 +3,48 @@
 #
 # By Jason Summers, 2024 - Not copyrighted
 
-0       string      MZ
->0      use         exe_part2
-
 0       string      ZM
->4      uleshort    >0
->>0     use         exe_part2
+>4      uleshort    >0    EXE executable (ZM signature)
+>>0     use         dosexe_main
 
-0       name        exe_part2
->0      byte        x       EXE executable
->0      string      ZM      (ZM signature)
->0      clear       x
-# Nearly all extended EXE files have a reloc. table offset that is
-# uncommon for DOS EXE...
->24     uleshort    >63
->>0     use         exe_maybe_extended
->24     uleshort    0
->>0     use         exe_maybe_extended
-# ...but not quite all, so we'll add other tests below as needed.
->0      default     x
->>60    ulelong     128
+0       string      MZ    EXE executable
+
+# @60 = "maybe ext. header pointer". If it's >=64, possible extended EXE.
+>60     ulelong     >63
+
+# if reloc table offset is >=64, especially if =64, suspect ext. EXE.
+>>24    uleshort    >63
 >>>0    use         exe_maybe_extended
->>0     default     x
->>>0    use         dosexe_main
+
+# If reloc table offset is <=60, could still be extended;
+# not so likely, but common enough that we need to check.
+>>24    uleshort    <61
+
+# At most 8 relocs will fit from offset 28 to 60. More than about
+# 1 reloc isn't common for an ext. EXE DOS stub, but we'll be
+# conservative.
+# (Calculating the exact end of the relocation table might be
+# possible, but seems like overkill.)
+>>>6    uleshort    <9
+>>>>0   use         exe_maybe_extended
+
+# Reloc table definitely overlaps ext. hdr. ptr; can't be extended EXE.
+>>>0    default   x
+>>>>0   use       dosexe_main
+
+# If reloc table ptr is in range 61-63, assume not extended EXE.
+>>0     default   x
+>>>0    use       dosexe_main
+
+# If ext. header pointer is <64, can't be extended EXE.
+>0      default   x
+>>0     use       dosexe_main
 
 0       name        exe_maybe_extended
 >0      clear       x
+
+# TODO: The >63 check may be redundant, but we'll leave it here
+# for now.
 >60     ulelong     >63
 >>0     clear       x
 # Set the current offset to point to the signature
