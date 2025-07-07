@@ -53,6 +53,7 @@
 >>>&(20.s-3)    byte        x
 >>>>&0          string      \x06\x0e\x1f\x8b\x0e\x0c\x00\x8b\xf1\x4e\x89\xf7
 >>>>>0          byte        x      \b, LZEXE compressed (v0.91)
+>>>>>&221       string      =*CEP*  (CEBE variant)
 >>>>>0          use         lzexe_091_appl
 >>>>&1          string      \x06\x0e\x1f\x8b\x0e\x0c\x00\x8b\xf1\x4e\x89\xf7
 >>>>>0          byte        x      \b, LZEXE compressed (v0.91e)
