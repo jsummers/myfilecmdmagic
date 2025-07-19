@@ -38,8 +38,9 @@
 
 0       name    dclimplode-header
 >0      byte    x       PKWARE DCL Implode compressed data
->0      ubyte   1       \b, ASCII-optimized
->1      ubyte   4       \b, 1K
->1      ubyte   5       \b, 2K
->1      ubyte   6       \b, 4K
->1      ubyte   x       dictionary
+>0      byte    x       \b, compression=
+>0      ubyte   0       \bbinary-
+>0      ubyte   1       \bASCII-
+>1      ubyte   4       \b1K
+>1      ubyte   5       \b2K
+>1      ubyte   6       \b4K
