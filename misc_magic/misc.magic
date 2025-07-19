@@ -446,7 +446,7 @@
 >14     lemsdosdate   x     \b, timestamp=[%s
 >16     lemsdostime   x     %s]
 >10     uleshort      0     \b, single-volume
->10     uleshort      1     \b, volume
+>10     uleshort      !0    \b, volume
 >>31    ubyte         x     %u
 >>30    ubyte         !0    of %u
 >>30    ubyte         0     of ?
