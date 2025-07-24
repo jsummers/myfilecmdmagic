@@ -326,23 +326,6 @@
 >>28    uleshort    x       \b, %u bits/pixel
 
 # ----------
-# OS/2 Bitmap array
-
-0           string      BA
->14         string      BM
-
->>28        uleshort    12
-# @36 = planes
->>>36       uleshort    1     OS/2 bitmap array
->>>>0       byte        x     \b, of bitmaps
-
->>28        uleshort    >15
->>>28       uleshort    <65
-# @40 = planes
->>>>40      uleshort    1     OS/2 bitmap array
->>>>>0      byte        x     \b, of bitmaps
-
-# ----------
 # ARC archive, and related things
 
 # There's not much magic to work with here.

@@ -1,0 +1,94 @@
+# "file command" rules for miscellaneous files
+#
+# By Jason Summers, 2025 - Not copyrighted, unless noted.
+
+# These patterns detect some formats for which the file command's
+# standard database might do a better job.
+
+# Some of the patterns in this file are low quality.
+# The idea is to detect some formats that might be found alongside the
+# formats that we care about.
+
+# ----------
+# Misc.
+
+0   string    \xff\xd8\xff      JPEG image data
+0   string    II*\x00           TIFF image data, little-endian
+0   string    MM\x00*           TIFF image data, big-endian
+0   string/b  MSCF              Microsoft CAB archive data
+0   string    \x3f\x5f\x03\x00  WinHelp
+0   string    \x00\x05\x16\x07  AppleDouble header
+0   string    \x00\x05\x16\x00  AppleSingle
+
+# ----------
+# ZIP
+
+0       string/b  PK
+>2      string    \x03\x04
+>>0     use       id_as_zip
+>2      string    \x05\x06
+>>0     use       id_as_zip
+>2      string    \x07\x08PK\x03\x04
+>>0     use       id_as_zip
+>2      string    \x30\x30PK\x03\x04
+>>0     use       id_as_zip
+
+0       name      id_as_zip
+>0      byte      x    ZIP archive data
+!:mime  application/zip
+!:ext   zip
+
+# ----------
+# GIF
+
+0         string/b    GIF8
+>5        string      a
+>>4       ubyte       >0x36
+>>>4      ubyte       <0x3a
+>>>>4     ubyte       !0x38   GIF image data
+>>>>>3    string/3    x       \b, version %s
+>>>>>6    uleshort    x       \b, %u x
+>>>>>8    uleshort    x       %u
+
+# ----------
+# OS/2 Bitmap array
+
+0           string/b    BA
+>14         string      BM
+
+>>28        uleshort    12
+# @36 = planes
+>>>36       uleshort    1
+>>>>0       use         id_as_os2ba
+>>>>0       byte        x     \b, of bitmaps
+
+>>28        uleshort    >15
+>>>28       uleshort    <65
+# @40 = planes
+>>>>40      uleshort    1
+>>>>>0      use         id_as_os2ba
+>>>>>0      byte        x     \b, of bitmaps
+
+>14         string      PT
+# @19 = highest byte of first item size. Size should be small.
+>>19        byte        0
+>>>0        use         id_as_os2ba
+>>>0        byte        x     \b, of pointers (bi-level)
+
+>14         string      CP
+>>19        byte        0
+>>>0        use         id_as_os2ba
+>>>0        byte        x     \b, of pointers (color)
+
+>14         string      IC
+>>19        byte        0
+>>>0        use         id_as_os2ba
+>>>0        byte        x     \b, of icons (bi-level)
+
+>14         string      CI
+>>19        byte        0
+>>>0        use         id_as_os2ba
+>>>0        byte        x     \b, of icons (color)
+
+0           name        id_as_os2ba
+>0          byte        x     OS/2 bitmap array
