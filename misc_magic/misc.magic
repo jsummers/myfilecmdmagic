@@ -536,6 +536,12 @@
 >1      ubyte   6       \b4K
 
 # ----------
+# Logitech Compress
+
+0       string  \xda\xfa
+>8      string  \x00\x06    Logitech Compress (v2)
+
+# ----------
 # DWC archive
 -3      string/b    DWC
 >&-27   string      \x1b\x00\x22    DWC archive
