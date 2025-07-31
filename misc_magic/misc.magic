@@ -633,6 +633,31 @@
 >0        byte      x   \b, BMG (Bert's Coloring Programs)
 
 # ----------
+# gxlib
+
+0         uleshort  0xca01
+>52       uleshort  100
+>>2       ubyte     >31
+>>>16     string    Genus
+>>>>0     use       gxlib_part2
+
+# Sometimes the copyright string is different.
+# But there's also at least one variant format that we don't want to
+# detect, and is difficult to distinguish.
+>>>0      default   x
+>>>>128   ubyte     0
+>>>>>0    use       gxlib_part2
+
+0         name      gxlib_part2
+>0        byte      x       Genus GX Library
+>54       ubyte     >0
+>>54      string/40 x       \b, label "%s"
+>94       uleshort  x       \b, %u image(s)
+>94       uleshort  >0
+>>128     ubyte     0       \b, uncompressed
+>>128     ubyte     >0      \b, compressed
+
+# ----------
 # Dr. Halo PIC
 
 0         string/b  AH
