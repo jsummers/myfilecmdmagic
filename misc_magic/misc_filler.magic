@@ -28,13 +28,16 @@
 >>0     use       id_as_zip
 >2      string    \x05\x06
 >>0     use       id_as_zip
+>>0     byte      x   \b, empty
 >2      string    \x07\x08PK\x03\x04
 >>0     use       id_as_zip
+>>-22   string    !PK\5\6
+>>>0    byte      x   \b, likely first part of multi-part archive
 >2      string    \x30\x30PK\x03\x04
 >>0     use       id_as_zip
 
 0       name      id_as_zip
->0      byte      x    ZIP archive data
+>0      byte      x   ZIP archive data
 !:mime  application/zip
 !:ext   zip
 
