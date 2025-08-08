@@ -142,6 +142,7 @@
 >0      use         exe_textlife
 >0      use         exe_bigtext
 >0      use         exe_central_point_av
+>0      use         exe_cebe_from_com
 >0      use         exe_overlay
 
 # ----------
@@ -503,6 +504,26 @@
 >(8.s*16)   string  \x8c\xda\x01\x16\x0c\x01\xff\x2e\x0a\x01
 >>0         byte    x    \b, SCRE2B converted EXE->COM
 >>0         byte    x    (converted back to EXE)
+
+# ----------
+# CEBE intermediate format
+
+# CEBE can convert COM to EXE, then compress it. If you decompress
+# such a file with an LZEXE decompressor, this is what you'll get.
+
+0           name    exe_cebe_from_com
+
+# @6 = number of relocs, should be 0
+>6          uleshort    0
+# @14 = SS, should be -16
+>>14        leshort     -16
+# @16 = SP, should be 0
+>>>16       uleshort    0
+# @22 = CS, should be -16
+>>>>22      leshort     -16
+
+>>>>>-8     string      \x33\xdb\x53\xbb\x00\x01\x53\xc3
+>>>>>>0     byte        x   \b, CEBE converted from COM
 
 # ----------
 # LHarc/LHA self-extracting EXE
