@@ -146,6 +146,26 @@
 >12     ubyte     x       \b, 8x%u
 
 # ----------
+# EVAfont
+
+0       ubyte     0xe9
+
+>6      string    \ text\ font\ loader\ v
+>>0     use       id_as_dos_com
+>>0     byte      x       \b, EVAfont driver
+>>&0    string    2.      (v2.x)
+>>3     string    EGA     \b, 8x14
+>>3     string    VGA     \b, 8x16
+
+>7      string    \ font\ driver\ v
+>>0     use       id_as_dos_com
+>>0     byte      x       \b, EVAfont driver
+>>&0    string    3.      (v3.x)
+>>3     string    8x08    \b, 8x8
+>>3     string    8x14    \b, 8x14
+>>3     string    8x16    \b, 8x16
+
+# ----------
 # LHarc self-extracting COM archive
 
 0       string    \xEB\x6C
