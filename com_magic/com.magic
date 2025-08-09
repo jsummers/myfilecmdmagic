@@ -120,7 +120,8 @@
 >>0     use       fontedit2_1_part2
 
 0       name      fontedit2_1_part2
->0      byte      x       FontEdit II font loader
+>0      use       id_as_dos_com
+>0      byte      x       \b, FontEdit II font loader
 >0      byte      x       (v1.00)
 >7      ubyte     0x8a    \b, executable mode
 >7      ubyte     0x46    \b, TSR mode
@@ -135,7 +136,8 @@
 >>0     use       fontedit2_2_part2
 
 0       name      fontedit2_2_part2
->0      byte      x       FontEdit II font loader
+>0      use       id_as_dos_com
+>0      byte      x       \b, FontEdit II font loader
 >7      ubyte     x       (v%u.
 >8      ubyte     x       \b%02u)
 >9      ubyte     0       \b, executable mode
