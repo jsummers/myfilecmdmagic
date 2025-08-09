@@ -547,6 +547,14 @@
 >0    byte      x   \b, Com2txt
 
 # ----------
+# XEQ
+
+0     ubyte     0xe9
+>5    string    XEQ.COM\0
+>>0   use       id_as_dos_com
+>>0   byte      x   \b, XEQ executable library
+
+# ----------
 
 0     name      id_as_dos_com
 >0    byte      x     DOS executable (COM)
