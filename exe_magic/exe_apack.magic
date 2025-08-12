@@ -1,0 +1,66 @@
+# "file command" rules for aPACK-compressed DOS EXE files
+#
+# By Jason Summers, 2025 - Not copyrighted
+#
+
+# ----------
+# aPACK-compressed EXE
+
+# aPACK is difficult to identify. It has many versions, and
+# many options, and a sophisticated code generation algorithm.
+# This pattern very likely misses some files.
+
+0           name      exe_apack
+
+# (We're pretty strict about the MZ header, because we don't have
+# much else to work with.)
+
+# @6 = number of relocs, normally 1, maybe can be 0
+>6          uleshort  <2
+# @8 = header size, should be 2
+>>8         uleshort  0x0002
+# @20 = IP, should be 0
+>>>20       uleshort  0
+# @22 = CS, should be 0
+>>>>22      leshort   0
+# @24 = reloc. table offset, should be 28
+>>>>>24     uleshort  28
+>>>>>>0     use       exe_apack_part2
+# With -h option, 30 is possible
+>>>>>24     uleshort  30
+>>>>>>0     use       exe_apack_part2
+
+0       name      exe_apack_part2
+
+>32     string    \x1e\x06\x0e
+>>44    string    \x8b\xcf\xfc\x57\xf3
+>>>0    use       id_as_apack_exe
+
+>32     string    \x1e\x06\x8c
+>>46    string    \x33\xff\xfc
+>>>0    use       id_as_apack_exe
+>>47    string    \x33\xff\xfc
+>>>0    use       id_as_apack_exe
+# Without the "default", it would be possible to match both a
+# pattern before this line, and a pattern after it, and print
+# the ID message twice.
+>>0     default   x
+>>>55   string    \xb9\x08\x00\xf3
+>>>>0   use       id_as_apack_exe
+>>>56   string    \xb9\x08\x00\xf3
+>>>>0   use       id_as_apack_exe
+>>>57   string    \xb9\x08\x00\xf3
+>>>>0   use       id_as_apack_exe
+
+>32     string    \x8c\xc8\x8e
+>>44    string    \x33\xff\xfc
+>>>0    use       id_as_apack_exe
+>>45    string    \x33\xff\xfc
+>>>0    use       id_as_apack_exe
+
+>32     string    \x8c\xcb\xba
+>>53    string    \xb9\x08\x00\xf3
+>>>0    use       id_as_apack_exe
+
+0       name      id_as_apack_exe
+>0      byte      x   \b, aPACK compressed

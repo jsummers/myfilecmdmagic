@@ -143,6 +143,8 @@
 >0      use         exe_bigtext
 >0      use         exe_central_point_av
 >0      use         exe_cebe_from_com
+>0      use         exe_xe
+>0      use         exe_apack
 >0      use         exe_overlay
 
 # ----------
@@ -524,6 +526,14 @@
 
 >>>>>-8     string      \x33\xdb\x53\xbb\x00\x01\x53\xc3
 >>>>>>0     byte        x   \b, CEBE converted from COM
+
+# ----------
+# XE-compressed EXE (X-pack for Executable)
+
+0           name      exe_xe
+>24         uleshort  1
+>>26        string    jmXE32
+>>>0        byte  x   \b, XE compressed
 
 # ----------
 # LHarc/LHA self-extracting EXE
