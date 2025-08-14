@@ -270,6 +270,22 @@
 >>0     byte     x     \b, aPACK compressed (v0.96-1.00, small)
 
 # ----------
+# XE-compressed COM (X-pack for Executable)
+
+0      string    \x0e\xbe\x00\x01\x56
+>5     string    \x8b\xfe\x8c\xc8\x80\xc4\x10\x8e\xc0\xb9
+>>0    use       id_as_xe_com
+
+0      string    \xbe\x00\x01\x56
+>4     string    \xbf\x00\x71\xb9
+>>10   string    \xfc\x56\xf3\xa5\x5f
+>>>0   use       id_as_xe_com
+
+0      name      id_as_xe_com
+>0     use       id_as_dos_com
+>0     byte      x   \b, XE compressed
+
+# ----------
 # Realia Spacemaker-compressed COM executable
 
 0       string    \x9c\x55\x56\x8c\xcd\x83\xc5\x10\x8d\xb6
