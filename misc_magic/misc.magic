@@ -859,6 +859,41 @@
 >8      ulelong   100
 >>12    ulelong   x   \b, %u items
 
+# ----------
+# CPI font
+
+0       string      \xffFONT
+>5      string      \x20\x20\x20
+>>0     use         cpifont_part2
+>5      string      .NT
+>>0     use         cpifont_part2
+
+0       name        cpifont_part2
+>0      byte        x     DOS code page font data collection
+!:ext   cpi
+>5      string      .NT   (NT format)
+>16     uleshort    1
+>>18    ubyte       1
+>>>(19.l)   use     cpifont_fih
+
+0       name        cpifont_fih
+>0      uleshort    x     \b, %u code page(s)
+# Look at the first code page's header. The type and device are usually
+# the same for all code pages in a file.
+>8      uleshort    1     \b, type screen
+>8      uleshort    2     \b, type printer
+>10     string/T8   x     \b, device "%s"
+>18     uleshort    x     \b, first code page %u
+
+# ----------
+# DRFONT (variant of CPI)
+
+0       string      \x7fDRFONT\x20
+>0      byte        x     DR-DOS code page font data collection
+# Number of "fonts per code page"
+>23     ubyte       x     \b, %u font sizes
+>>(19.l)    use     cpifont_fih
+
 # ====================
 # Shared routines
 
