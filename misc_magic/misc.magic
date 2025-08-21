@@ -894,6 +894,68 @@
 >23     ubyte       x     \b, %u font sizes
 >>(19.l)    use     cpifont_fih
 
+# -----------
+# SGI image format
+
+0           ubeshort    0x01da
+
+# Storage type (compression method): 0 or 1
+>2          ubyte       <2
+
+# BPC (bytes per sample): 1 or 2
+>>3         ubyte       >0
+>>>3        ubyte       <3
+
+# Dimension count: Technically must be from 1-3,
+# but we allow 4 because some files have that.
+>>>>4       ubeshort    >0
+>>>>>4      ubeshort    <5
+
+>>>>>>104   ubelong     3    SGI image palette
+>>>>>>104   ubelong     !3
+
+# Z-size: Should be 1-4, but we also allow 0.
+>>>>>>>10   ubeshort    <5
+
+>>>>>>>>0   use      sgiimage_part2
+
+0        name        sgiimage_part2
+>0       byte        x     SGI image
+>6       ubeshort    x     \b, %u x
+>8       ubeshort    x     %u
+
+# @104 = "colormap ID"
+>104     ubelong     0
+# @4 = dimension count
+>>4      ubeshort    <3    \b, grayscale
+>>4      ubeshort    >2
+# @10 = Z-size
+>>>10    ubeshort    1     \b, grayscale
+>>>10    ubeshort    2     \b, grayscale+alpha
+>>>10    ubeshort    3     \b, RGB
+>>>10    ubeshort    4     \b, RGBA
+
+>104     ubelong     1     \b, RGB332
+>104     ubelong     2     \b, paletted
+
+>3       ubyte*8     x     \b, %u bits/sample
+
+>2       ubyte       0     \b, uncompressed
+>2       ubyte       1     \b, RLE-compressed
+
+# PIXMIN/PIXMAX: Unlikely to be helpful except with 16-bit samples.
+>16      belong      !0
+>>3      ubyte       >1
+>>>12    belong      x     \b, sample range=[%d
+>>>16    belong      x     \b-%d]
+
+>0       clear       x
+>24      string      \0
+>24      string      no\ name\0
+>24      string      untitled\0
+>0       default     x
+>>24     string/79   x     \b, name="%s"
+
 # ====================
 # Shared routines
 
