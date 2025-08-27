@@ -19,6 +19,13 @@
 0   string    \x3f\x5f\x03\x00  WinHelp
 0   string    \x00\x05\x16\x07  AppleDouble header
 0   string    \x00\x05\x16\x00  AppleSingle
+0   string    \x89PNG\x0d\x0a\x1a\x0a  PNG image data
+0   string/b  farbfeld          farbfeld image data
+20  string    \xdc\xa7\xc4\xfd  Zoo archive data
+0   string    7z\xbc\xaf\x27\x1c  7z archive data
+0   string/b  RE\x7e\x5e        RAR archive data
+0   string    Rar!\x1a\x07\x00  RAR archive data
+0   string    Rar!\x1a\x07\x01\x00  RAR5 archive data
 
 # ----------
 # ZIP
