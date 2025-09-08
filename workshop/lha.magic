@@ -1,0 +1,87 @@
+# "file command" rules
+#
+# By Jason Summers, 2025 - Not copyrighted
+
+# -----------
+# LHarc and LHA
+
+2           string/b  =-lh
+>6          string    =-
+
+# Header level, must be 0-3
+>>20        ubyte     <4
+
+>>>5        string    0
+>>>>0       use       id_as_lharc_or_lha
+>>>5        string    d
+>>>>0       use       id_as_lha
+>>>5        string    1
+>>>>0       use       id_as_lharc_or_lha
+>>>5        string    5
+>>>>0       use       id_as_lha
+>>>5        string    6
+>>>>0       use       id_as_lha
+>>>5        string    8
+>>>>0       use       id_as_lha
+>>>5        string    =x
+>>>>0       use       id_as_lha
+
+>>>5        string    7
+
+>>>>20      ubyte     1
+
+# lh7, HL 1
+>>>>>(21.b+24)  ubyte   32
+# lh7, HL 1, OS code 32
+>>>>>>0         byte    x     LHARK archive data
+>>>>>>0         use     lharc_lha_main
+
+>>>>>(21.b+24)  ubyte   !32
+# lh7, HL 1, OS code not 32...
+>>>>>>0         use     id_as_lha
+
+>>>>20      ubyte     !1
+# lh7, HL not 1
+>>>>>0      use       id_as_lha
+
+# Distinguish LHarc and LHA based on header level
+0           name      id_as_lharc_or_lha
+>20         ubyte     0
+>>0         use       id_as_lharc
+>20         ubyte     !0
+>>0         use       id_as_lha
+
+0           name      id_as_lharc
+>0          byte      x     LHarc archive data
+>0          use       lharc_lha_main
+
+0           name      id_as_lha
+>0          byte      x     LHA archive data
+>0          use       lharc_lha_main
+
+0           name      lharc_lha_main
+>3          string    !lhd
+>>3         string    !lh0
+>>>3        string/3  x     [%s]
+>20         ubyte     x     \b, header level %u
+
+# HL:
+>20         ubyte     1
+>>(21.b+24)   use     lha-os-id
+
+>20         ubyte     2
+>>23        use       lha-os-id
+
+>20         ubyte     3
+>>0         uleshort  4
+>>>23       use       lha-os-id
+
+0           name      lha-os-id
+>0          ubyte     x   \b, OS ID %u
+>0          string    2   (OS/2)
+>0          string    A   (Amiga)
+>0          string    M   (MS-DOS)
+>0          string    U   (Unix)
+>0          string    W   (Windows)
+>0          string    m   (Mac)
+>0          string    w   (Windows)
