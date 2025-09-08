@@ -840,6 +840,14 @@
 >0    string    fnt     DIV Games Studio font
 !:ext   fnt
 
+# -----------
+# EA installer-archive
+
+0       string    \x1aEA
+# Compression method, expecting 0 or 1
+>20     ubyte     <2  Electronic Arts EA/PEA archive data
+!:ext   ea/pea
+
 # ----------
 # Pegasus ePIC, "PIC2" version
 
