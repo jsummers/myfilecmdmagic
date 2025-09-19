@@ -3,7 +3,7 @@
 # By Jason Summers, 2025 - Not copyrighted
 
 # ----------
-# MMFW data
+# MMFW data - formats that start with "MMFW "
 
 # A resource format from the late 1990s, used by Disney Interactive,
 # PrintPaks Inc., and others.
@@ -20,14 +20,23 @@
 >>>0    use         mmfw_part2
 >>5     string      Blobs\0       MMFW data archive
 >>>0    use         mmfw_part2
->>5     string      Scripts\0     MMFW Scripts archive
+>>5     string      Script\0      MMFW Scripts archive, big-endian
 >>>0    use         mmfw_part2
+>>5     string      Scripts\0     MMFW Scripts archive, big-endian
+>>>0    use         mmfw_part2
+
 >16     string      II
->>5     string      Script\0      MMFW Script
->>5     string      3\ Script\0   MMFW Script
+>>5     string      Script\0      MMFW Scripts archive, little-endian
+>>>0    use         \^mmfw_print_ver
+>>5     string      3\ Script\0   MMFW Scripts-3 archive, little-endian
+>>>0    use         \^mmfw_print_ver
+>>5     string      Scripts\0     MMFW Scripts archive, little-endian
+>>>0    use         \^mmfw_print_ver
 
 0       name        mmfw_part2
 >18     ubeshort    x   \b, v%u
+>18     ubeshort    0
+>>102   ubeshort    x   \b, %u items
 >18     ubeshort    1
 >>30    ubeshort    x   \b, %u items
 >18     ubeshort    >1
@@ -47,3 +56,18 @@
 0       name        mmfw_count34
 >0      byte        x   \b, item count offset 34
 >34     ubeshort    x   \b, %u items
+
+0       name        mmfw_print_ver
+>18     ubeshort    x   \b, v%u
+
+# ----------
+# MMFW data - other
+
+0       string      MMScript\ File\0   MMFW Scripts archive
+>0      byte        x     (old version)
+
+0       string      MMMMPICTURES\0     MMFW Pictures archive
+>0      byte        x     (old version)
+
+0       string/b    Vector\ File\ Version\ 1.0
+>0      byte        x     MMFW vector graphics
