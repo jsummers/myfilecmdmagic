@@ -435,6 +435,21 @@
 >>>>0   byte    x    \b, GRABBER (v3.34-3.35)
 
 # ------
+# "PIXIT"
+
+0         string    \xbc\x00\x01\xb8
+>4        string    \x13\x00\xcd\x10
+>>17      string    \xba
+>>>(18.s-272)   string    PX
+>>>>0     use       id_as_dos_com
+>>>>0     byte      x     \b, PIXIT/pix320 executable image
+>>>>18    leshort   !0x0158   (modified)
+# (Dimensions other than 320x200 don't work properly, AFAICT,
+# but anyway.)
+>>>>&0    uleshort  x     \b, %u x
+>>>>&2    uleshort  x     %u
+
+# ------
 # GTXT / MakeScroll executable text (Eric Gans)
 0       string  \xbb\xbc\x01\xb4\x02\xb1\x00\x8a
 >95     string  \x73\x01\xc3\x2c\x40\xc3\xcd\x20
