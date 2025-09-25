@@ -849,6 +849,17 @@
 !:ext   ea/pea
 
 # ----------
+# ZSoft "zpk2"
+
+0       string/b    zpk2
+>4      uleshort    >0
+# The high byte of the first file's data pointer.
+# Making reasonable assumptions, it has to be 0.
+>>22    ubyte       0        ZSoft zpk2 archive
+>>>4    uleshort    x        \b, %u file(s)
+>>>6    string/12   x     \b, first file "%s"
+
+# ----------
 # Pegasus ePIC, "PIC2" version
 
 0       string/b  PIC2
