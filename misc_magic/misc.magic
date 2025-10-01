@@ -393,6 +393,21 @@
 !:ext   spk/arc
 
 # ----------
+# Hyper archive
+
+0       ubyte       0x1a
+>1      string      HP
+>>0     use         hyper-part2
+>1      string      ST
+>>0     use         hyper-part2
+
+0       name        hyper-part2
+>3      ubyte       >0x24
+>>3     ubyte       <0x28   Hyper archive data
+!:ext   hyp
+>>>3    ubyte&0xf   x       \b, v2.%u
+
+# ----------
 # PackIt (classic Mac format)
 
 0       string    PMa
@@ -543,13 +558,14 @@
 
 # ----------
 # DWC archive
+
 -3      string/b    DWC
 >&-27   string      \x1b\x00\x22    DWC archive
 !:ext   dwc
 
 # ----------
 # InstallIt!: DOS installer by Coffee Mug Software
-#
+
 # Usually ends with something like ..."xxxx32", where the "x"s are
 # padding. It's probably safe to assume there will be at least one "x".
 -3      string/b   x32

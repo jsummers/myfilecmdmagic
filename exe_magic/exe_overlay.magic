@@ -72,6 +72,9 @@
 >>20   string     \xdc\xa7\xc4\xfd
 >>>0   byte       x                      \b, Zoo self-extracting archive
 
+>0     string     \x1aHP                 \b, Hyper self-extracting archive
+>0     string     \x1aST                 \b, Hyper self-extracting archive
+
 >0     string     SQWEZ\ v2.
 >>0    byte       x                      \b, SQWEZ self-extracting archive (v2.1+)
 
