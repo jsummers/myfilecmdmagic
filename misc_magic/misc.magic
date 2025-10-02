@@ -114,11 +114,33 @@
 # ----------
 # REKO cardset
 
-0       string/b    REKO
->8      ubyte       0           REKO cardset (Amiga)
->>20    ubyte       x           \b, %u-bit
->>18    ubyte       &0x08       \b, HAM
->>21    ubyte       x           \b, %u cards
+0               string/b    REKO
+
+# There are some REKO-related files that start with "REKO", but don't seem
+# to contain cards images, or use a hopelessly different format. We do
+# some sanity checks to try to screen them out.
+
+# card size, expecting 88*130=11440 at most
+>8              ubelong     <65537
+# height, expecting 130
+>>12            ubeshort    >63
+>>>12           ubeshort    <241
+# width, expecting 88 (but observed up to 96)
+>>>>14          ubeshort    >43
+>>>>>14         ubeshort    <177
+# depth. Observed: 4, 5, 8.
+>>>>>>20        ubyte       >0
+>>>>>>>20       ubyte       <9
+# card count. Observed: 6, 54, 55, 59, 67, 68
+>>>>>>>>21      ubyte       >0
+>>>>>>>>>21     ubyte       <97
+>>>>>>>>>>0     use         reko-amiga-part2
+
+0       name        reko-amiga-part2
+>0      ubyte       x           REKO cardset (Amiga)
+>20     ubyte       x           \b, %u-bit
+>18     ubyte       &0x08       \b, HAM
+>21     ubyte       x           \b, %u cards
 
 0       string/b    PCREKO
 >6      ubeshort    0x4420      REKO cardset (PC; RKP 8)
