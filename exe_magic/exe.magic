@@ -686,7 +686,8 @@
 >>&18       uleshort  1   \b, uncompressed
 
 # ----------
-# GRABBER (v3.60?-3.??) self-displaying screen capture
+# GRABBER (~v3.50+) self-displaying screen capture
+# Versions 2.10-3.35 use COM format, so are handled elsewhere.
 
 0           name        exe_grabber
 
@@ -694,8 +695,11 @@
 >8          uleshort    0x0003
 # @22 = CS, should be 8
 >>22        leshort     8
+>>>48       string      \x0dAll\ Code
+>>>>91      string      Monroe
+>>>>>0      byte        x    \b, GRABBER (~v3.50)
 >>>48       string      \x0dCreated\ by\ GRABBER
->>>>0       byte        x    \b, GRABBER
+>>>>0       byte        x    \b, GRABBER (v3.60+)
 
 # ----------
 # TXT2EXE and other stuff by P. Fischer-Haaser
