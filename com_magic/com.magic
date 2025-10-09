@@ -418,8 +418,10 @@
 
 0       string  \xfb\xbe\x81\x00\x8a\x4c\xff\x30
 >8      string  \xed\x09\xc9\x74\x20\x56\xfc\xac
->>0     use     id_as_dos_com
->>0     byte    x    \b, GRABBER (v2.10-2.20)
+>>0     use     id_as_grabber_com
+>>0     byte    x   (v2.10-2.20)
+>>127   leshort 0x0200
+>>>249  use     grabber_com_mode
 
 0       ubyte   0xe9
 # +3 because we measure from the end of the JMP instruction,
@@ -427,12 +429,43 @@
 >(1.s+2)   byte   x
 >>&0    string  \xbe\x81\x00\xad\x80\xfc\x0d\x74
 >>>&0   string  \x17\x3c\x0d\x74\x13\x3d\x2f\x46
->>>>0   use     id_as_dos_com
->>>>0   byte    x    \b, GRABBER (v3.0-3.3)
+>>>>0   use     id_as_grabber_com
+
+# It's easy to create pathological files for which more than one of
+# these version tests match. This could be fixed, but the patterns
+# would be messier.
+>>>>0       clear    x
+>>>>264     leshort  0x0335    (v3.0)
+>>>>>548    use      grabber_com_mode
+>>>>542     leshort  0x0471    (v3.2)
+>>>>>864    use      grabber_com_mode
+>>>>806     leshort  0x063f    (v3.2K)
+>>>>>1326   use      grabber_com_mode
+>>>>834     leshort  0x0686    (v3.3)
+>>>>>1397   use      grabber_com_mode
+>>>>0       default  x         (v3.0-3.3)
+
 >>&0    string  \xbe\x81\x00\xfc\xad\x80\xfc\x0d
 >>>&0   string  \x74\x1c\x3c\x0d\x74\x18\x3d\x2f
->>>>0   use     id_as_dos_com
->>>>0   byte    x    \b, GRABBER (v3.34-3.35)
+>>>>0   use     id_as_grabber_com
+
+>>>>0       clear    x
+>>>>875     leshort  0x0739    (v3.34)
+>>>>>1576   use      grabber_com_mode
+>>>>858     leshort  0x073a    (v3.35)
+>>>>>1577   use      grabber_com_mode
+>>>>894     leshort  0x0766    (reg. v4.0)
+>>>>>1621   use      grabber_com_mode
+>>>>903     leshort  0x078c    (reg. v4.03)
+>>>>>1659   use      grabber_com_mode
+>>>>0       default  x         (v3.34-3.35)
+
+0       name    id_as_grabber_com
+>0      use     id_as_dos_com
+>0      byte    x   \b, GRABBER
+
+0       name    grabber_com_mode
+>0      ubyte   x   \b, mode %u
 
 # ------
 # "PIXIT"
