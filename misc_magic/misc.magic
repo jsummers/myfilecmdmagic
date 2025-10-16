@@ -117,7 +117,7 @@
 0               string/b    REKO
 
 # There are some REKO-related files that start with "REKO", but don't seem
-# to contain cards images, or use a hopelessly different format. We do
+# to contain card images, or use a hopelessly different format. We do
 # some sanity checks to try to screen them out.
 
 # card size, expecting 88*130=11440 at most
@@ -935,9 +935,19 @@
 
 0       name        cpifont_fih
 >0      uleshort    x     \b, %u code page(s)
+
 # Look at the first code page's header. The type and device are usually
 # the same for all code pages in a file.
->8      uleshort    1     \b, type screen
+
+# Certain printer device names are known to sometimes be mislabeled
+# as screen fonts. We'll identify them as type "unknown".
+>8      uleshort    1             \b, type
+>>10    string      1050\x20\x20  unknown
+>>10    string      4201\x20\x20  unknown
+>>10    string      4208\x20\x20  unknown
+>>10    string      5202\x20\x20  unknown
+>>10    default     x             screen
+
 >8      uleshort    2     \b, type printer
 >10     string/T8   x     \b, device "%s"
 >18     uleshort    x     \b, first code page %u
