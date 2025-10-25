@@ -699,7 +699,27 @@
 >>>>91      string      Monroe
 >>>>>0      byte        x    \b, GRABBER (~v3.50)
 >>>48       string      \x0dCreated\ by\ GRABBER
->>>>0       byte        x    \b, GRABBER (v3.60+)
+
+>>>>0       byte      x     \b, GRABBER
+>>>>0       clear     x
+>>>>4421    string    \x85\xc7\x13\x04\xb5\xf1  (v3.91)
+>>>>>&0     use       grabber_exe_mode
+>>>>4469    string    \x85\xc7\x13\x04\xb5\xf1  (v3.91b)
+>>>>>&0     use       grabber_exe_mode
+>>>>4688    string    \x85\xc7\x13\x04\xb5\xf1  (v3.92-3.93)
+>>>>>&0     use       grabber_exe_mode
+>>>>4718    string    \x85\xc7\x13\x04\xb5\xf1  (v3.94)
+>>>>>&0     use       grabber_exe_mode
+>>>>6052    string    \x85\xc7\x13\x04\xb5\xf1  (v3.96)
+>>>>>&0     use       grabber_exe_mode
+>>>>7496    string    \x85\xc7\x13\x04\xb5\xf1  (v3.97)
+>>>>>&0     use       grabber_exe_mode
+>>>>7660    string    \x85\xc7\x13\x04\xb5\xf1  (v3.98)
+>>>>>&0     use       grabber_exe_mode
+>>>>0       default   x     (v3.60-3.98)
+
+0       name    grabber_exe_mode
+>1      ubyte   x     \b, mode %u
 
 # ----------
 # TXT2EXE and other stuff by P. Fischer-Haaser
