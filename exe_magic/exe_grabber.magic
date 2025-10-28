@@ -11,28 +11,130 @@
 >8          uleshort    0x0003
 # @22 = CS, should be 8
 >>22        leshort     8
+
 >>>48       string      \x0dAll\ Code
 >>>>91      string      Monroe
->>>>>0      byte        x    \b, GRABBER (~v3.50)
+>>>>>0      byte        x     \b, GRABBER (~v3.50 or 6.01)
+>>>>>0      use         grabber_exe_misc_ver
+
 >>>48       string      \x0dCreated\ by\ GRABBER
+>>>>0       use         grabber_exe_most_ver
 
->>>>0       byte      x     \b, GRABBER
->>>>0       clear     x
->>>>4421    string    \x85\xc7\x13\x04\xb5\xf1  (v3.91)
->>>>>&0     use       grabber_exe_mode
->>>>4469    string    \x85\xc7\x13\x04\xb5\xf1  (v3.91b)
->>>>>&0     use       grabber_exe_mode
->>>>4688    string    \x85\xc7\x13\x04\xb5\xf1  (v3.92-3.93)
->>>>>&0     use       grabber_exe_mode
->>>>4718    string    \x85\xc7\x13\x04\xb5\xf1  (v3.94)
->>>>>&0     use       grabber_exe_mode
->>>>6052    string    \x85\xc7\x13\x04\xb5\xf1  (v3.96)
->>>>>&0     use       grabber_exe_mode
->>>>7496    string    \x85\xc7\x13\x04\xb5\xf1  (v3.97)
->>>>>&0     use       grabber_exe_mode
->>>>7660    string    \x85\xc7\x13\x04\xb5\xf1  (v3.98)
->>>>>&0     use       grabber_exe_mode
->>>>0       default   x     (v3.60-3.98)
+# ---
 
-0       name    grabber_exe_mode
->1      ubyte   x     \b, mode %u
+0      name      grabber_exe_most_ver
+>0     byte      x          \b, GRABBER
+
+# Print the reported version number, for this version class, if it
+# seems to be present.
+# It could be 4 or (rarely) 5 bytes, followed by a space or CR.
+>77       string      ion\x20
+>>82      string      =.
+>>>85     string      \x20
+>>>>81    string/4    x         (v%s)
+>>>85     string      \x0d
+>>>>81    string/4    x         (v%s)
+>>>0      default     x
+>>>>86    string      \x20
+>>>>>81   string/5    x         (v%s)
+>>>>86    string      \x0d
+>>>>>81   string/5    x         (v%s)
+
+# Search for several known "markers".
+>0          clear     x
+
+# Observed range: 2625 (some v6.20) to 9285 (some v6.60).
+>2000       search/9000  GR724646
+
+# For v6.20: "GR72464620"
+>>&0        string    20
+>>>&-10     offset    x     \b, marker[620]@%lld
+>>>&-17     use       grabber_exe_mode8
+
+# For v3.70-3.74, 5.50-5.60, 6.30-6.60: "GR72464630"
+>>&0        string    30
+# Print the marker version and offset.
+# This is ugly, but I think it's useful.
+>>>&-10     offset    x     \b, marker[630]@%lld
+>>>&0       use       grabber_exe_hdr1
+
+>0          default   x
+# v3.91-3.98
+# Observed range: 4416(3.91text) to 12818(v3.98vga)
+>>4000          search/10000  G5\x8b\xf1\x53\x85\xc7\x13\x04\xb5\xf1
+>>>&-11         offset    x     \b, marker[391]@%lld
+>>>&0           use       grabber_exe_hdr1
+
+>>0             default   x
+# v3.80-3.87
+# Observed range: 4256(3.80text) to 7090(3.87vga)
+>>>4000         search/5000  G5\x8b\xf1\x53\x90\xbc\x13\x04\xd4\xd6
+>>>>&-11        offset    x     \b, marker[380]@%lld
+>>>>&0          use       grabber_exe_hdr1
+
+>>>0            default   x
+# v3.90
+# Observed range: 4358(text) to 7349(vga)
+>>>>4000        search/5000  G5\x8b\xf1\x53\x85\xc7\x13\x04\xd4\xd6
+>>>>>&-11       offset    x     \b, marker[390]@%lld
+>>>>>&0         use       grabber_exe_hdr1
+
+>>>>0           default   x
+# v3.77
+# Observed range: 4246(text) - 6242(vga)
+>>>>>3500       search/4000  G5\x27\xf1\x53\x90\xbc\x13\x04\xd4
+>>>>>>&-10      offset    x     \b, marker[377]@%lld
+>>>>>>&0        use       grabber_exe_hdr1
+
+>>>>>0          default   x
+# No marker found.
+>>>>>>0         use       grabber_exe_misc_ver
+
+# ---
+
+# Handle some versions that don't contain a known marker.
+0         name      grabber_exe_misc_ver
+
+# v3.60 old modes
+>2225     string    \x2c\x20\xaa\xeb\xee\x07\x1f\xc3
+>>&2      use       grabber_exe_mode8
+
+# v3.60 new modes
+>3285     string    \x30\x00\x8e\xc0\xf3\xa4\x07\xc3
+>>&32     use       grabber_exe_dimensions16
+
+# v3.50?
+>1840     string    \xb0\x0f\xee\x42\xb0\xff\xee\xc3
+>>&2      use       grabber_exe_mode8
+
+# v6.01, at least some modes
+>2665     string    \x2c\x20\xaa\xeb\xee\x07\x1f\xc3
+>>&2      use       grabber_exe_mode8
+
+# v6.12, at least some modes
+>2704     string    \x2c\x20\xaa\xeb\xee\x07\x1f\xc3
+>>&2      use       grabber_exe_mode8
+
+# ---
+
+0       name    grabber_exe_hdr1
+>0      use     grabber_exe_mode16
+>19     use     grabber_exe_dimensions16
+>36     uleshort    x     \b, image@%u
+
+# ---
+
+0       name    grabber_exe_mode8
+>0      ubyte   x     \b, mode 0x%02x
+
+# ---
+
+0       name    grabber_exe_mode16
+>0      ubyte   x     \b, mode %02x:
+>1      ubyte   x     \b%02x
+
+# ---
+
+0       name    grabber_exe_dimensions16
+>0      uleshort    x     \b, %u
+>2      uleshort    x     \bx%u

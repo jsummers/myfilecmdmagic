@@ -454,9 +454,9 @@
 >>>>>1576   use      grabber_com_mode
 >>>>858     leshort  0x073a    (v3.35)
 >>>>>1577   use      grabber_com_mode
->>>>894     leshort  0x0766    (reg. v4.0)
+>>>>894     leshort  0x0766    (v4.0)
 >>>>>1621   use      grabber_com_mode
->>>>903     leshort  0x078c    (reg. v4.03)
+>>>>903     leshort  0x078c    (v4.03)
 >>>>>1659   use      grabber_com_mode
 >>>>0       default  x         (v3.34-3.35)
 
@@ -465,7 +465,7 @@
 >0      byte    x   \b, GRABBER
 
 0       name    grabber_com_mode
->0      ubyte   x   \b, mode %u
+>0      ubyte   x   \b, mode 0x%02x
 
 # ------
 # "PIXIT"
