@@ -468,6 +468,15 @@
 >0      ubyte   x   \b, mode 0x%02x
 
 # ------
+# FMAC2COM
+
+0       string    \xeb\x79
+# An arbitrary test
+>480    string    \x51\xb9\x08\x00\x56\x51\xb9\x08\x00\xd0
+>>0     use       id_as_dos_com
+>>0     byte      x   \b, FMAC2COM executable MacPaint image
+
+# ------
 # "PIXIT"
 
 0         string    \xbc\x00\x01\xb8
