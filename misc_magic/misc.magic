@@ -1023,6 +1023,18 @@
 >0       default     x
 >>24     string/79   x     \b, name="%s"
 
+# -----------
+# DXP image format
+# Possibly associated with Dexter, a framework by Paul Burkey and
+# Shoecake Games.
+
+0       string    DXP1\x01  Dexter DXP image
+>6      ubeshort  x         \b, %u x
+>8      ubeshort  x         %u
+>10     ubyte     x         \b, %u bits/pixel
+>11     ubyte     0         \b, uncompressed
+>11     ubyte     1         \b, zlib compressed
+
 # ====================
 # Shared routines
 
