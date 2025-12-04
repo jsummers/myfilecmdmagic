@@ -13,6 +13,9 @@
 >>22        leshort     8
 
 >>>48       string      \x0dAll\ Code
+>>>>86      string      Monroe
+>>>>>0      byte        x     \b, GRABBER (~v6.01)
+>>>>>0      use         grabber_exe_misc_ver
 >>>>91      string      Monroe
 >>>>>0      byte        x     \b, GRABBER (~v3.50 or 6.01)
 >>>>>0      use         grabber_exe_misc_ver
@@ -107,8 +110,12 @@
 >1840     string    \xb0\x0f\xee\x42\xb0\xff\xee\xc3
 >>&2      use       grabber_exe_mode8
 
-# v6.01, at least some modes
+# v6.01, text/CGA modes
 >2665     string    \x2c\x20\xaa\xeb\xee\x07\x1f\xc3
+>>&2      use       grabber_exe_mode8
+
+# v6.01, VGA modes
+>4593     string    GR\x08\x0a\x82\x0f\x11\x03\x0f\x4d
 >>&2      use       grabber_exe_mode8
 
 # v6.12, at least some modes
