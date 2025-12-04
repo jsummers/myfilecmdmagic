@@ -143,6 +143,7 @@
 >0      use         exe_bigtext
 >0      use         exe_central_point_av
 >0      use         exe_cebe_from_com
+>0      use         exe_player_piano
 >0      use         exe_xe
 >0      use         exe_apack
 >0      use         exe_overlay
@@ -803,3 +804,11 @@
 >>>&(20.s-2)    string    \xe8\x20\x00
 >>>>&32         string    \x5b\x81\xeb\x03\x01\x50\x51\x52
 >>>>>0          byte      x   \b, Central Point Anti-Virus immunized
+
+# ----------
+# PLAYER PIANO (v4.00+)
+# Component of PIANOMAN, by Neil J. Rubenking
+
+0       name      exe_player_piano
+>28     string    \x01\x00
+>>1152  string    PINFO  \b, PIANOMAN PLAYER PIANO self-playing song

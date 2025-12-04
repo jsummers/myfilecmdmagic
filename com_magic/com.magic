@@ -628,6 +628,17 @@
 >>0   byte      x   \b, XEQ executable library
 
 # ----------
+# PLAYER PIANO
+# Component of PIANOMAN, by Neil J. Rubenking
+
+0       ubyte   0xb4
+>1      string  \x06\xb5\0\xb1\0\xb6\x18\xb2\x4f\xb7\x07\xb0\0\xcd\x10
+>>0     use     id_as_dos_com
+>>0     byte    x   \b, PIANOMAN PLAYER PIANO self-playing song
+>>30    ubyte   0x7d   (v2.x)
+>>30    ubyte   0x83   (v3.x)
+
+# ----------
 
 0     name      id_as_dos_com
 >0    byte      x     DOS executable (COM)
