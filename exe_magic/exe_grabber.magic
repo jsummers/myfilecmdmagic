@@ -104,7 +104,8 @@
 
 # v3.60 new modes
 >3285     string    \x30\x00\x8e\xc0\xf3\xa4\x07\xc3
->>&32     use       grabber_exe_dimensions16
+>>&12     use       grabber_exe_mode8
+>>&32     use       grabber_exe_dim16
 
 # v3.50?
 >1840     string    \xb0\x0f\xee\x42\xb0\xff\xee\xc3
@@ -114,19 +115,25 @@
 >2665     string    \x2c\x20\xaa\xeb\xee\x07\x1f\xc3
 >>&2      use       grabber_exe_mode8
 
-# v6.01, VGA modes
->4593     string    GR\x08\x0a\x82\x0f\x11\x03\x0f\x4d
->>&2      use       grabber_exe_mode8
-
 # v6.12, at least some modes
 >2704     string    \x2c\x20\xaa\xeb\xee\x07\x1f\xc3
 >>&2      use       grabber_exe_mode8
+
+# v6.01, VGA modes
+>4593     string    GR\x08\x0a\x82\x0f\x11\x03\x0f\x4d
+>>&2      use       grabber_exe_mode8
+>>&31     use       grabber_exe_dim16biased
+
+# v6.13, at least an EGA mode (based on minimal data)
+>4916     string    GR\x0c\x05\x82\x0f\x12\x03\x09\x47
+>>&2      use       grabber_exe_mode8
+>>&31     use       grabber_exe_dim16biased
 
 # ---
 
 0       name    grabber_exe_hdr1
 >0      use     grabber_exe_mode16
->19     use     grabber_exe_dimensions16
+>19     use     grabber_exe_dim16
 >36     uleshort    x     \b, image@%u
 
 # ---
@@ -142,6 +149,12 @@
 
 # ---
 
-0       name    grabber_exe_dimensions16
+0       name    grabber_exe_dim16
 >0      uleshort    x     \b, %u
 >2      uleshort    x     \bx%u
+
+# ---
+
+0       name    grabber_exe_dim16biased
+>0      uleshort+1  x     \b, %u
+>2      uleshort+1  x     \bx%u
