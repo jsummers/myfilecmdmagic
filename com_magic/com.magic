@@ -615,9 +615,20 @@
 # ----------
 # Com2txt (Naoyuki Nide)
 
+# E.g. v1.11 or 1.41
 0     string/t  T_OOWW3=XXWX
 >0    use       id_as_dos_com
 >0    byte      x   \b, Com2txt
+
+# E.g. v1.11 with -c option
+1     string/t  \x3d%00%AA5$QP^
+>0    use       id_as_dos_com
+>0    byte      x   \b, Com2txt (-c)
+
+# E.g. v1.41 with -c option
+1     string/t  =?7%00%CCPY-@
+>0    use       id_as_dos_com
+>0    byte      x   \b, Com2txt (-c)
 
 # ----------
 # XEQ
