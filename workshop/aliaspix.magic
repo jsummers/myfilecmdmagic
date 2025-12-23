@@ -1,0 +1,19 @@
+# "file command" rules
+#
+# By Jason Summers, 2025 - Not copyrighted, unless noted
+
+# -----------
+# Alias PIX and Vivid IMG
+
+8             ubeshort    24
+>4            ubeshort    0
+>>0           ubeshort    >0
+>>>0          ubeshort    <2049
+>>>>2         ubeshort    >0
+>>>>>2        ubeshort    <2049
+>>>>>>6       ubeshort    <2049
+>>>>>>>10     ubyte       >0
+>>>>>>>>14    ubyte       >0    Alias PIX image data
+>>>>>>>>>0    ubeshort    x     \b, %u
+>>>>>>>>>2    ubeshort    x     x %u
+
