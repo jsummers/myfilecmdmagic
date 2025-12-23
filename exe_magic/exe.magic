@@ -274,17 +274,18 @@
 >6              uleshort    0
 # @8 = header size, should be 2
 >>8             uleshort    0x0002
-# @16 = SP, should be 0x0300
->>>16           uleshort    0x0300
 # @20 = IP, should be 0
->>>>20          uleshort    0
+>>>20           uleshort    0
 # @22 = CS, should be 0
->>>>>22         leshort     0
+>>>>22          leshort     0
+# @16 = SP, should be 0x0300
+>>>>>16         uleshort    >0x0297
+>>>>>>16        uleshort    <0x0301
 # @24 = reloc. table offset: should be 0, sometimes 28
->>>>>>24        uleshort    0
->>>>>>>0        use         exe_tinyprog_part2
->>>>>>24        uleshort    28
->>>>>>>0        use         exe_tinyprog_part2
+>>>>>>>24       uleshort    0
+>>>>>>>>0       use         exe_tinyprog_part2
+>>>>>>>24       uleshort    28
+>>>>>>>>0       use         exe_tinyprog_part2
 
 0             name    exe_tinyprog_part2
 # Expecting a 2-byte relative jump that we'll follow.
