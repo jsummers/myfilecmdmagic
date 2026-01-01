@@ -69,7 +69,6 @@
 >>0     use         dosexe_main
 
 0       name        exe_ne
->0      use         dosexe_minimal
 >0      byte        x      \b, NE
 >(60.l+12)   uleshort  &0x8000   (DLL)
 >(60.l+54)   ubyte     0x01   \b, for OS/2
@@ -79,17 +78,17 @@
 >>(60.l+62)  ubyte     x      \b.%u)
 >>0     use         exe_pklite_win3
 >0      use         exe_ne_icl
+>0      use         dosexe_minimal
 
 0       name        exe_lx
->0      use         dosexe_minimal
 >0      byte        x   \b, LX
+>0      use         dosexe_minimal
 
 0       name        exe_le
->0      use         dosexe_minimal
 >0      byte        x   \b, LE
+>0      use         dosexe_minimal
 
 0       name        exe_pe
->0      use         dosexe_minimal
 >0      byte        x      \b, PE
 # @PEhdr+22: "characteristics"
 >(60.l+22)      uleshort    &0x2000   (DLL)
@@ -104,6 +103,7 @@
 # @PE32plus_opt_hdr+68: subsystem
 >>>(60.l+92)    uleshort    2       (GUI)
 >>>(60.l+92)    uleshort    3       (console)
+>0      use         dosexe_minimal
 
 # Things to check for even in extended EXE formats (NE, etc.)
 0       name        dosexe_minimal
