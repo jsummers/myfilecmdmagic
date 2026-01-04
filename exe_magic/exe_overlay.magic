@@ -72,6 +72,8 @@
 >>20   string     \xdc\xa7\xc4\xfd
 >>>0   byte       x                      \b, Zoo self-extracting archive
 
+>0     use        exe_overlay_dskexpr
+
 >0     string     \x1aHP                 \b, Hyper self-extracting archive
 >0     string     \x1aST                 \b, Hyper self-extracting archive
 
@@ -88,3 +90,64 @@
 
 >0    search/5   PK\x03\x04
 >>0   byte       x                       \b, ZIP self-extracting archive
+
+# ----------
+
+# Some minimal processing of DOS-style overlays in NE files.
+
+0       name    exe_ne_overlay
+
+# For now, Disk Express is the only format we handle here.
+# Its overlays are always >512 bytes, and the "bytes in last page"
+# field is (probably?) never 0. So we don't need to do anything too
+# fancy.
+
+>2              uleshort  !0
+>>(4.s*512)     byte      x
+>>>&(2.s-513)   byte      x
+>>>>&-1         use       exe_overlay_dskexpr
+
+# ----------
+
+0     name       exe_overlay_dskexpr
+
+>4          string    AS
+
+# @4+4 = "Release"
+>>8         ubyte     0x20
+# @4+5 = code for disk size
+>>>9        ubyte     <8
+# @4+10 = compression type, must be 0, 1, or 2.
+>>>>14      ubyte     <3
+# @4+13 = unused field
+>>>>>17     ubyte     0
+
+# @4+2 = major + minor version
+>>>>>>6     ubeshort  0x0101
+>>>>>>>4    use       exe_id_as_diskexpr
+>>>>>>6     ubeshort  0x0104
+>>>>>>>4    use       exe_id_as_diskexpr
+>>>>>>6     ubeshort  0x0200
+>>>>>>>4    use       exe_id_as_diskexpr
+>>>>>>6     ubeshort  0x021e
+>>>>>>>4    use       exe_id_as_diskexpr
+
+# ----------
+
+# Call this with the offset of the start of the "AS" signature.
+# [This is largely duplicated in the "misc" patterns.]
+
+0       name      exe_id_as_diskexpr
+>0      byte      x     \b, Disk Express floppy disk image
+>2      ubyte     x     \b, v%u.
+>3      ubyte     x     \b%02u to extract
+
+>0      clear     x
+>5      ubyte     3     \b, size 360k
+>5      ubyte     4     \b, size 720k
+>5      ubyte     5     \b, size 1.2M
+>5      ubyte     6     \b, size 1.4M
+>0      default   x     \b, uncommon size
+
+>10     ubyte     x     \b, cmpr type %u
+>14     ubyte     &0x02 \b, encrypted

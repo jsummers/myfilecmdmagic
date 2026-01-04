@@ -1,7 +1,6 @@
-
 # "file command" rules for DIET-compressed DOS EXE files
 #
-# By Jason Summers, 2024 - Not copyrighted
+# By Jason Summers, 2024-2026 - Not copyrighted, unless noted
 #
 # Not designed to identify modified files, except for:
 # * Removal of the "diet" signature
@@ -18,23 +17,43 @@
 >>>22           leshort     0
 # @24 = reloc. table offset, should be 28
 >>>>24          uleshort    28
+>>>>>0          use         exe_diet_part2
+
+# ----------
+# This is basically a hack to handle Disk Express's
+# DOS-OS/2 hybrid files.
+
+0           name        exe_ne_diet
+
+# @18 = checksum
+>18         uleshort    0x899d
+# @6 = number of relocs, should be 1
+>>6         uleshort    1
+# @8 = header size, should be 0x20 (512)
+>>>8        uleshort    0x20
+>>>>567     string      dlz
+>>>>>0      byte        x     \b, DIET compressed (v1.02b-1.20)
+
+# ----------
+
+0           name        exe_diet_part2
 
 # v1.00
->>>>>20         uleshort    0x0003
->>>>>>55        string      \x8e\xdb\x8e\xc0\x33\xf6\x33\xff\xb9\x08\x00\xf3
->>>>>>>0        byte        x     \b, DIET compressed (v1.00-1.00d)
+>20         uleshort    0x0003
+>>55        string      \x8e\xdb\x8e\xc0\x33\xf6\x33\xff\xb9\x08\x00\xf3
+>>>0        byte        x     \b, DIET compressed (v1.00-1.00d)
 
 # v1.02-1.20
->>>>>52         string      \x8e\xdb\x8e\xc0
->>>>>>87        string      dlz
->>>>>>>0        byte        x     \b, DIET compressed (v1.02b-1.20)
+>52         string      \x8e\xdb\x8e\xc0
+>>87        string      dlz
+>>>0        byte        x     \b, DIET compressed (v1.02b-1.20)
 
 # v1.44
->>>>>72         string      \x8e\xdb\x8e\xc0
->>>>>>107       string      dlz
->>>>>>>0        byte        x     \b, DIET compressed (v1.44)
+>72         string      \x8e\xdb\x8e\xc0
+>>107       string      dlz
+>>>0        byte        x     \b, DIET compressed (v1.44)
 
 # v1.45
->>>>>77         string      \x8e\xdb\x8e\xc0
->>>>>>108       string      dlz
->>>>>>>0        byte        x     \b, DIET compressed (v1.45f)
+>77         string      \x8e\xdb\x8e\xc0
+>>108       string      dlz
+>>>0        byte        x     \b, DIET compressed (v1.45f)

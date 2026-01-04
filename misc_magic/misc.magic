@@ -1035,6 +1035,53 @@
 >11     ubyte     0         \b, uncompressed
 >11     ubyte     1         \b, zlib compressed
 
+# -----------
+# Disk Express (DXP) v2.00-2.34 floppy disk image
+# by Albert J. Shan
+
+0           string    AS
+
+# @2 = major version number.
+# (Major version 1 exists, but only for EXE-wrapped files.)
+>2          ubyte     2
+
+# "Release". In theory this could be another ASCII character,
+# but I've only seen space.
+>>4         ubyte     0x20
+
+# @5 = code for disk size
+>>>5        ubyte     <8
+
+# @10 = compression type, must be 0 or 2 for v2.
+>>>>10      ubyte&0xfd  0
+
+# @13 = unused field
+>>>>>13     ubyte     0
+
+# @3 = minor version
+>>>>>>3     ubyte     0
+>>>>>>>0    use       diskexpr_part2
+>>>>>>3     ubyte     30
+>>>>>>>0    use       diskexpr_part2
+
+# [This is largely duplicated in the "exe_overlay" patterns.]
+0       name      diskexpr_part2
+>0      byte      x     Disk Express floppy disk image
+!:ext   dxp
+
+>2      ubyte     x     \b, v%u.
+>3      ubyte     x     \b%02u to extract
+
+>0      clear     x
+>5      ubyte     3     \b, size 360k
+>5      ubyte     4     \b, size 720k
+>5      ubyte     5     \b, size 1.2M
+>5      ubyte     6     \b, size 1.4M
+>0      default   x     \b, uncommon size
+
+>10     ubyte     x     \b, cmpr type %u
+>14     ubyte     &0x02 \b, encrypted
+
 # ====================
 # Shared routines
 

@@ -78,7 +78,9 @@
 >>(60.l+62)  ubyte     x      \b.%u)
 >>0     use         exe_pklite_win3
 >0      use         exe_ne_icl
+>0      use         exe_ne_diet
 >0      use         dosexe_minimal
+>0      use         exe_ne_overlay
 
 0       name        exe_lx
 >0      byte        x   \b, LX
