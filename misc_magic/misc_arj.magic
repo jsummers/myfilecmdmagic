@@ -98,16 +98,43 @@
 >8      ubyte      &0x20     \b, backup
 >8      ubyte      &0x80     \b, dual-name
 
-# TODO: Some rare files use Unix time format instead, and it's
-# supposed to be possible to detect such files, though it might
-# be unpleasant to write the rules.
->14     lemsdosdate   x      \b, created=[%s
->12     lemsdostime   x      %s]
+# ARJ timestamp format is a mess. It was always DOS format (I think),
+# until some later versions decided to use Unix format instead in
+# some cases. Open-Source ARJ, file resource/en/readme.txt, has some
+# info. But even some official ARJ software doesn't actually do it
+# that way. For instance, DOS v2.86 seems to think all timestamps are
+# DOS format.
+# Conservatively, we guess Unix format only if the OS is 2 (Unix),
+# and the archiver version number is 11 or slightly higher.
+
+>0          byte      x      \b, created=
+>5          ubyte     <11
+>>12        use       arj-timestamp-msdos
+>5          ubyte     >19
+>>12        use       arj-timestamp-msdos
+>5          ubyte     >10
+>>5         ubyte     <20
+# Technically we should also look for NeXT (OS code 8), but is it
+# worth the trouble?
+>>>7        ubyte     !2
+>>>>12      use       arj-timestamp-msdos
+>>>7        ubyte     2
+>>>>12      use       arj-timestamp-unix
 
 # Mod time was added in format v6.
->5      ubyte         >5
->>18    lemsdosdate   x      \b, modified=[%s
->>16    lemsdostime   x      %s]
+>5          ubyte     >5
+>>16        ulelong   >0
+>>>0        byte      x      \b, modified=
+>>>5        ubyte     <11
+>>>>16      use       arj-timestamp-msdos
+>>>5        ubyte     >19
+>>>>16      use       arj-timestamp-msdos
+>>>5        ubyte     >10
+>>>>5       ubyte     <20
+>>>>>7      ubyte     !2
+>>>>>>16    use       arj-timestamp-msdos
+>>>>>7      ubyte     2
+>>>>>>16    use       arj-timestamp-unix
 
 # TODO?: Chapters
 # TODO?: ALTVOLNAME_FLAG
@@ -115,3 +142,12 @@
 # Archive name is NUL terminated. We can find it using the
 # "first_hdr_size" field.
 >(4.b+4)    string/80   x   \b, original name: %s
+
+# ----------
+
+0       name          arj-timestamp-msdos
+>2      lemsdosdate   x      \b[%s
+>0      lemsdostime   x      %s]
+
+0       name          arj-timestamp-unix
+>0      ledate        x      \b[%s]
