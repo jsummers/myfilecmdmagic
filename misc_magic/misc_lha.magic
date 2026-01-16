@@ -88,6 +88,17 @@
 >0          string    w   (Windows)
 
 # -----------
+# PMA/PMarc
+
+2           string/b  =-pm
+>6          string    =-
+>>5         ubyte     >0x2f
+>>>5        ubyte     <0x33
+>>>>20      ubyte     0     PMA archive data
+>>>>>5      ubyte     >0x30
+>>>>>>3     string/3  x     [%s]
+
+# -----------
 # AFX (Atari compressed file format)
 
 2         string/b      =-afx-
