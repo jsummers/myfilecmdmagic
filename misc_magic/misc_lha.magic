@@ -95,7 +95,22 @@
 >>5         ubyte     >0x2f
 >>>5        ubyte     <0x33
 >>>>20      ubyte     0     PMA archive data
+!:ext   pma
 >>>>>5      ubyte     >0x30
+>>>>>>3     string/3  x     [%s]
+
+# -----------
+# LArc
+
+2           string/b  =-lz
+>6          string    =-
+# Look only for "lz4" and "lz5". Other methods might exist,
+# particularly "lz7", but I'll believe it when I see it.
+>>5         ubyte     >0x33
+>>>5        ubyte     <0x36
+>>>>20      ubyte     0     LArc archive data
+!:ext   lzs
+>>>>>5      ubyte     !0x34
 >>>>>>3     string/3  x     [%s]
 
 # -----------
