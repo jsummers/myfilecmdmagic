@@ -1,9 +1,10 @@
-# "file command" rules
+# "file command" rules for LHarc/LHA and some similar formats
 #
-# By Jason Summers, 2025 - Not copyrighted
+# By Jason Summers, 2025-2026 - Not copyrighted, unless noted.
 
 # -----------
 # LHarc and LHA
+# Also detected: LHARK
 
 2           string/b  =-lh
 >6          string    =-
@@ -85,3 +86,18 @@
 >0          string    W   (Windows)
 >0          string    m   (Mac)
 >0          string    w   (Windows)
+
+# -----------
+# AFX (Atari compressed file format)
+
+2         string/b      =-afx-
+>20       ubyte         0     AFX compressed file
+
+# This is a single-file format, so it makes sense to print this info.
+>>7       ulelong       x     \b, cmpr size %u
+>>11      ulelong       x     \b, orig size %u
+>>15      ulelong       !0
+>>>17     lemsdosdate   x     \b, modified=[%s
+>>>15     lemsdostime   x     %s]
+>>21      pstring       x     \b, orig name "%s"
+>>0       ubyte+2       x     \b, data at %u
