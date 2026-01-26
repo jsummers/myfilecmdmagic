@@ -399,6 +399,35 @@
 >>0   byte      x     \b, BAT2EXEC compiled batch file (v1.5)
 
 # ----------
+# TurboBAT
+# By Foley Hi-Tech Systems, or HyperWare
+
+# Note: TurboBAT v1.00 is intentionally detected as BAT2EXEC.
+
+# v3.00 beta A, + maybe other things.
+0       string    \xfc\xbd
+>0      use       turbobat-helper
+>>0     byte      x   \b, compiled batch file
+>>0     byte      x   (like TurboBAT or BAT2EXEC)
+
+# (v3.15-5.01)
+175     string    \xfc\xbd
+>175    use       turbobat-helper
+>>0     byte      x   \b, TurboBAT compiled batch file
+>>0     byte      x   (v3.15-5.01)
+
+# (v2.20-3.14)
+181     string    \xfc\xbd
+>181    use       turbobat-helper
+>>0     byte      x   \b, TurboBAT compiled batch file
+>>0     byte      x   (v2.20-3.14)
+
+0       name      turbobat-helper
+>4      string    \x8b\x6e\x00\x8b\x66\x02\x8b\x5e\x04\xb4
+>>&0    string    \x4a\xcd\x21\xa1\x2c\x00\x89\x46
+>>>0    use       id_as_dos_com
+
+# ----------
 # BatLite
 
 0     string    \xeb\x37\xb0\xb1\xb2\x20
