@@ -921,6 +921,14 @@
 >11     ubyte     1         \b, zlib compressed
 
 # -----------
+# Icon Heaven
+
+0       string      LI\0\1
+>140    string      ci   Icon Heaven icon library
+!:ext   fim
+>>8     uleshort    x    \b, %u icons
+
+# -----------
 # Disk Express (DXP) v2.00-2.34 floppy disk image
 # by Albert J. Shan
 
