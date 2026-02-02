@@ -363,18 +363,24 @@
 >>>1  byte    !0xeb      \b, encrypted
 
 # ----------
-# DOC2COM (Dan K. Nelson) executable text
+# MAKEREAD (R. Gans) executable text
 
-0     string   \xE9\x93\x00
->25   string   \<\ Press\ \ Home\ \ PgDn\ \ PgUp
+0     string   \xe9\x93\x00
+>52   string   Down\ Arrow\ \ E
 >>0   use      id_as_dos_com
->>0   byte     x  \b, DOC2COM (Dan K. Nelson) (v1.0)
+>>0   byte     x  \b, MAKEREAD
+>>&0  string   sc  (v1.4)
+>>&0  string   nd  (v1.5)
 
-0     string   \xE9\x07\x01
->18   string   \<Press\ \ Home\ \ PgDn\ \ PgUp
+0     string   \xe9\x07\x01
+>18   string   =<Press\ \ Home\ \ PgD
 >>0   use      id_as_dos_com
->>0   byte     x  \b, Unknown executable text
->>0   byte     x  \b, like DOC2COM (Dan K. Nelson)
+>>0   byte     x  \b, MAKEREAD (v1.8)
+
+0     string   \xe9\x0c\x01
+>19   string   =<\ H=Home\ D=PgD
+>>0   use      id_as_dos_com
+>>0   byte     x  \b, MAKEREAD (v1.8a)
 
 # ----------
 # MkCom (Jens Schultz)
