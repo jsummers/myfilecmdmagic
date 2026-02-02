@@ -146,6 +146,7 @@
 >0      use         exe_central_point_av
 >0      use         exe_cebe_from_com
 >0      use         exe_player_piano
+>0      use         exe_turbotxt
 >0      use         exe_xe
 >0      use         exe_apack
 >0      use         exe_overlay
@@ -815,3 +816,21 @@
 0       name      exe_player_piano
 >28     string    \x01\x00
 >>1152  string    PINFO  \b, PIANOMAN PLAYER PIANO self-playing song
+
+# ----------
+# TurboTXT
+# EXE format used by v4.00+.
+# (Versions 1.00-1.11 use COM format.)
+
+0               name      exe_turbotxt
+
+# @6 = number of relocs, should be 240-255
+>6              uleshort  >200
+>>6             uleshort  <300
+
+# @8 = header size / code start
+>>>(8.s*16)     string    \x55\x89
+>>>>&1878       string    F:Find      \b, TurboTXT (v4.00)
+>>>>&2027       string    F:Find      \b, TurboTXT
+>>>>>6          uleshort  254         (v5.00var1)
+>>>>>6          uleshort  255         (v5.00var2)

@@ -560,6 +560,24 @@
 >>>0    byte      x   \b, ASCOM
 
 # ----------
+# TurboTXT
+# COM format used by v1.00-1.11.
+# (Versions 4.00+ use EXE format.)
+
+0          ubyte     0xe9
+# +3 because we measure from the end of the JMP instruction,
+# -1 for the dummy "byte x", = +2.
+>(1.s+2)   byte      x
+>>&0       string    \xe8
+>>>&1      string    \xfd\x80\x3e
+>>>>&1     string    \x01\x07\x74\x07\x80\x3e
+>>>>>0     use       id_as_dos_com
+>>>>>0     byte      x    \b, TurboTXT
+>>>>>1     string    \xf3\x03  (v1.00)
+>>>>>1     string    \x4b\x04  (v1.10)
+>>>>>1     string    \x4f\x04  (v1.11)
+
+# ----------
 # ExeLITE
 
 0         string  \x9c\x06\x1e\x60\xfd\xb9
