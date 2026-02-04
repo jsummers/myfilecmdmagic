@@ -17,28 +17,35 @@
 >>0   byte      x       \b, ICE compressed
 
 # ----------
-# TheDraw COM file - self-displaying ANSI art
+# TheDraw COM file - self-displaying character graphics screen
 
-0       string    \xEB\x3D\x90
->6      byte      0x02
->>63    string    \xB4\x0F\xCD\x10\xBB\x00\xB8\x3C\x02\x74\x18\x3C\x03\x74\x14\xC6
+0       string    \xeb\x3d
+
+# Byte 117 is the first one that differs in all 3 versions that start
+# with eb 3d. We test it to ensure we don't identify a file as multiple
+# versions.
+# Then we test some bytes starting with the instruction that points to
+# the payload data. Hopefully that will distinguish these formats from
+# other COM files.
+>117    ubyte     0x8d
+>>117   string    \x8d\x36\xb0\x01\xfc\x57\x8b\x0e\x05\x01\x80\x3e
+>>>0    use       id_as_dos_com
+>>>0    byte      x     \b, TheDraw COM file (type 0)
+
+>117    ubyte     0x33
+>>104   string    \xbe\xf0\x01\xba\xda\x03\xb3\x09\x8b\x0e\x04\x01
 >>>0    use       id_as_dos_com
 >>>0    byte      x     \b, TheDraw COM file (type 2)
 
->6      byte      0x00
->>63    string    \xB4\x0F\xCD\x10\x8C\xCB\x8E\xDB\xBB\x00\xB0\xB4\x00\x3C\x07\x74
->>>117  string    \x8D\x36
->>>>0   use       id_as_dos_com
->>>>0   byte      x     \b, TheDraw COM file (type 0)
->>>117  string    \xBE\xE5
->>>>0   use       id_as_dos_com
->>>>0   byte      x     \b, P-Screen COM file
-
-0       string    \xEB\x18\x90
->6      byte      0x01
->>26    string    \xB4\x0F\xCD\x10\x8B\x3E\x07\x01\xBE\x5E\x01\x8B\x0E\x04\x01\xFC
+>117    ubyte     0xbe
+>>117   string    \xbe\xe5\x01\xfc\x57\x8b\x0e\x05\x01\x80\x3e\x03
 >>>0    use       id_as_dos_com
->>>0    byte      x     \b, TheDraw COM file (type 1)
+>>>0    byte      x     \b, P-Screen COM file
+
+0       string    \xeb\x18
+>34     string    \xbe\x5e\x01\x8b\x0e\x04\x01\xfc\xbb\x00\xb0\x3c
+>>0     use       id_as_dos_com
+>>0     byte      x     \b, TheDraw COM file (type 1)
 
 # ----------
 # ACiDDraw COM file - self-displaying ANSI Art
