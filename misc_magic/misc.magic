@@ -73,6 +73,7 @@
 >>>>18  ubelong    x              type 0x%08x
 
 0       ubelong    0x06071963
+!:strength +1
 >4      ubeshort   <3
 # @18=flags. Don't know what's valid, but I've only seen 0-3,
 # and this is one of the only decent ways to distinguish it from
@@ -86,6 +87,7 @@
 # AMOS formats
 
 0         ubelong     0x06071963
+!:strength +2
 # @8="width in bytes", tested because it corresponds to a STOS field
 # that's often (but unfortunately not always) 0.
 >8        ubeshort    !0
@@ -353,6 +355,7 @@
 # We won't try to detect rare or pathological files.
 
 0     ubyte   0x1a
+!:strength +1
 
 # ARC
 >1    ubyte   >1
@@ -417,6 +420,7 @@
 # Hyper archive
 
 0       ubyte       0x1a
+!:strength +2
 >1      string      HP
 >>0     use         hyper-part2
 >1      string      ST

@@ -18,7 +18,8 @@
 
 # --- The v1.x format family ("TXT2COM" at offset 3)
 
-0     string    \xE9
+0     ubyte     0xe9
+!:strength +1
 
 # TXT2COM.COM [size=3757] does not use a version number.
 # Generated files contain no version number.
@@ -119,7 +120,8 @@
 >0      use       t2c_id_as_dos_com
 >0      byte      x    \b, TXT2RES (v1.0) from Graham's TXT2COM (v2.0-2.2)
 
-0       string    \xe9
+0       ubyte     0xe9
+!:strength +2
 >3      string    TXT2RES\ Conv
 >>0     use       t2c_id_as_dos_com
 >>3     byte      x                \b, TXT2RES (
@@ -131,7 +133,8 @@
 
 # TXT2PAS.COM
 
-0       string    \xe9
+0       ubyte     0xe9
+!:strength +3
 >3      string    TXT2PAS\ Conv
 >>0     use       t2c_id_as_dos_com
 >>3     byte      x                \b, TXT2PAS (

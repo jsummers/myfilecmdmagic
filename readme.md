@@ -30,6 +30,11 @@ more testing, or just not be very good, or have a special purpose,
 or need a newer software version; or the format may be too rare or
 out of scope.
 
+Most of the "!:strength" annotations are a crude hack to suppress a
+benign "Duplicate magic entry" warning emitted by recent versions of
+_file_. The warning is by design, though if you ask me, it should not
+exist.
+
 For more information about the _file_ command:
 * [File command website](https://www.darwinsys.com/file/)
 * [Wikipedia article](https://en.wikipedia.org/wiki/File_%28command%29)

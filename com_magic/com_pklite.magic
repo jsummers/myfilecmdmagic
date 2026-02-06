@@ -21,6 +21,7 @@
 
 # PKLITE/COM v1.00-v1.15
 0       ubyte       0xb8
+!:strength +1
 >3      ubyte       0xba
 
 >>6     string      \x3b\xc4\x73\x67\x8b\xc4\x2d\x44\x03\x25
@@ -68,6 +69,7 @@
 # format just by stripping off the EXE header. Such files exist.
 # https://archive.org/download/hacks-and-cracks/Hacks_and_Cracks.iso/vol1%2Fpc_cw414.zip
 0       ubyte     0xb8
+!:strength +2
 >3      ubyte     0xba
 >>6     string    \x8c\xdb\x03\xd8\x3b\x1e\x02\x00\x73
 >>>0    use       pklite-com-found
