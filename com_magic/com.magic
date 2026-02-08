@@ -220,7 +220,7 @@
 # ----------
 # DIET-compressed COM executable
 
-0       string      \xbf
+0       ubyte       0xbf
 >17     string      \xfd\xf3\xa5\xfc\x8b\xf7\xbf\x00
 >>0     use         id_as_dos_com
 >>0     byte        x       \b, DIET compressed (v1.00-1.00d)
@@ -232,7 +232,7 @@
 >>>0    use         id_as_dos_com
 >>>0    byte        x       \b, DIET compressed (v1.02b-1.20)
 
-0       string      \xf9
+0       ubyte       0xf9
 >10     string      \x9d\x89
 >>65    string      dlz
 >>>0    use         id_as_dos_com
@@ -313,7 +313,8 @@
 # ----------
 # EXE2COM (PSP Soft, Paul Shpilsher)
 
-0           string    \xE9
+0           ubyte     0xe9
+!:strength +13
 >3          string    EXE2COM
 # +3 because we measure from the end of the JMP instruction,
 # -1 for the dummy "byte x", = +2.
