@@ -979,6 +979,22 @@
 >10     ubyte     x     \b, cmpr type %u
 >14     ubyte     &0x02 \b, encrypted
 
+# -----------
+# ARCV / EDI Install / Eschalon Setup
+
+0       string/b  EDILZSS
+>7      ubyte     >0x30
+>>7     ubyte     <0x33   EDI Install packed file
+>>>7    ubyte     x       (v%c)
+
+0       string/b  ARCV
+>5      ubyte     1       ARCV archive (v1, EDI Install)
+>5      ubyte     2       ARCV archive
+>>12    ubyte     <2      (v2, Eschalon Setup)
+!:ext   arv
+>>12    ubyte     >1
+>>>12   ubyte     x       (v2, Eschalon Setup), segment %u
+
 # ====================
 # Shared routines
 
