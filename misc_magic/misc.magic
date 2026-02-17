@@ -995,6 +995,12 @@
 >>12    ubyte     >1
 >>>12   ubyte     x       (v2, Eschalon Setup), segment %u
 
+# -----------
+# RED installer archive
+
+0       string    RR\x01\x29    Knowledge Dynamics RED archive
+>20     uleshort  >1            \b, non-initial volume
+
 # ====================
 # Shared routines
 
