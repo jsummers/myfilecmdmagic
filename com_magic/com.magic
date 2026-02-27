@@ -730,6 +730,15 @@
 >>30    ubyte   0x83   (v3.x)
 
 # ----------
+# OPTIKS COM
+
+0       string    \xe9\x39\x01\x0d\x0a\x4f\x50\x54
+>0      use       id_as_dos_com
+>0      byte      x   \b, OPTIKS COM image
+>316    string    \xbb\x00\x10\xb4  (v2.11-2.15)
+>316    string    \x8d\x1e\x70\x17  (v2.16-3.01)
+
+# ----------
 
 0     name      id_as_dos_com
 >0    byte      x     DOS executable (COM)
