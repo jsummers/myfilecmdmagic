@@ -309,6 +309,14 @@
 >>&2    string    \x56\xcb
 >>>0    use       id_as_dos_com
 >>>0    byte      x         \b, Spacemaker compressed
+>>>(10.s*16)    byte      x
+>>>>&(14.s-2)   byte      x
+>>>>>&13        string    \xd7\x8c    (v1.03)
+>>>>>>&62       string    \x8b\xc4    \b, original format COM
+>>>>>>&62       string    \x90\x90    \b, original format EXE
+>>>>>&13        string    \x8e\xc5    (v1.06)
+>>>>>>&18       string    \x8b\xc4    \b, original format COM
+>>>>>>&18       string    \x90\x90    \b, original format EXE
 
 # ----------
 # EXE2COM (PSP Soft, Paul Shpilsher)
