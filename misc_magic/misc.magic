@@ -1001,6 +1001,50 @@
 0       string    RR\x01\x29    Knowledge Dynamics RED archive
 >20     uleshort  >1            \b, non-initial volume
 
+# -----------
+# QIP
+
+0         string    QD\0\0
+>8        string    \1\0    QIP archive (Quarterdeck), old format
+!:ext   qip
+
+0         string/b  QP
+>11       byte      0
+>>(16.l)  string    QD      QIP archive (Quarterdeck), new format
+!:ext   qip
+
+# -----------
+# CORK
+
+0       string    CORK\1\0  CORK compressed file (Omega Logic)
+>6      string/12 x         \b, "%s"
+>25     ulelong   x         \b, original size %u
+>29     ulelong   x         \b, compressed size %u
+
+# -----------
+# Pasti
+
+0       string    RSY\0     Pasti floppy disk image (Atari ST)
+!:ext   stx
+
+# -----------
+# JGF5
+
+0       string  JGF5\0\0\0\0\3  JGF5 image (GMM Entertainment)
+!:ext   tga
+>12     ulelong x      \b, %u x
+>16     ulelong x      %u
+
+# -----------
+# JFX1
+
+0       string/b  JFX1
+>11     byte      0
+>>-12   string    JPK1
+>>>0    byte      x     JPK1 archive
+>>-12   string    !JPK1
+>>>0    byte      x     JFX1 compressed file (GMM Entertainment)
+
 # ====================
 # Shared routines
 
