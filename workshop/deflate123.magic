@@ -1,0 +1,73 @@
+# "file command" rules
+#
+# By Jason Summers, 2026 - Not copyrighted
+
+# -----------
+# DEFLATE: "The 1-2-3 file compression program"
+# Compressed file used by Lotus installers on DOS.
+
+# Match bit pattern: 0xxxxxxx 00000000 xxxxxxx1 xxxxxx0x
+# This pattern screens out some filename characters (see below),
+# and also checks the first two 9-bit LZW codes.
+# The first code is always 256 (clear).
+# The second can be from 0-255.
+# (For a zero-length file, the second ought to be 257 (stop), but the
+# DEFLATE utility doesn't seem to support empty files.)
+0       ubelong&0x80ff0102  0x00000100
+
+# The first byte is the missing filename char that was replaced by "!"
+# in the compressed filename. Could be any DOS filename character
+# except "!". (It won't be a lowercase letter.)
+# In all files in the wild that I've looked at, it is a letter.
+
+# A-Z
+>0      ubyte   >0x40
+>>0     ubyte   <0x5b
+>>>0    use     deflate123_part2
+
+# Haven't yet found any official files with a digit, but...
+# 0-9
+>0      ubyte   >0x2f
+>>0     ubyte   <0x3a
+>>>0    use     deflate123_part2
+
+0       name    deflate123_part2
+
+# Last 2-3 bytes of the file match one of these bit patterns:
+#          ... 1xxxxxxx 10000000  (possible if the last code is 9 bits)
+#          ... 01xxxxxx 01000000  (... 9-10 ...)
+#          ... 001xxxxx 00100000  (9-11)
+#          ... 0001xxxx 00010000  (9-12)
+#          ... 00001xxx 00001000  (9-12)
+#          ... 000001xx 00000100  (9-12)
+#          ... 0000001x 00000010  (9-12)
+#          ... 00000001 00000001  (9-12)
+# ... 1xxxxxxx 10000000 00000000  (10-12)
+# ... 01xxxxxx 01000000 00000000  (11-12)
+# ... 001xxxxx 00100000 00000000  (12)
+
+>-4     ubelong&0x000080ff  0x00008080
+>>0     use     id_as_deflate123
+>-4     ubelong&0x0000c0ff  0x00004040
+>>0     use     id_as_deflate123
+>-4     ubelong&0x0000e0ff  0x00002020
+>>0     use     id_as_deflate123
+>-4     ubelong&0x0000f0ff  0x00001010
+>>0     use     id_as_deflate123
+>-4     ubelong&0x0000f8ff  0x00000808
+>>0     use     id_as_deflate123
+>-4     ubelong&0x0000fcff  0x00000404
+>>0     use     id_as_deflate123
+>-4     ubelong&0x0000feff  0x00000202
+>>0     use     id_as_deflate123
+>-4     ubelong&0x0000ffff  0x00000101
+>>0     use     id_as_deflate123
+>-4     ubelong&0x0080ffff  0x00808000
+>>0     use     id_as_deflate123
+>-4     ubelong&0x00c0ffff  0x00404000
+>>0     use     id_as_deflate123
+>-4     ubelong&0x00e0ffff  0x00202000
+>>0     use     id_as_deflate123
+
+0       name    id_as_deflate123
+>0      byte    x   DEFLATE 1-2-3 compressed file
