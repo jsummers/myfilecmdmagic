@@ -1045,6 +1045,16 @@
 >>-12   string    !JPK1
 >>>0    byte      x     JFX1 compressed file (GMM Entertainment)
 
+# -----------
+# ECC - Ecchi
+
+0       string/b  ECCH
+>4      uleshort  >0
+>>4     uleshort  <3    ECC (Ecchi) animation
+>>>4    uleshort  x     \b, v%u
+>>>16   uleshort  x     \b, %u x
+>>>18   uleshort  x     %u
+
 # ====================
 # Shared routines
 
