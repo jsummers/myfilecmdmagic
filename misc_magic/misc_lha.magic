@@ -88,6 +88,28 @@
 >0          string    w   (Windows)
 
 # -----------
+# MicroFox PUT/GET
+
+2           string/b  =-lZ
+>6          string    =-
+>>20        ubyte     <2
+# lZ0 used by v2.20 and v3.30+
+>>>5        string    0
+>>>>0       use       id_as_microfox_put
+# lZ1 used by v2.20
+>>>5        string    1
+>>>>0       use       id_as_microfox_put
+# lZ5 used by v3.30+
+>>>5        string    5
+>>>>0       use       id_as_microfox_put
+
+0           name      id_as_microfox_put
+>0          byte      x   MicroFox PUT archive data
+!:ext   put/ins
+>>5         string    1   (v2.20)
+>>5         string    5   (v3.30+)
+
+# -----------
 # PMA/PMarc
 
 2           string/b  =-pm
@@ -112,6 +134,26 @@
 !:ext   lzs
 >>>>>5      ubyte     !0x34
 >>>>>>3     string/3  x     [%s]
+
+# -----------
+# SWG - Swag
+
+2           string/b  =-sw
+>6          string    =-
+>>0         ubyte     >0x2f
+>>>5        ubyte     <0x32
+>>>>20      ubyte     0     Swag archive data
+!:ext   swg
+
+# -----------
+# TPK
+
+2           string/b  =-TK
+>6          string    =-
+>>5         ubyte     >0x2f
+>>>5        ubyte     <0x32
+>>>>20      ubyte     0     TPK archive data
+!:ext   tpk
 
 # -----------
 # AFX (Atari compressed file format)
