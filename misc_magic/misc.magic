@@ -1055,6 +1055,12 @@
 >>>16   uleshort  x     \b, %u x
 >>>18   uleshort  x     %u
 
+# -----------
+# C-Dilla
+
+0       string  \x47\xf4\x62\xaf\xc2\x51\x05\xf4
+>0      byte    x   C-Dilla protected file
+
 # ====================
 # Shared routines
 
