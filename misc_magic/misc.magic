@@ -1061,6 +1061,25 @@
 0       string  \x47\xf4\x62\xaf\xc2\x51\x05\xf4
 >0      byte    x   C-Dilla protected file
 
+# -----------
+# Zoom disk image
+
+0       string/b    ZOOM
+>6      ubyte       >2
+>>6     ubyte       <5
+>>>0    use         zoom_disk_part2
+
+0       string/b    ZOM5
+>6      ubyte       5
+>>0     use         zoom_disk_part2
+
+0       name        zoom_disk_part2
+>71     ubyte       0       Zoom disk image
+!:ext   zom
+>>6     ubyte       x       \b, v%u
+>>28    ubelong     !0      \b, with text data
+>>36    ubyte       !0      \b, encrypted
+
 # ====================
 # Shared routines
 
