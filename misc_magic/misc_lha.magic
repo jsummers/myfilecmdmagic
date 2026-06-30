@@ -122,6 +122,31 @@
 >>>>>>3     string/3  x     [%s]
 
 # -----------
+# PMsfx and PMexe
+
+2           string/b  =-pms-
+
+# Found in files apparently made by PMsfx v1.12 and 1.14
+>0          string    \x18\x0a   Z80 executable
+!:ext   com
+>>0         byte      x          \b, PMsfx self-extracting PMA archive (old)
+
+# PMsfx v2.00
+>0          string    \x18\x79   Z80 executable
+!:ext   com
+>>0         byte      x          \b, PMsfx self-extracting PMA archive
+
+# PMexe v2.00
+>0          string    \x18\x52   Z80 executable
+!:ext   com
+>>0         byte      x          \b, PMexe compressed
+
+# Found in files apparently made by PMsfx v2.10 and 2.11
+>0          string    \xeb\x18   DOS/Z80 hybrid executable
+!:ext   com
+>>0         byte      x          \b, PMsfx self-extracting PMA archive
+
+# -----------
 # LArc
 
 2           string/b  =-lz
