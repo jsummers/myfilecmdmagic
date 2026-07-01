@@ -1080,6 +1080,22 @@
 >>28    ubelong     !0      \b, with text data
 >>36    ubyte       !0      \b, encrypted
 
+# -----------
+# PopCom! compressed CP/M executable
+
+5       string/b  =-pc1-
+# Files start with either c3, or 18 00 c3. This can depend on the
+# options (-J, -N) used when compressing the file.
+>0      ubyte     0x18
+>>0     use       id_as_popcom
+>0      ubyte     0xc3
+>>0     use       id_as_popcom
+
+0       name      id_as_popcom
+>0      byte      x   Z80 executable
+!:ext   com
+>0      byte      x   \b, PopCom! compressed
+
 # ====================
 # Shared routines
 
