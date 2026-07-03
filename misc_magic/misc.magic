@@ -1092,7 +1092,7 @@
 >>0     use       id_as_popcom
 
 0       name      id_as_popcom
->0      byte      x   Z80 executable
+>0      byte      x   CP/M executable
 !:ext   com
 >0      byte      x   \b, PopCom! compressed
 

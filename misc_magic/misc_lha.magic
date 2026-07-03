@@ -127,24 +127,33 @@
 2           string/b  =-pms-
 
 # Found in files apparently made by PMsfx v1.12 and 1.14
->0          string    \x18\x0a   Z80 executable
-!:ext   com
->>0         byte      x          \b, PMsfx self-extracting PMA archive (old)
+>0          string    \x18\x0a
+>>0         use       id_as_pmsfx
+>>0         byte      x          (v1.xx)
 
 # PMsfx v2.00
->0          string    \x18\x79   Z80 executable
-!:ext   com
->>0         byte      x          \b, PMsfx self-extracting PMA archive
+>0          string    \x18\x79
+>>0         use       id_as_pmsfx
+>>28        string    2.00       (v2.00)
 
 # PMexe v2.00
->0          string    \x18\x52   Z80 executable
-!:ext   com
+>0          string    \x18\x52
+>>0         use       id_as_cpm_com00
 >>0         byte      x          \b, PMexe compressed
 
 # Found in files apparently made by PMsfx v2.10 and 2.11
->0          string    \xeb\x18   DOS/Z80 hybrid executable
+>0          string    \xeb\x18
+>>0         use       id_as_pmsfx
+>>0         byte      x          (v2.1x)
+
+0           name      id_as_pmsfx
+>0          use       id_as_cpm_com00
+>0          ubyte     0xeb       \b, DOS hybrid
+>0          byte      x          \b, PMsfx self-extracting PMA archive
+
+0           name      id_as_cpm_com00
+>0          byte      x          CP/M executable
 !:ext   com
->>0         byte      x          \b, PMsfx self-extracting PMA archive
 
 # -----------
 # LArc
