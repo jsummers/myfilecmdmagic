@@ -1028,6 +1028,29 @@
 !:ext   stx
 
 # -----------
+# AOL ART image, and Jigsaw puzzle .jig
+
+0       string      JG
+>6      ulelong     0
+>>14    ulelong     40      Jigsaw (W. A. Kuhn) puzzle data
+!:ext   jig/sav
+>>>0    use         bmp_dimensions_etc
+
+>6      ulelong     !0
+>>2     string      \x03\x0e
+>>>0    use         id_as_aol_art
+>>2     string      \x04\x0e
+>>>0    use         id_as_aol_art
+>>2     string      \x05\x07
+>>>0    use         id_as_aol_art
+>>2     string      \x06\x07
+>>>0    use         id_as_aol_art
+
+0       name        id_as_aol_art
+>0      byte        x       AOL ART image
+!:ext   art
+
+# -----------
 # JGF5
 
 0       string  JGF5\0\0\0\0\3  JGF5 image (GMM Entertainment)
