@@ -151,7 +151,7 @@
 >>20    ubyte       x           \b, %u-bit
 >>21    ubyte       x           \b, %u cards
 
-0       string/b    PCRKP\x00   REKO cardset (PC; RKP 24)
+0       string      PCRKP\0     REKO cardset (PC; RKP 24)
 >24     ubyte       x           \b, %u-bit
 >8      ulelong     0           \b, JPEG
 >8      ulelong     !0          \b, BMP
@@ -701,7 +701,7 @@
 # ----------
 # Dr. Halo PIC
 
-0         string/b  AH
+0         string    AH
 >4        uleshort  0
 >>2       uleshort  >199
 >>>2      uleshort  <230
@@ -752,7 +752,7 @@
 # ----------
 # DIV Games Studio
 
-3     string/b  \x1a\x0d\x0a\x00
+3     string    \x1a\x0d\x0a\x00
 >0    string    map     DIV Games Studio image
 !:ext   map
 >>8   uleshort  x       \b, %u x
@@ -987,7 +987,7 @@
 >>7     ubyte     <0x33   EDI Install packed file
 >>>7    ubyte     x       (v%c)
 
-0       string/b  ARCV
+0       string    ARCV
 >5      ubyte     1       ARCV archive (v1, EDI Install)
 >5      ubyte     2       ARCV archive
 >>12    ubyte     <2      (v2, Eschalon Setup)
@@ -1008,7 +1008,7 @@
 >8        string    \1\0    QIP archive (Quarterdeck), old format
 !:ext   qip
 
-0         string/b  QP
+0         string    QP
 >11       byte      0
 >>(16.l)  string    QD      QIP archive (Quarterdeck), new format
 !:ext   qip
@@ -1061,7 +1061,7 @@
 # -----------
 # JFX1
 
-0       string/b  JFX1
+0       string    JFX1
 >11     byte      0
 >>-12   string    JPK1
 >>>0    byte      x     JPK1 archive
