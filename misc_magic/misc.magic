@@ -1078,6 +1078,19 @@
 >>>16   uleshort  x     \b, %u x
 >>>18   uleshort  x     %u
 
+# ----------
+# EZ-Art Professional .EZA
+
+0           string    EZ
+>2          ubeshort  >199
+>>2         ubeshort  <641
+>>>36       ubyte     0
+>>>>38      ubyte     0
+>>>>>40     ubyte     0
+>>>>>>42    ubyte     0     EZ-Art Professional image
+!:ext   eza
+>>>>>>>2    ubeshort  x     \b, 320x%u
+
 # -----------
 # C-Dilla
 
