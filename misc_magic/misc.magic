@@ -272,6 +272,16 @@
 >3      ubyte   0x0b  \b, 640x480, 256-color
 
 # ----------
+# Bethesda GXA
+
+0       string      BMHD
+>4      ubelong     34
+>>42    string      BPAL    Bethesda GXA image resource
+!:ext   gxa/rmp/bmp
+# This format has inconsistent endianness.
+>>>40   uleshort    x       \b, %u image(s)
+
+# ----------
 # BMP
 
 0       string      BM
