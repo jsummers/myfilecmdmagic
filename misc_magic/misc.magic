@@ -282,6 +282,24 @@
 >>>40   uleshort    x       \b, %u image(s)
 
 # ----------
+# VBM (VDC BitMap)
+# Note: This pattern is not necessarily as good as the one in the
+# file command's database. It's here as a helper for BMP format.
+
+0         string    BM\xcb
+>3        ubyte     >1
+>>3       ubyte     <4
+>>>4      ubeshort  !0
+>>>>6     ubeshort  !0    VDC bitmap
+!:ext   vbm
+>>>>>3    ubyte     x     \b, version %u
+>>>>>4    ubeshort  x     \b, %u
+>>>>>6    ubeshort  x     x %u
+>>>>>3    ubyte     3
+>>>>>>8   ubyte     0     \b, uncompressed
+>>>>>>8   ubyte     !0    \b, RLE-compressed
+
+# ----------
 # BMP
 
 0       string      BM
