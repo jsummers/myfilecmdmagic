@@ -774,6 +774,8 @@
 >2    uleshort  0x0a14  OS/2 PACK archive, 0x%04x variant
 >2    uleshort  0x1400  OS/2 PACK archive, 0x%04x variant
 >2    uleshort  0xfffd  OS/2 PACK archive, PACK2 version
+>>(39.s+45)   string      fT
+>>>&-2        string/4    x     \b, compression type "%s"
 >2    uleshort  0xfffe  OS/2 PACK archive, 0x%04x variant
 >2    uleshort  0xffff  OS/2 PACK archive, 0x%04x variant
 
