@@ -1121,6 +1121,16 @@
 !:ext   eza
 >>>>>>>2    ubeshort  x     \b, 320x%u
 
+# ----------
+# CDView encrypted image
+
+0       string          \x5a\x7d\x5a
+>3      ubyte^0xa5      >0xbf
+>>3     ubyte^0xa5      <0xff   CDView encrypted JPEG
+
+0       string          \xe2\xec\xe3\x9d
+>5      ubyte           0xc4    CDView encrypted GIF
+
 # -----------
 # C-Dilla
 
