@@ -1052,6 +1052,13 @@
 >29     ulelong   x         \b, compressed size %u
 
 # -----------
+# ARTIPACK
+
+0       string    ARTIPACK\0    ARTIPACK (Artisoft)
+!:ext   pak
+>10     uleshort  x   \b, %u file(s)
+
+# -----------
 # Pasti
 
 0       string    RSY\0     Pasti floppy disk image (Atari ST)
