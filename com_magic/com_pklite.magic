@@ -34,6 +34,7 @@
 >>>>44  default     x       (v1.00-1.03)
 >>>390  ubyte       0x06
 >>>>44  uleshort    0x0105  (v1.05)
+>>>>44  uleshort    0x010b  (v1.11)
 >>>>44  uleshort    0x010c  (v1.12)
 >>>>44  uleshort    0x010d  (v1.13)
 >>>>44  uleshort    0x010e  (v1.14)

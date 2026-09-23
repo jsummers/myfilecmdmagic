@@ -61,15 +61,17 @@
 >>>>0   use   pklite_exe_check_mod
 >>>>0   use   pklite_dos_exe_appl
 
-# v1.12, 1.13, and some "1.20" versions
+# v1.11, 1.12, 1.13, and some "1.20" versions
 
 >>>&2           string          \x05\x00\x00\x3B\x06\x02\x00\x73
 >>>>0   use   id_as_pklite_exe
 
 >>>>28  clear            x
+>>>>28  uleshort&0x0fff  0x10b    (v1.11)
 >>>>28  uleshort&0x0fff  0x10c    (v1.12)
 >>>>28  uleshort&0x0fff  0x10d    (v1.13)
 >>>>28  uleshort&0x0fff  0x114    (special version)
+# Not including 1.11 in this range, due to rarity.
 >>>>28  default          x        (v1.12-1.13)
 
 >>>>0   use   pklite_exe_check_mod
