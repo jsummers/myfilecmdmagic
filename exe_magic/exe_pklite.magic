@@ -49,9 +49,17 @@
 
 >>>>28  clear            x
 >>>>28  uleshort&0x0fff  0x100    (v1.00
+
 >>>>>(8.s*16)   byte      x
 >>>>>>&38       leshort   0x014c   \bbeta900717)
->>>>>>&38       leshort   !0x014c  \b)
+>>>>>>&38       leshort   0x0148
+# The &56 byte is expected to be 0x76 for large mode beta900904,
+# 0x72 for large mode v1.00, or 0xe1 for small mode (both versions).
+# Small mode files are considered indistinguishable.
+>>>>>>>&56      ubyte     0x76     \bbeta900904)
+>>>>>>>&56      ubyte     !0x76    \b)
+>>>>>>0         default   x        \b)
+
 >>>>28  uleshort&0x0fff  0x103    (v1.03)
 >>>>28  uleshort&0x0fff  0x105    (v1.05)
 >>>>28  uleshort&0x0fff  0x106    (LOWFIX patched)
